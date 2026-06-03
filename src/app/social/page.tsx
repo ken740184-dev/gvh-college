@@ -128,7 +128,7 @@ function SocialHubContent() {
                           <div className="flex flex-col items-center gap-1 cursor-pointer group" onClick={() => setActiveNetwork("instagram")}>
                             <div className="w-[60px] h-[60px]">
                               {activeNetwork !== "instagram" && (
-                                <motion.div layoutId={isBackground ? "app-instagram-bg" : "app-instagram"} className="w-full h-full rounded-[1.4rem] bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-500 flex items-center justify-center text-white shadow-sm transition-transform group-hover:scale-90">
+                                <motion.div className="w-full h-full rounded-[1.4rem] bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-500 flex items-center justify-center text-white shadow-sm transition-transform group-hover:scale-90">
                                   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
                                 </motion.div>
                               )}
@@ -139,7 +139,7 @@ function SocialHubContent() {
                           <div className="flex flex-col items-center gap-1 cursor-pointer group" onClick={() => setActiveNetwork("twitter")}>
                             <div className="w-[60px] h-[60px]">
                               {activeNetwork !== "twitter" && (
-                                <motion.div layoutId={isBackground ? "app-twitter-bg" : "app-twitter"} className="w-full h-full rounded-[1.4rem] bg-black flex items-center justify-center text-white shadow-sm transition-transform group-hover:scale-90">
+                                <motion.div className="w-full h-full rounded-[1.4rem] bg-black flex items-center justify-center text-white shadow-sm transition-transform group-hover:scale-90">
                                   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
                                 </motion.div>
                               )}
@@ -150,7 +150,7 @@ function SocialHubContent() {
                           <div className="flex flex-col items-center gap-1 cursor-pointer group" onClick={() => setActiveNetwork("facebook")}>
                             <div className="w-[60px] h-[60px]">
                               {activeNetwork !== "facebook" && (
-                                <motion.div layoutId={isBackground ? "app-facebook-bg" : "app-facebook"} className="w-full h-full rounded-[1.4rem] bg-[#1877F2] flex items-center justify-center text-white shadow-sm transition-transform group-hover:scale-90">
+                                <motion.div className="w-full h-full rounded-[1.4rem] bg-[#1877F2] flex items-center justify-center text-white shadow-sm transition-transform group-hover:scale-90">
                                   <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
                                 </motion.div>
                               )}
@@ -161,7 +161,7 @@ function SocialHubContent() {
                           <div className="flex flex-col items-center gap-1 cursor-pointer group" onClick={() => setActiveNetwork("linkedin")}>
                             <div className="w-[60px] h-[60px]">
                               {activeNetwork !== "linkedin" && (
-                                <motion.div layoutId={isBackground ? "app-linkedin-bg" : "app-linkedin"} className="w-full h-full rounded-[1.4rem] bg-[#0a66c2] flex items-center justify-center text-white shadow-sm transition-transform group-hover:scale-90">
+                                <motion.div className="w-full h-full rounded-[1.4rem] bg-[#0a66c2] flex items-center justify-center text-white shadow-sm transition-transform group-hover:scale-90">
                                   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
                                 </motion.div>
                               )}
@@ -172,7 +172,7 @@ function SocialHubContent() {
                           <div className="flex flex-col items-center gap-1 cursor-pointer group" onClick={() => setActiveNetwork("youtube")}>
                             <div className="w-[60px] h-[60px]">
                               {activeNetwork !== "youtube" && (
-                                <motion.div layoutId={isBackground ? "app-youtube-bg" : "app-youtube"} className="w-full h-full rounded-[1.4rem] bg-white flex items-center justify-center shadow-sm transition-transform group-hover:scale-90">
+                                <motion.div className="w-full h-full rounded-[1.4rem] bg-white flex items-center justify-center shadow-sm transition-transform group-hover:scale-90">
                                   <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#FF0000] fill-[#FF0000]"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z" fill="white" stroke="white"/></svg>
                                 </motion.div>
                               )}
@@ -186,7 +186,7 @@ function SocialHubContent() {
                   <AnimatePresence>
                   {/* === INSTAGRAM MOCK PROFILE === */}
                   {activeNetwork === "instagram" && (
-                    <motion.div layoutId={isBackground ? "app-instagram-bg" : "app-instagram"} transition={{ duration: 0.15, ease: [0.32, 0.72, 0, 1] }} className="absolute inset-0 z-20 bg-[#000000] h-full text-white flex flex-col w-full rounded-[2rem] overflow-hidden">
+                    <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ duration: 0.15, ease: "easeInOut" }} className="absolute inset-0 z-20 bg-[#000000] h-full text-white flex flex-col w-full rounded-[2rem] overflow-hidden">
                       {/* Insta Header (Fixed to Top) */}
                       <div className="bg-[#000000] z-10 px-4 pt-10 pb-3 flex items-center justify-between border-b border-gray-900 flex-shrink-0">
                         <div className="flex items-center gap-4 cursor-pointer" onClick={() => {
@@ -360,7 +360,7 @@ function SocialHubContent() {
                   )}
                   {/* === TWITTER MOCK PROFILE === */}
                   {activeNetwork === "twitter" && (
-                    <motion.div layoutId={isBackground ? "app-twitter-bg" : "app-twitter"} transition={{ duration: 0.15, ease: [0.32, 0.72, 0, 1] }} className="absolute inset-0 z-20 bg-black text-white h-full flex flex-col w-full rounded-[2rem] overflow-hidden">
+                    <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ duration: 0.15, ease: "easeInOut" }} className="absolute inset-0 z-20 bg-black text-white h-full flex flex-col w-full rounded-[2rem] overflow-hidden">
                       {/* Header */}
                       <div className="bg-black/80 backdrop-blur-md z-10 px-4 pt-10 pb-2 flex items-center gap-4 flex-shrink-0 border-b border-gray-800">
                         <svg onClick={() => setActiveNetwork("home")} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="cursor-pointer hover:text-gray-300"><path d="m15 18-6-6 6-6"/></svg>
@@ -455,7 +455,7 @@ function SocialHubContent() {
     
                   {/* === FACEBOOK MOCK PROFILE === */}
                   {activeNetwork === "facebook" && (
-                    <motion.div layoutId={isBackground ? "app-facebook-bg" : "app-facebook"} transition={{ duration: 0.15, ease: [0.32, 0.72, 0, 1] }} className="absolute inset-0 z-20 bg-[#f0f2f5] h-full flex flex-col w-full rounded-[2rem] overflow-hidden">
+                    <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ duration: 0.15, ease: "easeInOut" }} className="absolute inset-0 z-20 bg-[#f0f2f5] h-full flex flex-col w-full rounded-[2rem] overflow-hidden">
                       {/* Header */}
                       <div className="bg-white z-10 px-4 pt-10 pb-2 flex items-center gap-4 shadow-sm flex-shrink-0">
                         <svg onClick={() => setActiveNetwork("home")} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-600 cursor-pointer"><path d="m15 18-6-6 6-6"/></svg>
@@ -545,7 +545,7 @@ function SocialHubContent() {
     
                   {/* === LINKEDIN MOCK PROFILE === */}
                   {activeNetwork === "linkedin" && (
-                    <motion.div layoutId={isBackground ? "app-linkedin-bg" : "app-linkedin"} transition={{ duration: 0.15, ease: [0.32, 0.72, 0, 1] }} className="absolute inset-0 z-20 bg-[#e9e5df] h-full flex flex-col w-full rounded-[2rem] overflow-hidden">
+                    <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ duration: 0.15, ease: "easeInOut" }} className="absolute inset-0 z-20 bg-[#e9e5df] h-full flex flex-col w-full rounded-[2rem] overflow-hidden">
                       {/* Header */}
                       <div className="bg-white z-10 px-4 pt-10 pb-2 flex items-center gap-4 shadow-sm flex-shrink-0">
                         <svg onClick={() => setActiveNetwork("home")} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-600 cursor-pointer"><path d="m15 18-6-6 6-6"/></svg>
@@ -648,7 +648,7 @@ function SocialHubContent() {
     
                   {/* === YOUTUBE MOCK PROFILE === */}
                   {activeNetwork === "youtube" && (
-                    <motion.div layoutId={isBackground ? "app-youtube-bg" : "app-youtube"} transition={{ duration: 0.15, ease: [0.32, 0.72, 0, 1] }} className="absolute inset-0 z-20 bg-[#0f0f0f] h-full flex flex-col w-full rounded-[2rem] overflow-hidden text-white">
+                    <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ duration: 0.15, ease: "easeInOut" }} className="absolute inset-0 z-20 bg-[#0f0f0f] h-full flex flex-col w-full rounded-[2rem] overflow-hidden text-white">
                       {/* Header */}
                       <div className="bg-[#0f0f0f] z-10 px-4 pt-10 pb-2 flex items-center justify-between flex-shrink-0">
                         <div className="flex items-center gap-2">
