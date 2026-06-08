@@ -781,7 +781,7 @@ export default function AdminGalleryPage() {
                       if (item.isGroup) {
                         return (
                           <div key={item._id} className="w-full transition-colors duration-500 py-4">
-                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
                               {item.blocks.map((block: any) => (
                                 <div 
                                   key={block._id}

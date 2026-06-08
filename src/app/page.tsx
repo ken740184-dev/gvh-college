@@ -42,8 +42,58 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Gudleppa Hallikeri Tribute */}
+      <section className="py-20 bg-gray-100 border-t border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+            
+            {/* Image (Left side) */}
+            <div className="lg:col-span-5 order-2 lg:order-1">
+              <Reveal direction="right" delay={0.2}>
+                <div className="relative h-[450px] border border-gray-200 shadow-xl rounded-none overflow-hidden group bg-white">
+                  {/* Shimmer reflection */}
+                  <div className="absolute inset-0 pointer-events-none overflow-hidden z-10">
+                    <div className="w-[150%] h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-[1200ms] ease-in-out" />
+                  </div>
+                  <Image 
+                    src="/images/gudleppa-hallikeri.jpg" 
+                    alt="Gudleppa Hallikeri" 
+                    fill 
+                    className="object-cover group-hover:scale-105 transition-transform duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+                  />
+                </div>
+              </Reveal>
+            </div>
+
+            {/* Content (Right side) */}
+            <div className="lg:col-span-7 order-1 lg:order-2">
+              <Reveal direction="left">
+                <div>
+                  <span className="bg-red-500/10 border border-red-500/20 text-accent px-3 py-1 rounded-none text-xs font-bold uppercase tracking-widest mb-4 inline-block shadow-sm">
+                    Our Founder & Heritage
+                  </span>
+                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-sans font-bold mb-6 text-slate-800 leading-tight uppercase tracking-tight">
+                    Sri Gudleppa Hallikeri
+                  </h2>
+                  <p className="text-lg text-secondary-text mb-6 leading-relaxed font-sans">
+                    A legendary freedom fighter, close associate of Mahatma Gandhi, and key leader of the Salt Satyagraha and Quit India Movement in Karnataka. 
+                  </p>
+                  <p className="text-secondary-text mb-8 leading-relaxed font-sans opacity-90">
+                    Driven by the vision of empowering rural youth through education, he established this institution in 1963. His life remains an inspiring legacy of selflessness, patriotism, and dedication to academic and moral excellence.
+                  </p>
+                  <Button href="/about/gudleppa-hallikeri" variant="outline" className="rounded-none font-bold">
+                    Explore Biography <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </div>
+              </Reveal>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* Featured Departments */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <SectionHeading 

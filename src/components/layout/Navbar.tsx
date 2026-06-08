@@ -143,7 +143,7 @@ export default function Navbar() {
         className="absolute top-0 left-0 w-full h-0 overflow-hidden invisible opacity-0 pointer-events-none"
         aria-hidden="true"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full" ref={outerContainerRef}>
+        <div className="w-full px-4 sm:px-8 lg:px-12" ref={outerContainerRef}>
           <div className="flex justify-between items-center h-20 gap-8">
             <div className="flex-shrink-0 flex items-center gap-3" ref={logoRef}>
               <div className="relative w-12 h-12 rounded-full overflow-hidden border border-red-500/50 shadow-[0_0_15px_rgba(220,38,38,0.5)] bg-white/10">
@@ -171,7 +171,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-opacity duration-300 ${isMeasured ? 'opacity-100' : 'opacity-0'}`}>
+      <div className={`w-full px-4 sm:px-8 lg:px-12 transition-opacity duration-300 ${isMeasured ? 'opacity-100' : 'opacity-0'}`}>
         <div className="flex justify-between items-center h-20 gap-8">
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0 flex items-center gap-3">
