@@ -255,6 +255,9 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
                           </div>
 
                           <div className="p-3 pb-0 flex flex-col">
+                            {/* Top Line: right-aligned, reversed gradient */}
+                            <div className="w-[60%] h-[3px] bg-gradient-to-r from-blue-400 to-accent mb-3.5 rounded-full opacity-90 shadow-sm ml-auto"></div>
+                             
                             <div className="w-full aspect-square relative overflow-hidden border border-white/10 bg-gray-100/50">
                               {block.images[0] && (
                                 <Image 
@@ -268,6 +271,9 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
                             </div>
                           </div>
                           <div className="p-5 flex flex-col flex-grow items-start">
+                            {/* Accent blue line: shorter than the card, longer than a small title */}
+                            <div className="w-[60%] h-[3px] bg-gradient-to-r from-accent to-blue-400 mb-4 rounded-full opacity-90 shadow-sm"></div>
+
                             {/* Sleek category tag/badge */}
                             {block.images[0]?.category && block.images[0]?.category !== "None" && (
                               <span className="bg-red-500/10 border border-red-500/20 text-accent px-2 py-0.5 rounded-none text-[10px] font-bold uppercase tracking-wider mb-3 shadow-[0_2px_10px_rgba(220,38,38,0.05)]">
