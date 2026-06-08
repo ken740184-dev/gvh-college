@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -146,7 +147,14 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full" ref={outerContainerRef}>
           <div className="flex justify-between items-center h-20 gap-8">
             <div className="flex-shrink-0 flex items-center gap-3" ref={logoRef}>
-              <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-red-700 to-red-900 text-white font-serif font-bold text-xl shadow-[0_0_15px_rgba(220,38,38,0.5)] border border-red-500/50">G</div>
+              <div className="relative w-10 h-10 rounded-full overflow-hidden border border-red-500/50 shadow-[0_0_15px_rgba(220,38,38,0.5)] bg-white/10">
+                <Image
+                  src="/images/logo.jpg"
+                  alt="GH College Logo"
+                  fill
+                  className="object-cover"
+                />
+              </div>
               <span className="font-sans font-bold text-2xl tracking-wider">GH COLLEGE</span>
             </div>
             <div className="flex items-center space-x-8">
@@ -168,7 +176,14 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-20 gap-8">
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0 flex items-center gap-3">
-              <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-red-700 to-red-900 text-white font-serif font-bold text-xl shadow-[0_0_15px_rgba(220,38,38,0.5)] border border-red-500/50">G</div>
+              <div className="relative w-10 h-10 rounded-full overflow-hidden border border-red-500/50 shadow-[0_0_15px_rgba(220,38,38,0.5)] bg-white/10">
+                <Image
+                  src="/images/logo.jpg"
+                  alt="GH College Logo"
+                  fill
+                  className="object-cover"
+                />
+              </div>
               <span className="font-sans font-bold text-2xl tracking-wider">
                 GH COLLEGE
               </span>
