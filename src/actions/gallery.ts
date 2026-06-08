@@ -8,9 +8,9 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 // Configure Cloudinary
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME?.trim(),
+  api_key: process.env.CLOUDINARY_API_KEY?.trim(),
+  api_secret: process.env.CLOUDINARY_API_SECRET?.trim(),
 });
 
 async function fetchImageAsBase64(url: string) {
@@ -46,7 +46,7 @@ Respond ONLY with a JSON object in the following format:
   "description": "Generated description."
 }`;
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${apiKey}`;
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key=${apiKey}`;
     
     const requestBody = {
       contents: [
