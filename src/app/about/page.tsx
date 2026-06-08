@@ -7,7 +7,7 @@ export default function AboutPage() {
       {/* Hero */}
       <div className="relative h-[40vh] bg-black">
         <Image 
-          src="/images/swarthmore-college-Eric-Behrens-flickr-5706ffe35f9b581408d48cb3.jpg" 
+          src="/images/swarthmore-college-Eric-Behrens-flickr-5706ffe35f9b581408d48cb3.webp" 
           alt="About College" 
           fill 
           className="object-cover opacity-50"
@@ -37,7 +37,7 @@ export default function AboutPage() {
           </div>
           <div className="relative h-[500px] rounded-lg overflow-hidden shadow-2xl">
             <Image 
-              src="/images/52931d59-6890-4dd1-afc3-6cd109fe6d3b.png" 
+              src="/images/52931d59-6890-4dd1-afc3-6cd109fe6d3b.webp" 
               alt="College Legacy" 
               fill 
               className="object-cover"

@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import MobileHeader from "@/components/admin/MobileHeader";
 import { getNews, addNews, updateNews, deleteNews } from "@/actions/news";
+import { compressImage } from "@/lib/imageCompression";
 import { Plus, Trash2, Edit, X, Upload, Calendar } from "lucide-react";
 
 const getTodayString = () => {
@@ -98,11 +99,12 @@ export default function NewsAdminPage() {
     setIsModalOpen(true);
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setImageFile(file);
-      const url = URL.createObjectURL(file);
+      const compressedFile = await compressImage(file);
+      setImageFile(compressedFile);
+      const url = URL.createObjectURL(compressedFile);
       setPreviewUrl(url);
     }
   };

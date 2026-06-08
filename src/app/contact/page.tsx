@@ -196,7 +196,7 @@ export default function ContactPage() {
             {/* College Photo Thumbnail */}
             <div className="w-24 h-16 sm:w-32 sm:h-20 flex-shrink-0 relative rounded-md overflow-hidden border border-gray-100 shadow-sm self-start mt-0.5">
               <img 
-                src="/images/swarthmore-college-Eric-Behrens-flickr-5706ffe35f9b581408d48cb3.jpg" 
+                src="/images/swarthmore-college-Eric-Behrens-flickr-5706ffe35f9b581408d48cb3.webp" 
                 alt="Gudleppa Hallikeri College Campus" 
                 className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
               />

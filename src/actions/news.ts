@@ -19,21 +19,21 @@ const sampleNews = [
     date: "June 1, 2026",
     category: "Admissions",
     excerpt: "We are now accepting applications for all undergraduate programs. Apply online before the deadline.",
-    image: "/images/swarthmore-college-Eric-Behrens-flickr-5706ffe35f9b581408d48cb3.jpg"
+    image: "/images/swarthmore-college-Eric-Behrens-flickr-5706ffe35f9b581408d48cb3.webp"
   },
   {
     title: "Examination Schedule Released for Even Semesters",
     date: "May 28, 2026",
     category: "Academics",
     excerpt: "The final examination schedule for B.Com and B.A. programs has been published. Please check the portal.",
-    image: "/images/52931d59-6890-4dd1-afc3-6cd109fe6d3b.png"
+    image: "/images/52931d59-6890-4dd1-afc3-6cd109fe6d3b.webp"
   },
   {
     title: "Annual Cultural Fest 'Euphoria 2026' Concludes",
     date: "May 15, 2026",
     category: "Events",
     excerpt: "A spectacular three-day event filled with music, dance, and art competitions came to a grand close yesterday.",
-    image: "/images/chatgpt-image.png"
+    image: "/images/chatgpt-image.webp"
   }
 ];
 

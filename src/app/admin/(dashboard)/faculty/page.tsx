@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import MobileHeader from "@/components/admin/MobileHeader";
 import { getFaculty, addFaculty, updateFaculty, deleteFaculty } from "@/actions/faculty";
+import { compressImage } from "@/lib/imageCompression";
 import { Plus, Trash2, Edit, X, Upload } from "lucide-react";
 
 export default function FacultyAdminPage() {
@@ -62,14 +63,15 @@ export default function FacultyAdminPage() {
     setIsModalOpen(true);
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setImageFile(file);
-      const url = URL.createObjectURL(file);
-      setPreviewUrl(url);
-    }
-  };
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+     const file = e.target.files?.[0];
+     if (file) {
+       const compressedFile = await compressImage(file);
+       setImageFile(compressedFile);
+       const url = URL.createObjectURL(compressedFile);
+       setPreviewUrl(url);
+     }
+   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

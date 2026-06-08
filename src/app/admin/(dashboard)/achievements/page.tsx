@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Plus, Edit2, Trash2, X, Upload } from "lucide-react";
 import { getAchievements, addAchievement, updateAchievement, deleteAchievement } from "@/actions/achievements";
+import { compressImage } from "@/lib/imageCompression";
 
 const getTodayString = () => {
   const today = new Date();
@@ -112,21 +113,23 @@ export default function AchievementsAdmin() {
     setIsDragging(false);
   };
 
-  const handleDrop = (e: React.DragEvent) => {
+  const handleDrop = async (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       const file = e.dataTransfer.files[0];
-      setImageFile(file);
-      setPreviewImage(URL.createObjectURL(file));
+      const compressedFile = await compressImage(file);
+      setImageFile(compressedFile);
+      setPreviewImage(URL.createObjectURL(compressedFile));
     }
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
-      setImageFile(file);
-      setPreviewImage(URL.createObjectURL(file));
+      const compressedFile = await compressImage(file);
+      setImageFile(compressedFile);
+      setPreviewImage(URL.createObjectURL(compressedFile));
     }
   };
 

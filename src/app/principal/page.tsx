@@ -19,7 +19,7 @@ export default function PrincipalPage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
               <div className="lg:col-span-5 relative min-h-[500px]">
                 <Image 
-                  src="/images/52931d59-6890-4dd1-afc3-6cd109fe6d3b.png" 
+                  src="/images/52931d59-6890-4dd1-afc3-6cd109fe6d3b.webp" 
                   alt="Principal" 
                   fill 
                   className="object-cover"

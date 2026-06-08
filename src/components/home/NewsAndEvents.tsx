@@ -11,7 +11,7 @@ const columns = [
     icon: Newspaper,
     date: "Dec 22, 2025",
     headline: "Day 1 - National Conference of Indian Council of Chemists Inaugurated at GVH College",
-    image: "/images/swarthmore-college-Eric-Behrens-flickr-5706ffe35f9b581408d48cb3.jpg",
+    image: "/images/swarthmore-college-Eric-Behrens-flickr-5706ffe35f9b581408d48cb3.webp",
     link: "/news"
   },
   {
@@ -19,7 +19,7 @@ const columns = [
     icon: Calendar,
     date: "Jan 25, 2026",
     headline: "GVH College to Host Prestigious Republic Day Cup 2026",
-    image: "/images/f4b83665-42eb-4514-93eb-afe1ce1f84e2.png",
+    image: "/images/f4b83665-42eb-4514-93eb-afe1ce1f84e2.webp",
     link: "/campus-life"
   },
   {
@@ -27,7 +27,7 @@ const columns = [
     icon: Trophy,
     date: "Sep 24, 2024",
     headline: "GVH College Cricket Team Wins State Inter-University Championship",
-    image: "/images/b465b6c6-83ea-4042-99ad-f907e1e65696.png",
+    image: "/images/b465b6c6-83ea-4042-99ad-f907e1e65696.webp",
     link: "/achievements"
   }
 ];

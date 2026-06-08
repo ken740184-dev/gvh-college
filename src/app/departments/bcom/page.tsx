@@ -8,7 +8,7 @@ export default function BComPage() {
     <div className="pt-20">
       <div className="relative h-[40vh] bg-black">
         <Image 
-          src="/images/b465b6c6-83ea-4042-99ad-f907e1e65696.png" 
+          src="/images/b465b6c6-83ea-4042-99ad-f907e1e65696.webp" 
           alt="Bachelor of Commerce" 
           fill 
           className="object-cover opacity-60"

@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { UploadCloud, X, CheckCircle2, Trash2, Loader2, LayoutTemplate, Type, Image as ImageIcon, ArrowRight, ArrowLeft, Edit2, ChevronDown } from "lucide-react";
 import { uploadGalleryBlock, getGalleryBlocks, deleteGalleryBlock, updateGalleryBlock, updateGalleryBlockOrder } from "@/actions/gallery";
+import { compressImage } from "@/lib/imageCompression";
 
 const LAYOUTS = [
   { 
@@ -214,15 +215,16 @@ export default function AdminGalleryPage() {
     }
   };
 
-  const processFile = (file: File, index: number) => {
+  const processFile = async (file: File, index: number) => {
     if (file && file.type.startsWith("image/")) {
+      const compressedFile = await compressImage(file);
       const reader = new FileReader();
       reader.onload = (e) => {
         const newSlots = [...slots];
-        newSlots[index] = { ...newSlots[index], file, previewUrl: e.target?.result as string };
+        newSlots[index] = { ...newSlots[index], file: compressedFile, previewUrl: e.target?.result as string };
         setSlots(newSlots);
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(compressedFile);
     }
   };
 
