@@ -5,6 +5,7 @@ import connectToDatabase from "@/lib/mongodb";
 import Faculty from "@/models/Faculty";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { revalidatePath } from "next/cache";
 
 // Configure Cloudinary
 cloudinary.config({
@@ -61,6 +62,8 @@ export async function addFaculty(formData: FormData) {
       imagePublicId: uploadResponse.public_id,
     });
 
+    revalidatePath("/faculty");
+
     return { success: true, faculty: JSON.parse(JSON.stringify(newFaculty)) };
   } catch (error: any) {
     return { success: false, error: error.message };
@@ -112,6 +115,8 @@ export async function updateFaculty(id: string, formData: FormData) {
 
     const updatedFaculty = await Faculty.findByIdAndUpdate(id, updateData, { new: true }).lean();
 
+    revalidatePath("/faculty");
+
     return { success: true, faculty: JSON.parse(JSON.stringify(updatedFaculty)) };
   } catch (error: any) {
     return { success: false, error: error.message };
@@ -132,6 +137,8 @@ export async function deleteFaculty(id: string) {
     }
 
     await Faculty.findByIdAndDelete(id);
+
+    revalidatePath("/faculty");
 
     return { success: true };
   } catch (error: any) {

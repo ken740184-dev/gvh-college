@@ -5,6 +5,7 @@ import connectToDatabase from "@/lib/mongodb";
 import GalleryBlock from "@/models/GalleryBlock";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { revalidatePath } from "next/cache";
 
 // Configure Cloudinary
 cloudinary.config({
@@ -180,6 +181,8 @@ export async function uploadGalleryBlock(formData: FormData) {
       uploadedBy: (session.user as any).id,
     });
 
+    revalidatePath("/gallery");
+
     return { success: true, block: JSON.parse(JSON.stringify(newBlock)) };
   } catch (error: any) {
     console.error("Upload error:", error);
@@ -218,6 +221,8 @@ export async function deleteGalleryBlock(id: string) {
 
     // Delete the block from MongoDB
     await GalleryBlock.findByIdAndDelete(id);
+
+    revalidatePath("/gallery");
 
     return { success: true };
   } catch (error: any) {
@@ -333,6 +338,8 @@ export async function updateGalleryBlock(id: string, formData: FormData) {
     oldBlock.images = finalImages;
     await oldBlock.save();
 
+    revalidatePath("/gallery");
+
     return { success: true, block: JSON.parse(JSON.stringify(oldBlock)) };
   } catch (error: any) {
     console.error("Update error:", error);
@@ -356,6 +363,8 @@ export async function updateGalleryBlockOrder(orderedIds: string[]) {
     }));
 
     await GalleryBlock.bulkWrite(bulkOps);
+
+    revalidatePath("/gallery");
 
     return { success: true };
   } catch (error: any) {

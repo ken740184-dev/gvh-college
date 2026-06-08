@@ -6,6 +6,7 @@ import Achievement from "@/models/Achievement";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { studentAchievements, facultyAchievements, institutionalAchievements } from "@/data/achievements";
+import { revalidatePath } from "next/cache";
 
 // Configure Cloudinary
 cloudinary.config({
@@ -18,21 +19,6 @@ export async function getAchievements() {
   try {
     await connectToDatabase();
     let achievements = await Achievement.find().sort({ createdAt: -1 }).lean();
-
-    // Seed if empty
-    if (achievements.length === 0) {
-      const allSamples = [
-        ...studentAchievements.map((item, index) => ({ ...item, category: 'student', order: index })),
-        ...facultyAchievements.map((item, index) => ({ ...item, category: 'faculty', order: index + 100 })),
-        ...institutionalAchievements.map((item, index) => ({ ...item, category: 'institutional', order: index + 200 }))
-      ];
-
-      // Remove the id field as Mongo assigns _id automatically
-      const seedData = allSamples.map(({ id, ...rest }) => rest);
-
-      await Achievement.insertMany(seedData);
-      achievements = await Achievement.find().sort({ createdAt: -1 }).lean();
-    }
 
     return { success: true, achievements: JSON.parse(JSON.stringify(achievements)) };
   } catch (error: any) {
@@ -79,6 +65,8 @@ export async function addAchievement(formData: FormData) {
       imagePublicId: uploadResponse.public_id,
       order: count,
     });
+
+    revalidatePath("/achievements");
 
     return { success: true, achievement: JSON.parse(JSON.stringify(newAchievement)) };
   } catch (error: any) {
@@ -129,6 +117,8 @@ export async function updateAchievement(id: string, formData: FormData) {
 
     const updatedAchievement = await Achievement.findByIdAndUpdate(id, updateData, { new: true }).lean();
 
+    revalidatePath("/achievements");
+
     return { success: true, achievement: JSON.parse(JSON.stringify(updatedAchievement)) };
   } catch (error: any) {
     return { success: false, error: error.message };
@@ -149,6 +139,8 @@ export async function deleteAchievement(id: string) {
     }
 
     await Achievement.findByIdAndDelete(id);
+
+    revalidatePath("/achievements");
 
     return { success: true };
   } catch (error: any) {

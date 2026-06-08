@@ -5,6 +5,7 @@ import connectToDatabase from "@/lib/mongodb";
 import News from "@/models/News";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { revalidatePath } from "next/cache";
 
 // Configure Cloudinary
 cloudinary.config({
@@ -42,12 +43,11 @@ export async function getNews() {
     await connectToDatabase();
     let newsList = await News.find().sort({ order: 1, createdAt: -1 }).lean();
 
-    // Seed if empty
-    if (newsList.length === 0) {
-      await News.insertMany(sampleNews.map((item, index) => ({ ...item, order: index })));
-      newsList = await News.find().sort({ order: 1, createdAt: -1 }).lean();
-    }
-
+    // Seed if empty (only if first run, but if the database gets empty by deletion we don't want it to seed again)
+    // To make sure clean installs get seeded, we check if there are any documents, but to allow users to delete all,
+    // let's look at how they delete. Removing this auto-seed check entirely is best because it's already seeded on their live DB.
+    // However, if we delete all items, the list is empty and should show as empty.
+    
     return { success: true, news: JSON.parse(JSON.stringify(newsList)) };
   } catch (error: any) {
     console.error("Error fetching news:", error);
@@ -91,6 +91,8 @@ export async function addNews(formData: FormData) {
       imagePublicId: uploadResponse.public_id,
       order: count,
     });
+
+    revalidatePath("/news");
 
     return { success: true, news: JSON.parse(JSON.stringify(newNews)) };
   } catch (error: any) {
@@ -139,6 +141,8 @@ export async function updateNews(id: string, formData: FormData) {
 
     const updatedNews = await News.findByIdAndUpdate(id, updateData, { new: true }).lean();
 
+    revalidatePath("/news");
+
     return { success: true, news: JSON.parse(JSON.stringify(updatedNews)) };
   } catch (error: any) {
     return { success: false, error: error.message };
@@ -159,6 +163,8 @@ export async function deleteNews(id: string) {
     }
 
     await News.findByIdAndDelete(id);
+
+    revalidatePath("/news");
 
     return { success: true };
   } catch (error: any) {

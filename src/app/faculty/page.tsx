@@ -2,7 +2,6 @@ import Image from "next/image";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { getFaculty } from "@/actions/faculty";
 
-export const dynamic = "force-dynamic";
 
 export default async function FacultyPage() {
   const res = await getFaculty();
