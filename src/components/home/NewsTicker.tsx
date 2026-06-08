@@ -1,46 +1,47 @@
 "use client";
 
-import { Megaphone } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
-const newsItems = [
-  "Admissions open for B.Com and B.A. programs for the academic year 2026-2027. Apply now!",
-  "Upcoming Campus Placement Drive: Top IT & Finance companies visiting on August 15th.",
-  "Congratulations to the College Cricket Team for winning the Inter-University Championship!",
-  "New state-of-the-art Digital Library inaugurated by the Principal.",
-];
+const announcementText = "this is a ribbon what am supposed to say this , addmission for 2026 has started apply now";
 
 export default function NewsTicker() {
   return (
-    <div className="bg-accent text-white flex items-center relative overflow-hidden h-12 w-full border-b border-white/20">
-      {/* Label Box (Fixed on the left) */}
-      <div className="absolute left-0 top-0 bottom-0 bg-navbar px-4 sm:px-6 flex items-center gap-2 z-10 shadow-[5px_0_15px_5px_rgba(0,0,0,0.5)] border-r border-gray-700">
-        <Megaphone className="w-4 h-4 text-white" />
-        <span className="font-sans font-bold text-sm tracking-wider uppercase text-white hidden sm:block">
-          Latest Updates
-        </span>
+    <div className="bg-accent text-white flex items-center relative overflow-hidden h-14 w-full border-b border-white/20 z-20 shadow-md">
+      {/* Static Button Container on the Left */}
+      <div className="absolute left-0 top-0 bottom-0 bg-navbar px-4 sm:px-6 flex items-center z-30 shadow-[4px_0_12px_rgba(0,0,0,0.4)] border-r border-white/10">
+        <Link 
+          href="/admissions/apply" 
+          className="bg-white text-accent hover:bg-gray-100 hover:scale-105 active:scale-95 transition-all px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg flex items-center gap-1 whitespace-nowrap"
+        >
+          Apply Now <ArrowRight className="w-3.5 h-3.5" />
+        </Link>
       </div>
       
       {/* Scrolling Text Container */}
-      {/* 
-        Width is set to max-w-none so it doesn't wrap, and we use inline-flex to span the content.
-        The animation translates it by -50%, so the duplicated content creates a seamless loop.
-      */}
-      <div className="flex w-[200vw] lg:w-[150vw] animate-marquee pl-[50px] sm:pl-[180px]">
-        {/* First Set */}
-        <div className="flex w-1/2 justify-around items-center whitespace-nowrap">
-           {newsItems.map((item, i) => (
-             <span key={i} className="mx-6 text-sm font-medium tracking-wide">
-               {item} <span className="mx-6 text-white/40">•</span>
-             </span>
-           ))}
+      <div className="flex w-max animate-marquee whitespace-nowrap pl-[135px] sm:pl-[165px] shrink-0">
+        {/* First Set (Original) */}
+        <div className="flex items-center shrink-0">
+          <span className="mx-12 text-sm font-medium tracking-wider uppercase flex items-center gap-2 shrink-0 select-none">
+            <span className="inline-block w-2 h-2 rounded-full bg-white animate-pulse shrink-0" />
+            {announcementText}
+          </span>
+          <span className="mx-12 text-sm font-medium tracking-wider uppercase flex items-center gap-2 shrink-0 select-none">
+            <span className="inline-block w-2 h-2 rounded-full bg-white/60 shrink-0" />
+            {announcementText}
+          </span>
         </div>
-        {/* Duplicated Set for Seamless Loop */}
-        <div className="flex w-1/2 justify-around items-center whitespace-nowrap">
-           {newsItems.map((item, i) => (
-             <span key={`dup-${i}`} className="mx-6 text-sm font-medium tracking-wide">
-               {item} <span className="mx-6 text-white/40">•</span>
-             </span>
-           ))}
+        
+        {/* Second Set (Duplicated for seamless loop) */}
+        <div className="flex items-center shrink-0" aria-hidden="true">
+          <span className="mx-12 text-sm font-medium tracking-wider uppercase flex items-center gap-2 shrink-0 select-none">
+            <span className="inline-block w-2 h-2 rounded-full bg-white animate-pulse shrink-0" />
+            {announcementText}
+          </span>
+          <span className="mx-12 text-sm font-medium tracking-wider uppercase flex items-center gap-2 shrink-0 select-none">
+            <span className="inline-block w-2 h-2 rounded-full bg-white/60 shrink-0" />
+            {announcementText}
+          </span>
         </div>
       </div>
     </div>

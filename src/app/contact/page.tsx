@@ -1,8 +1,32 @@
+"use client";
+
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Navigation } from "lucide-react";
 
 export default function ContactPage() {
+  const handleGetDirections = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const destination = "14.896620,75.554571";
+    
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          const url = `https://www.google.com/maps/dir/?api=1&origin=${latitude},${longitude}&destination=${destination}`;
+          window.open(url, "_blank", "noopener,noreferrer");
+        },
+        (error) => {
+          const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
+          window.open(url, "_blank", "noopener,noreferrer");
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+      );
+    } else {
+      const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+  };
   return (
     <div className="pt-20">
       <div className="bg-navbar py-20">
@@ -27,9 +51,9 @@ export default function ContactPage() {
                 <div>
                   <h4 className="font-bold text-lg mb-1">Campus Address</h4>
                   <p className="text-secondary-text">
-                    123 Education Boulevard<br />
-                    University District<br />
-                    City, State 12345
+                    Gudleppa Hallikeri Arts and Commerce First Grade College (Entrance)<br />
+                    Hosaritti, Haveri District<br />
+                    Karnataka, India - 581115
                   </p>
                 </div>
               </div>
@@ -135,7 +159,7 @@ export default function ContactPage() {
       {/* Map Embed */}
       <div className="w-full h-[500px] bg-gray-200 relative group">
         <iframe 
-          src="https://maps.google.com/maps?q=14.896615234015393,75.55458990991627&hl=en&z=15&output=embed" 
+          src="https://maps.google.com/maps?q=14.896620,75.554571&hl=en&z=17&output=embed" 
           className="w-full h-full border-0" 
           allowFullScreen 
           loading="lazy" 
@@ -143,15 +167,55 @@ export default function ContactPage() {
           title="Google Map Location"
         ></iframe>
         
-        {/* Floating Get Directions Button */}
-        <div className="absolute bottom-6 right-6 md:bottom-10 md:right-10 pointer-events-none">
+        {/* Info Card (Top-Left) */}
+        <div className="absolute top-4 left-4 z-10 w-[260px] sm:w-[360px] bg-white/90 backdrop-blur-md p-3.5 rounded-md shadow-lg border border-gray-200/85 pointer-events-auto">
+          <div className="flex gap-3 text-gray-800">
+            <div className="flex-1 min-w-0">
+              <h4 className="font-sans font-bold text-xs sm:text-sm text-gray-900 leading-tight break-words">
+                Gudleppa Hallikeri Arts and Commerce First Grade College
+              </h4>
+              <p className="text-[10px] font-semibold text-accent mt-0.5">
+                14.896620, 75.554571
+              </p>
+              <p className="text-[11px] text-gray-600 mt-1.5 leading-relaxed">
+                Hosaritti, Haveri District<br />
+                Karnataka - 581115
+              </p>
+              <div className="mt-2.5 pt-2 border-t border-gray-100">
+                <a 
+                  href="https://www.google.com/maps/place/14.896620,75.554571"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[11px] text-blue-600 hover:text-blue-800 hover:underline font-semibold flex items-center gap-1 transition-colors"
+                >
+                  <span>View larger map</span>
+                </a>
+              </div>
+            </div>
+            
+            {/* College Photo Thumbnail */}
+            <div className="w-24 h-16 sm:w-32 sm:h-20 flex-shrink-0 relative rounded-md overflow-hidden border border-gray-100 shadow-sm self-start mt-0.5">
+              <img 
+                src="/images/swarthmore-college-Eric-Behrens-flickr-5706ffe35f9b581408d48cb3.jpg" 
+                alt="Gudleppa Hallikeri College Campus" 
+                className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+              />
+            </div>
+          </div>
+        </div>
+        
+        {/* Directions Button (Top-Right) */}
+        <div className="absolute top-4 right-4 z-10 pointer-events-none">
           <a 
-            href="https://www.google.com/maps/dir/?api=1&destination=14.896615234015393,75.55458990991627"
+            href="https://www.google.com/maps/dir/?api=1&destination=14.896620,75.554571"
+            onClick={handleGetDirections}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-accent hover:bg-accent/90 text-white px-6 py-3.5 rounded-lg font-bold shadow-xl transition-transform hover:scale-105 flex items-center gap-2 pointer-events-auto border-2 border-white/20"
+            className="bg-accent hover:bg-accent/90 text-white px-4 py-2.5 sm:px-5 sm:py-3 rounded-lg font-bold shadow-lg transition-all duration-300 hover:scale-[1.03] flex items-center gap-2 pointer-events-auto border border-white/20 text-xs sm:text-sm"
           >
-            <MapPin className="w-5 h-5" /> Get Directions on Google Maps
+            <Navigation className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+            <span className="hidden sm:inline">Get Directions on Google Maps</span>
+            <span className="inline sm:hidden">Directions</span>
           </a>
         </div>
       </div>

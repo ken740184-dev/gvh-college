@@ -1,5 +1,6 @@
 import Image from "next/image";
 import HeroSection from "@/components/home/HeroSection";
+import NewsTicker from "@/components/home/NewsTicker";
 import QuickStats from "@/components/home/QuickStats";
 import LatestUpdatesCollage from "@/components/home/LatestUpdatesCollage";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -11,6 +12,7 @@ export default function Home() {
   return (
     <>
       <HeroSection />
+      <NewsTicker />
       <QuickStats />
 
       {/* About College */}

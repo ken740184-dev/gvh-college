@@ -1,35 +1,44 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
+import { getNews } from "@/actions/news";
 
-const newsItems = [
-  {
-    id: 1,
-    title: "Admissions Open for Academic Year 2026-27",
-    date: "June 1, 2026",
-    category: "Admissions",
-    excerpt: "We are now accepting applications for all undergraduate programs. Apply online before the deadline.",
-    image: "/images/swarthmore-college-Eric-Behrens-flickr-5706ffe35f9b581408d48cb3.jpg"
-  },
-  {
-    id: 2,
-    title: "Examination Schedule Released for Even Semesters",
-    date: "May 28, 2026",
-    category: "Academics",
-    excerpt: "The final examination schedule for B.Com and B.A. programs has been published. Please check the portal.",
-    image: "/images/52931d59-6890-4dd1-afc3-6cd109fe6d3b.png"
-  },
-  {
-    id: 3,
-    title: "Annual Cultural Fest 'Euphoria 2026' Concludes",
-    date: "May 15, 2026",
-    category: "Events",
-    excerpt: "A spectacular three-day event filled with music, dance, and art competitions came to a grand close yesterday.",
-    image: "/images/chatgpt-image.png"
+const formatDate = (dateStr: string) => {
+  if (!dateStr) return "";
+  const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+  if (dateRegex.test(dateStr)) {
+    try {
+      const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(dateStr).toLocaleDateString('en-US', options);
+    } catch (e) {
+      return dateStr;
+    }
   }
-];
+  return dateStr;
+};
 
 export default function NewsPage() {
+  const [newsItems, setNewsItems] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    fetchNews();
+  }, []);
+
+  const fetchNews = async () => {
+    setIsLoading(true);
+    const res = await getNews();
+    if (res.success) {
+      setNewsItems(res.news);
+    } else {
+      console.error("Failed to load news:", res.error);
+    }
+    setIsLoading(false);
+  };
+
   return (
     <div className="pt-20">
       <div className="bg-navbar py-20">
@@ -41,29 +50,43 @@ export default function NewsPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 min-h-[50vh]">
         <SectionHeading title="Latest Updates" />
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {newsItems.map((news) => (
-            <article key={news.id} className="bg-white border border-border-color rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">
-              <div className="relative h-56 bg-gray-100">
-                <Image src={news.image} alt={news.title} fill className="object-cover" />
-                <div className="absolute top-4 left-4 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                  {news.category}
+        {isLoading ? (
+          <div className="flex justify-center items-center h-64">
+            <div className="w-12 h-12 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        ) : newsItems.length === 0 ? (
+          <div className="text-center text-gray-500 py-12 bg-gray-50 rounded-2xl border border-gray-200">
+            <p className="text-xl">No news articles found.</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {newsItems.map((news) => (
+              <article key={news._id} className="bg-white border border-border-color rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group cursor-pointer hover:-translate-y-1">
+                <div className="relative aspect-square w-full bg-gray-100 overflow-hidden">
+                  <Image 
+                    src={news.image} 
+                    alt={news.title} 
+                    fill 
+                    className="object-cover transition-transform duration-500 group-hover:scale-105" 
+                  />
+                  <div className="absolute top-4 left-4 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-lg">
+                    {news.category}
+                  </div>
                 </div>
-              </div>
-              <div className="p-6 flex flex-col flex-grow">
-                <time className="text-sm text-secondary-text mb-2 block">{news.date}</time>
-                <h3 className="text-xl font-bold mb-3 line-clamp-2">{news.title}</h3>
-                <p className="text-secondary-text mb-6 line-clamp-3 flex-grow">{news.excerpt}</p>
-                <Button variant="outline" className="w-full mt-auto">Read Full Article</Button>
-              </div>
-            </article>
-          ))}
-        </div>
+                <div className="p-6 flex flex-col flex-grow">
+                  <time className="text-sm text-secondary-text mb-2 block font-medium">{formatDate(news.date)}</time>
+                  <h3 className="text-xl font-bold mb-3 line-clamp-2 group-hover:text-accent transition-colors">{news.title}</h3>
+                  <p className="text-secondary-text mb-6 line-clamp-3 flex-grow leading-relaxed">{news.excerpt}</p>
+
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
 }
-

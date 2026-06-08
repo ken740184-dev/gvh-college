@@ -31,35 +31,13 @@ const RobotIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-// Simple FAQ logic
-const getBotResponse = (input: string): string => {
-  const lowerInput = input.toLowerCase();
-  
-  if (lowerInput.includes("fee") || lowerInput.includes("cost")) {
-    return "The annual fee for B.Com is ₹45,000 and for B.A. is ₹35,000. There is also a one-time admission fee of ₹5,000.";
-  }
-  if (lowerInput.includes("admission") || lowerInput.includes("apply")) {
-    return "Admissions for 2026 are currently open. You can apply through our online portal by clicking 'Admissions' in the top menu.";
-  }
-  if (lowerInput.includes("course") || lowerInput.includes("program")) {
-    return "We currently offer two main undergraduate programs: Bachelor of Commerce (B.Com) and Bachelor of Arts (B.A.).";
-  }
-  if (lowerInput.includes("contact") || lowerInput.includes("phone") || lowerInput.includes("email")) {
-    return "You can reach our Admission Office at +1 (555) 123-4567 or email admissions@gvhcollege.edu.";
-  }
-  if (lowerInput.includes("facility") || lowerInput.includes("campus") || lowerInput.includes("sports")) {
-    return "Our campus features modern classrooms, a well-stocked library, expansive sports grounds, and various student clubs.";
-  }
-  
-  return "I'm a virtual assistant here to help! Try asking about admissions, courses, fees, or contact information.";
-};
-
 export function ChatbotWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { id: "1", text: "Hello! Welcome to GVH College. How can I help you today?", isUser: false }
+    { id: "1", text: "Hello! Welcome to Gudleppa Hallikeri College. How can I help you today?", isUser: false }
   ]);
   const [inputText, setInputText] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -70,21 +48,58 @@ export function ChatbotWidget() {
     if (isOpen) {
       scrollToBottom();
     }
-  }, [messages, isOpen]);
+  }, [messages, isOpen, isTyping]);
 
-  const handleSend = (e: React.FormEvent) => {
+  const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!inputText.trim()) return;
+    const messageToSend = inputText.trim();
+    if (!messageToSend || isTyping) return;
 
-    const newUserMsg: Message = { id: Date.now().toString(), text: inputText, isUser: true };
+    const newUserMsg: Message = { id: Date.now().toString(), text: messageToSend, isUser: true };
     setMessages(prev => [...prev, newUserMsg]);
     setInputText("");
+    setIsTyping(true);
 
-    setTimeout(() => {
-      const responseText = getBotResponse(newUserMsg.text);
-      const newBotMsg: Message = { id: (Date.now() + 1).toString(), text: responseText, isUser: false };
+    try {
+      // Create history payload (excluding the very first welcome message)
+      const chatHistory = messages.slice(1).map(m => ({
+        text: m.text,
+        isUser: m.isUser
+      }));
+
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: messageToSend,
+          history: chatHistory,
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to get response from assistant");
+      }
+
+      const data = await res.json();
+      const newBotMsg: Message = {
+        id: (Date.now() + 1).toString(),
+        text: data.response || "I'm sorry, I couldn't get a response. Please try again.",
+        isUser: false
+      };
       setMessages(prev => [...prev, newBotMsg]);
-    }, 600);
+    } catch (err) {
+      console.error("Chatbot Error:", err);
+      const errorMsg: Message = {
+        id: (Date.now() + 1).toString(),
+        text: "Sorry, I am having trouble connecting right now. Please try again later.",
+        isUser: false
+      };
+      setMessages(prev => [...prev, errorMsg]);
+    } finally {
+      setIsTyping(false);
+    }
   };
 
   return (
@@ -120,7 +135,7 @@ export function ChatbotWidget() {
                   <RobotIcon className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <span className="font-sans font-bold text-lg tracking-wide block leading-tight">GVH Assistant</span>
+                  <span className="font-sans font-bold text-lg tracking-wide block leading-tight">GH Assistant</span>
                   <span className="text-xs text-green-400 font-medium flex items-center gap-1 mt-0.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-green-400"></span> Online
                   </span>
@@ -149,6 +164,22 @@ export function ChatbotWidget() {
                   </div>
                 </div>
               ))}
+              
+              {isTyping && (
+                <div className="flex justify-start">
+                  <div className="flex items-end space-x-2 max-w-[85%] flex-row">
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 relative bg-navbar text-white">
+                      <RobotIcon className="w-5 h-5" />
+                    </div>
+                    <div className="px-4 py-3 rounded-2xl bg-white border border-gray-200 text-gray-800 rounded-bl-none shadow-sm flex items-center space-x-1">
+                      <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }}></span>
+                      <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }}></span>
+                      <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }}></span>
+                    </div>
+                  </div>
+                </div>
+              )}
+              
               <div ref={messagesEndRef} />
             </div>
 

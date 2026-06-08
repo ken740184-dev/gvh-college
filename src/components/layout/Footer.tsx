@@ -1,7 +1,39 @@
+"use client";
+
 import Link from "next/link";
-import { MapPin, Phone, Mail } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { MapPin, Phone, Mail, Navigation } from "lucide-react";
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  const handleGetDirections = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const destination = "14.896620,75.554571";
+    
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          const url = `https://www.google.com/maps/dir/?api=1&origin=${latitude},${longitude}&destination=${destination}`;
+          window.open(url, "_blank", "noopener,noreferrer");
+        },
+        (error) => {
+          const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
+          window.open(url, "_blank", "noopener,noreferrer");
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+      );
+    } else {
+      const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+  };
+
+  if (pathname.startsWith("/admin")) {
+    return null;
+  }
+
   return (
     <footer className="bg-navbar text-white pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -84,9 +116,9 @@ export default function Footer() {
               <li className="flex items-start">
                 <MapPin className="w-5 h-5 text-accent mr-3 mt-1 flex-shrink-0" />
                 <span className="text-gray-400">
-                  123 Education Boulevard<br />
-                  University District<br />
-                  City, State 12345
+                  Gudleppa Hallikeri Arts and Commerce First Grade College (Entrance)<br />
+                  Hosaritti, Haveri District<br />
+                  Karnataka, India - 581115
                 </span>
               </li>
               <li className="flex items-center">
@@ -100,15 +132,36 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Map Snapshot placeholder */}
+          {/* Map Link */}
           <div>
             <h4 className="font-bold text-lg mb-6 tracking-wider uppercase">Location</h4>
-            <div className="w-full h-48 bg-gray-800 rounded-lg overflow-hidden flex items-center justify-center">
-              {/* In a real implementation, this could be a static map image or an iframe */}
-              <div className="text-center text-gray-500">
-                <MapPin className="w-8 h-8 mx-auto mb-2 opacity-50" />
-                <span>Google Map Embed</span>
-              </div>
+            <div className="relative w-full h-48 bg-gray-900 rounded-lg overflow-hidden border border-gray-700 hover:border-accent transition-all duration-300 shadow-inner group">
+              {/* Google Maps Iframe with dark styling filter */}
+              <iframe
+                src="https://maps.google.com/maps?q=14.896620,75.554571&hl=en&z=16&output=embed"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={false}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+              ></iframe>
+
+              {/* Clickable Overlay Link to Get Directions (GPS Path) */}
+              <a
+                href="https://www.google.com/maps/dir/?api=1&destination=14.896620,75.554571"
+                onClick={handleGetDirections}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/25 hover:bg-black/10 transition-colors duration-300 cursor-pointer"
+                title="Get Directions on Google Maps"
+              >
+                <div className="bg-navbar/95 backdrop-blur-sm border border-gray-700 text-white px-4 py-2 rounded-full text-xs font-bold shadow-lg flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-all transform translate-y-3 group-hover:translate-y-0 duration-300">
+                  <Navigation className="w-4 h-4 text-accent" />
+                  <span>Get Directions (GPS Path)</span>
+                </div>
+              </a>
             </div>
           </div>
         </div>

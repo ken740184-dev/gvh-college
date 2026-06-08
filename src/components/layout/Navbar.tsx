@@ -13,6 +13,7 @@ const originalNavigation = [
     href: "/about",
     dropdown: [
       { name: "Overview", href: "/about" },
+      { name: "Gudleppa Hallikeri", href: "/about/gudleppa-hallikeri" },
       { name: "Management", href: "/management" },
       { name: "Principal's Message", href: "/principal" }
     ]
@@ -146,7 +147,7 @@ export default function Navbar() {
           <div className="flex justify-between items-center h-20 gap-8">
             <div className="flex-shrink-0 flex items-center gap-3" ref={logoRef}>
               <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-red-700 to-red-900 text-white font-serif font-bold text-xl shadow-[0_0_15px_rgba(220,38,38,0.5)] border border-red-500/50">G</div>
-              <span className="font-sans font-bold text-2xl tracking-wider">GVH COLLEGE</span>
+              <span className="font-sans font-bold text-2xl tracking-wider">GH COLLEGE</span>
             </div>
             <div className="flex items-center space-x-8">
                {originalNavigation.map((item, idx) => (
@@ -169,7 +170,7 @@ export default function Navbar() {
             <Link href="/" className="flex-shrink-0 flex items-center gap-3">
               <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-red-700 to-red-900 text-white font-serif font-bold text-xl shadow-[0_0_15px_rgba(220,38,38,0.5)] border border-red-500/50">G</div>
               <span className="font-sans font-bold text-2xl tracking-wider">
-                GVH COLLEGE
+                GH COLLEGE
               </span>
             </Link>
           </div>
