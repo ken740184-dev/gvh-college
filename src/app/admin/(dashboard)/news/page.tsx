@@ -57,6 +57,7 @@ export default function NewsAdminPage() {
   const [date, setDate] = useState(getTodayString());
   const [category, setCategory] = useState("");
   const [excerpt, setExcerpt] = useState("");
+  const [isBanner, setIsBanner] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   
@@ -83,6 +84,7 @@ export default function NewsAdminPage() {
     setDate(getTodayString());
     setCategory("General");
     setExcerpt("");
+    setIsBanner(false);
     setImageFile(null);
     setPreviewUrl(null);
     setIsModalOpen(false);
@@ -94,6 +96,7 @@ export default function NewsAdminPage() {
     setDate(formatDbDateForInput(newsItem.date));
     setCategory(newsItem.category);
     setExcerpt(newsItem.excerpt);
+    setIsBanner(newsItem.isBanner || false);
     setImageFile(null);
     setPreviewUrl(newsItem.image);
     setIsModalOpen(true);
@@ -126,6 +129,7 @@ export default function NewsAdminPage() {
     formData.append("date", date);
     formData.append("category", category);
     formData.append("excerpt", excerpt);
+    formData.append("isBanner", isBanner ? "true" : "false");
     if (imageFile) {
       formData.append("image", imageFile);
     }
@@ -325,6 +329,19 @@ export default function NewsAdminPage() {
                     placeholder="Write a brief 1-2 sentence summary of the article..."
                     required
                   />
+                </div>
+
+                <div className="md:col-span-2 flex items-center mt-2">
+                  <input 
+                    type="checkbox" 
+                    id="isBanner"
+                    checked={isBanner}
+                    onChange={e => setIsBanner(e.target.checked)}
+                    className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  />
+                  <label htmlFor="isBanner" className="ml-2 block text-sm font-medium text-gray-700">
+                    Feature as Banner (Full Width)
+                  </label>
                 </div>
               </div>
 

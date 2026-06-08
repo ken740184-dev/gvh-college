@@ -27,6 +27,10 @@ const newsSchema = new mongoose.Schema({
   order: {
     type: Number,
     default: 0,
+  },
+  isBanner: {
+    type: Boolean,
+    default: false,
   }
 }, { timestamps: true });
 

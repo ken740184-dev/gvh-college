@@ -64,6 +64,7 @@ export async function addNews(formData: FormData) {
     const date = formData.get("date") as string;
     const category = formData.get("category") as string;
     const excerpt = formData.get("excerpt") as string;
+    const isBanner = formData.get("isBanner") === "true";
     const file = formData.get("image") as File;
 
     if (!title || !date || !category || !excerpt || !file) {
@@ -87,6 +88,7 @@ export async function addNews(formData: FormData) {
       date,
       category,
       excerpt,
+      isBanner,
       image: uploadResponse.secure_url,
       imagePublicId: uploadResponse.public_id,
       order: count,
@@ -109,6 +111,7 @@ export async function updateNews(id: string, formData: FormData) {
     const date = formData.get("date") as string;
     const category = formData.get("category") as string;
     const excerpt = formData.get("excerpt") as string;
+    const isBanner = formData.get("isBanner") === "true";
     const file = formData.get("image") as File | null;
 
     await connectToDatabase();
@@ -120,6 +123,7 @@ export async function updateNews(id: string, formData: FormData) {
       date,
       category,
       excerpt,
+      isBanner,
     };
 
     if (file && file.size > 0) {
