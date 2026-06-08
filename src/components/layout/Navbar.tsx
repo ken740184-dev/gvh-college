@@ -15,7 +15,6 @@ const originalNavigation = [
     dropdown: [
       { name: "Overview", href: "/about" },
       { name: "Gudleppa Hallikeri", href: "/about/gudleppa-hallikeri" },
-      { name: "Management", href: "/management" },
       { name: "Principal's Message", href: "/principal" }
     ]
   },
