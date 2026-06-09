@@ -29,6 +29,11 @@ const achievementSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  layoutSize: {
+    type: String,
+    enum: ['small', 'medium', 'large'],
+    default: 'small',
+  },
   order: {
     type: Number,
     default: 0,

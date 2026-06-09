@@ -36,7 +36,8 @@ export async function addAchievement(formData: FormData) {
     const date = formData.get("date") as string;
     const category = formData.get("category") as string;
     const description = formData.get("description") as string;
-    const isBanner = formData.get("isBanner") === "true";
+    const layoutSize = (formData.get("layoutSize") as string) || "small";
+    const isBanner = layoutSize === "medium" || layoutSize === "large";
     const file = formData.get("image") as File;
 
     if (!title || !date || !category || !description || !file) {
@@ -61,6 +62,7 @@ export async function addAchievement(formData: FormData) {
       category,
       description,
       isBanner,
+      layoutSize,
       image: uploadResponse.secure_url,
       imagePublicId: uploadResponse.public_id,
       order: count,
@@ -83,7 +85,8 @@ export async function updateAchievement(id: string, formData: FormData) {
     const date = formData.get("date") as string;
     const category = formData.get("category") as string;
     const description = formData.get("description") as string;
-    const isBanner = formData.get("isBanner") === "true";
+    const layoutSize = (formData.get("layoutSize") as string) || "small";
+    const isBanner = layoutSize === "medium" || layoutSize === "large";
     const file = formData.get("image") as File | null;
 
     await connectToDatabase();
@@ -96,6 +99,7 @@ export async function updateAchievement(id: string, formData: FormData) {
       category,
       description,
       isBanner,
+      layoutSize,
     };
 
     if (file && file.size > 0) {

@@ -64,7 +64,8 @@ export async function addNews(formData: FormData) {
     const date = formData.get("date") as string;
     const category = formData.get("category") as string;
     const excerpt = formData.get("excerpt") as string;
-    const isBanner = formData.get("isBanner") === "true";
+    const layoutSize = (formData.get("layoutSize") as string) || "small";
+    const isBanner = layoutSize === "medium" || layoutSize === "large";
     const file = formData.get("image") as File;
 
     if (!title || !date || !category || !excerpt || !file) {
@@ -89,6 +90,7 @@ export async function addNews(formData: FormData) {
       category,
       excerpt,
       isBanner,
+      layoutSize,
       image: uploadResponse.secure_url,
       imagePublicId: uploadResponse.public_id,
       order: count,
@@ -111,7 +113,8 @@ export async function updateNews(id: string, formData: FormData) {
     const date = formData.get("date") as string;
     const category = formData.get("category") as string;
     const excerpt = formData.get("excerpt") as string;
-    const isBanner = formData.get("isBanner") === "true";
+    const layoutSize = (formData.get("layoutSize") as string) || "small";
+    const isBanner = layoutSize === "medium" || layoutSize === "large";
     const file = formData.get("image") as File | null;
 
     await connectToDatabase();
@@ -124,6 +127,7 @@ export async function updateNews(id: string, formData: FormData) {
       category,
       excerpt,
       isBanner,
+      layoutSize,
     };
 
     if (file && file.size > 0) {

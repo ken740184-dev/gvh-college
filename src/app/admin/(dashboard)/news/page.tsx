@@ -57,7 +57,7 @@ export default function NewsAdminPage() {
   const [date, setDate] = useState(getTodayString());
   const [category, setCategory] = useState("");
   const [excerpt, setExcerpt] = useState("");
-  const [isBanner, setIsBanner] = useState(false);
+  const [layoutSize, setLayoutSize] = useState("small");
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   
@@ -84,7 +84,7 @@ export default function NewsAdminPage() {
     setDate(getTodayString());
     setCategory("General");
     setExcerpt("");
-    setIsBanner(false);
+    setLayoutSize("small");
     setImageFile(null);
     setPreviewUrl(null);
     setIsModalOpen(false);
@@ -96,7 +96,7 @@ export default function NewsAdminPage() {
     setDate(formatDbDateForInput(newsItem.date));
     setCategory(newsItem.category);
     setExcerpt(newsItem.excerpt);
-    setIsBanner(newsItem.isBanner || false);
+    setLayoutSize(newsItem.layoutSize || (newsItem.isBanner ? "medium" : "small"));
     setImageFile(null);
     setPreviewUrl(newsItem.image);
     setIsModalOpen(true);
@@ -129,7 +129,7 @@ export default function NewsAdminPage() {
     formData.append("date", date);
     formData.append("category", category);
     formData.append("excerpt", excerpt);
-    formData.append("isBanner", isBanner ? "true" : "false");
+    formData.append("layoutSize", layoutSize);
     if (imageFile) {
       formData.append("image", imageFile);
     }
@@ -201,9 +201,13 @@ export default function NewsAdminPage() {
           {newsList.map((item) => (
             <div key={item._id} className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all group flex flex-col">
               <div className="aspect-square w-full bg-gray-100 relative overflow-hidden">
-                <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
-                <div className="absolute top-4 left-4 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
-                  {item.category}
+                <div className="absolute top-4 left-4 flex flex-col gap-1.5">
+                  <span className="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-md self-start">
+                    {item.category}
+                  </span>
+                  <span className="bg-gray-800/90 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider shadow-md self-start">
+                    Size: {item.layoutSize || (item.isBanner ? "medium" : "small")}
+                  </span>
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-end p-4 gap-2">
                   <button 
@@ -331,17 +335,18 @@ export default function NewsAdminPage() {
                   />
                 </div>
 
-                <div className="md:col-span-2 flex items-center mt-2">
-                  <input 
-                    type="checkbox" 
-                    id="isBanner"
-                    checked={isBanner}
-                    onChange={e => setIsBanner(e.target.checked)}
-                    className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                  />
-                  <label htmlFor="isBanner" className="ml-2 block text-sm font-medium text-gray-700">
-                    Feature as Banner (Full Width)
-                  </label>
+                <div className="md:col-span-2">
+                  <label className="block text-sm font-bold text-gray-700 mb-2">Layout Size *</label>
+                  <select 
+                    value={layoutSize} 
+                    onChange={e => setLayoutSize(e.target.value)} 
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all outline-none bg-white font-sans text-sm"
+                    required
+                  >
+                    <option value="small">Small (1 Column, Text Below)</option>
+                    <option value="medium">Medium (Full Width, Image & Text Side-by-Side)</option>
+                    <option value="large">Large (Full Width, Image Top, Text Below, Grey Block)</option>
+                  </select>
                 </div>
               </div>
 

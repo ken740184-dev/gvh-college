@@ -31,6 +31,11 @@ const newsSchema = new mongoose.Schema({
   isBanner: {
     type: Boolean,
     default: false,
+  },
+  layoutSize: {
+    type: String,
+    enum: ['small', 'medium', 'large'],
+    default: 'small',
   }
 }, { timestamps: true });
 

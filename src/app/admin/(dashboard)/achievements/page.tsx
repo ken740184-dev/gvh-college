@@ -57,7 +57,7 @@ export default function AchievementsAdmin() {
     date: getTodayString(),
     category: "student",
     description: "",
-    isBanner: false,
+    layoutSize: "small",
   });
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
@@ -84,12 +84,12 @@ export default function AchievementsAdmin() {
         date: formatDbDateForInput(achievement.date),
         category: achievement.category,
         description: achievement.description,
-        isBanner: achievement.isBanner || false,
+        layoutSize: achievement.layoutSize || (achievement.isBanner ? "medium" : "small"),
       });
       setPreviewImage(achievement.image);
     } else {
       setEditingId(null);
-      setFormData({ title: "", date: getTodayString(), category: activeTab, description: "", isBanner: false });
+      setFormData({ title: "", date: getTodayString(), category: activeTab, description: "", layoutSize: "small" });
       setPreviewImage(null);
     }
     setImageFile(null);
@@ -142,7 +142,7 @@ export default function AchievementsAdmin() {
     data.append("date", formData.date);
     data.append("category", formData.category);
     data.append("description", formData.description);
-    data.append("isBanner", formData.isBanner ? "true" : "false");
+    data.append("layoutSize", formData.layoutSize);
     if (imageFile) {
       data.append("image", imageFile);
     }
@@ -255,10 +255,13 @@ export default function AchievementsAdmin() {
                   </button>
                 </div>
               </div>
-              <div className="p-5 flex flex-col flex-grow justify-center">
-                <div className="flex justify-between items-start mb-2">
-                  <span className="text-xs font-semibold text-accent bg-accent/10 px-2 py-1 rounded-md">{formatDate(item.date)}</span>
-                </div>
+                <div className="p-5 flex flex-col flex-grow justify-center">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-xs font-semibold text-accent bg-accent/10 px-2 py-1 rounded-md">{formatDate(item.date)}</span>
+                    <span className="bg-gray-100 text-gray-800 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
+                      Size: {item.layoutSize || (item.isBanner ? "medium" : "small")}
+                    </span>
+                  </div>
                 <h3 className="font-bold text-gray-900 mb-2 line-clamp-2 text-lg">
                   {item.title}
                 </h3>
@@ -347,10 +350,18 @@ export default function AchievementsAdmin() {
                   <option value="faculty">Faculty Achievement</option>
                   <option value="institutional">Institutional Achievement</option>
                 </select>
-              </div>
-
-
-
+              </div>                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Layout Size</label>
+                  <select
+                    value={formData.layoutSize}
+                    onChange={(e) => setFormData({...formData, layoutSize: e.target.value})}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent outline-none bg-white text-sm"
+                  >
+                    <option value="small">Small (1 Column, Text Below)</option>
+                    <option value="medium">Medium (Full Width, Image & Text Side-by-Side)</option>
+                    <option value="large">Large (Full Width, Image Top, Text Below, Grey Block)</option>
+                  </select>
+                </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
                 <textarea
