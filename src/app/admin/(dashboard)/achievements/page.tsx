@@ -227,63 +227,45 @@ export default function AchievementsAdmin() {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {(() => {
-            let bannerIndex = 0;
-            return filteredAchievements.map((item) => {
-              const currentBannerIndex = item.isBanner ? bannerIndex++ : 0;
-              return (
-                <div
-                  key={item._id}
-                  className={`bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all group flex flex-col ${
-                    item.isBanner
-                      ? `md:col-span-2 lg:col-span-3 ${
-                          currentBannerIndex % 2 === 1
-                            ? "md:flex-row-reverse"
-                            : "md:flex-row"
-                        }`
-                      : ""
-                  }`}
-                >
-                  <div
-                    className={`bg-gray-100 relative overflow-hidden flex items-center justify-center shrink-0 ${
-                      item.isBanner
-                        ? "w-full md:w-1/2 min-h-[250px] md:h-auto"
-                        : "w-full aspect-square"
-                    }`}
+          {filteredAchievements.map((item) => (
+            <div
+              key={item._id}
+              className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all group flex flex-col"
+            >
+              <div
+                className="bg-gray-100 relative overflow-hidden flex items-center justify-center shrink-0 w-full aspect-video"
+              >
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4 sm:opacity-100 sm:bg-transparent sm:items-start sm:justify-end sm:p-2 z-10">
+                  <button
+                    onClick={() => openModal(item)}
+                    className="bg-white p-2 rounded-full text-blue-600 hover:scale-110 transition-transform shadow-md"
                   >
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="absolute inset-0 w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4 sm:opacity-100 sm:bg-transparent sm:items-start sm:justify-end sm:p-2 z-10">
-                      <button
-                        onClick={() => openModal(item)}
-                        className="bg-white p-2 rounded-full text-blue-600 hover:scale-110 transition-transform shadow-md"
-                      >
-                        <Edit2 className="w-5 h-5" />
-                      </button>
-                      <button
-                        onClick={() => handleDelete(item._id)}
-                        className="bg-white p-2 rounded-full text-red-600 hover:scale-110 transition-transform shadow-md"
-                      >
-                        <Trash2 className="w-5 h-5" />
-                      </button>
-                    </div>
-                  </div>
-                  <div className={`p-5 flex flex-col flex-grow justify-center ${item.isBanner ? "md:w-1/2 md:p-8" : ""}`}>
-                    <div className="flex justify-between items-start mb-2">
-                      <span className="text-xs font-semibold text-accent bg-accent/10 px-2 py-1 rounded-md">{formatDate(item.date)}</span>
-                    </div>
-                    <h3 className={`font-bold text-gray-900 mb-2 line-clamp-2 ${item.isBanner ? "text-xl md:text-2xl" : "text-lg"}`}>
-                      {item.title}
-                    </h3>
-                    <p className="text-gray-600 text-sm line-clamp-3 mb-4">{item.description}</p>
-                  </div>
+                    <Edit2 className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={() => handleDelete(item._id)}
+                    className="bg-white p-2 rounded-full text-red-600 hover:scale-110 transition-transform shadow-md"
+                  >
+                    <Trash2 className="w-5 h-5" />
+                  </button>
                 </div>
-              );
-            });
-          })()}
+              </div>
+              <div className="p-5 flex flex-col flex-grow justify-center">
+                <div className="flex justify-between items-start mb-2">
+                  <span className="text-xs font-semibold text-accent bg-accent/10 px-2 py-1 rounded-md">{formatDate(item.date)}</span>
+                </div>
+                <h3 className="font-bold text-gray-900 mb-2 line-clamp-2 text-lg">
+                  {item.title}
+                </h3>
+                <p className="text-gray-600 text-sm line-clamp-3 mb-4">{item.description}</p>
+              </div>
+            </div>
+          ))}
         </div>
       )}
 
@@ -367,18 +349,7 @@ export default function AchievementsAdmin() {
                 </select>
               </div>
 
-              <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  id="isBanner"
-                  checked={formData.isBanner}
-                  onChange={(e) => setFormData({...formData, isBanner: e.target.checked})}
-                  className="w-4 h-4 text-accent border-gray-300 rounded focus:ring-accent"
-                />
-                <label htmlFor="isBanner" className="ml-2 block text-sm font-medium text-gray-700">
-                  Display as Full-Width Banner
-                </label>
-              </div>
+
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>

@@ -101,69 +101,39 @@ export default function AchievementsClient({ initialAchievements }: { initialAch
             whileInView="show"
             viewport={{ once: true, margin: "-100px" }}
           >
-            {(() => {
-              let bannerIndex = 0;
-              return filteredAchievements.map((item) => {
-                const currentBannerIndex = item.isBanner ? bannerIndex++ : 0;
-                return (
-                  <motion.div
-                    key={item._id}
-                    variants={cardVariants}
-                    className={`border border-white/20 bg-gradient-to-br from-white/80 via-white/50 to-white/10 backdrop-blur-xl shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col rounded-none overflow-hidden relative group ${
-                      item.isBanner
-                        ? `md:col-span-2 lg:col-span-3 ${
-                            currentBannerIndex % 2 === 1
-                              ? "md:flex-row-reverse"
-                              : "md:flex-row"
-                          }`
-                        : ""
-                    }`}
-                  >
-                    {/* Shimmer sweep reflection */}
-                    <div className="absolute inset-0 pointer-events-none overflow-hidden z-10">
-                      <div className="w-[150%] h-full bg-gradient-to-r from-transparent via-white/15 to-transparent -skew-x-12 translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-[1200ms] ease-in-out" />
-                    </div>
+            {filteredAchievements.map((item) => (
+              <motion.div
+                key={item._id}
+                variants={cardVariants}
+                className="border border-white/20 bg-gradient-to-br from-white/80 via-white/50 to-white/10 backdrop-blur-xl shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col rounded-none overflow-hidden relative group"
+              >
+                {/* Shimmer sweep reflection */}
+                <div className="absolute inset-0 pointer-events-none overflow-hidden z-10">
+                  <div className="w-[150%] h-full bg-gradient-to-r from-transparent via-white/15 to-transparent -skew-x-12 translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-[1200ms] ease-in-out" />
+                </div>
 
-                    <div
-                      className={`relative bg-gray-100/50 shrink-0 border-b border-white/15 ${
-                        item.isBanner
-                          ? "w-full md:w-1/2 h-[250px] md:h-auto min-h-[300px] border-b-0 md:border-r border-white/15"
-                          : "w-full aspect-square"
-                      }`}
-                    >
-                      <Image
-                        src={item.image}
-                        alt={item.title}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
-                        sizes={
-                          item.isBanner
-                            ? "(max-width: 768px) 100vw, 50vw"
-                            : "(max-width: 768px) 100vw, 33vw"
-                        }
-                      />
-                    </div>
-                    <div 
-                      className={`p-6 flex flex-col justify-center flex-grow ${
-                        item.isBanner 
-                          ? "md:w-1/2 md:p-8" 
-                          : ""
-                      }`}
-                    >
-                      <span className="bg-red-500/10 border border-red-500/20 text-accent px-2 py-0.5 rounded-none text-[10px] font-bold uppercase tracking-wider mb-3 shadow-[0_2px_10px_rgba(220,38,38,0.05)] self-start">
-                        {formatDate(item.date)}
-                      </span>
-                      <h3 className={`font-bold font-sans text-slate-800 uppercase tracking-tight leading-snug mb-3 ${item.isBanner ? "text-2xl md:text-3xl" : "text-xl"}`}>
-                        {item.title}
-                      </h3>
-                      <p className="text-secondary-text leading-relaxed text-sm md:text-base font-sans">
-                        {item.description}
-                      </p>
-                    </div>
-                  </motion.div>
-                );
-              });
-            })()}
+                <div className="relative bg-gray-100/50 shrink-0 border-b border-white/15 w-full aspect-video">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </div>
+                <div className="p-6 flex flex-col justify-center flex-grow">
+                  <span className="bg-red-500/10 border border-red-500/20 text-accent px-2 py-0.5 rounded-none text-[10px] font-bold uppercase tracking-wider mb-3 shadow-[0_2px_10px_rgba(220,38,38,0.05)] self-start">
+                    {formatDate(item.date)}
+                  </span>
+                  <h3 className="font-bold font-sans text-slate-800 uppercase tracking-tight leading-snug mb-3 text-xl">
+                    {item.title}
+                  </h3>
+                  <p className="text-secondary-text leading-relaxed text-sm md:text-base font-sans">
+                    {item.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
         )}
       </div>
