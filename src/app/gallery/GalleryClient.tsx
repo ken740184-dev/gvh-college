@@ -204,7 +204,7 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
           let currentCardGroup: any = null;
 
           filteredBlocks.forEach(block => {
-            if (block.layoutType === "single-card") {
+            if (block.layoutType === "single-card" || block.layoutType === "two-column") {
               if (!currentCardGroup) {
                 currentCardGroup = { _id: `group-${block._id}`, isGroup: true, blocks: [] };
                 grouped.push(currentCardGroup);
@@ -233,9 +233,13 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
                         <motion.div 
                           key={block._id}
                           variants={cardVariants}
-                          className="flex flex-col border border-gray-200 bg-white shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] h-full rounded-none overflow-hidden relative group"
+                          className={`flex border border-gray-200 bg-white shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] h-full rounded-none overflow-hidden relative group ${
+                            block.layoutType === "two-column"
+                              ? "col-span-1 sm:col-span-2 flex-col sm:flex-row"
+                              : "col-span-1 flex-col"
+                          }`}
                         >
-                          <div className="p-3 pb-0 flex flex-col">
+                          <div className={`p-3 pb-0 flex flex-col ${block.layoutType === "two-column" ? "w-full sm:w-1/2 sm:pb-3 sm:pr-0" : "w-full"}`}>
                             {/* Top Line: right-aligned, reversed gradient */}
                             <div className="w-[60%] h-[3px] bg-gradient-to-r from-blue-400 to-accent mb-3.5 rounded-full opacity-90 shadow-sm ml-auto"></div>
                              
@@ -254,7 +258,7 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
                               )}
                             </div>
                           </div>
-                          <div className="p-5 flex flex-col flex-grow items-start">
+                          <div className={`p-5 flex flex-col flex-grow items-start justify-center ${block.layoutType === "two-column" ? "w-full sm:w-1/2" : "w-full"}`}>
                             {/* Accent blue line: shorter than the card, longer than a small title */}
                             <div className="w-[60%] h-[3px] bg-gradient-to-r from-accent to-blue-400 mb-4 rounded-full opacity-90 shadow-sm"></div>
 

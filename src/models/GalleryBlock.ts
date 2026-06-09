@@ -4,7 +4,7 @@ const GalleryBlockSchema = new mongoose.Schema(
   {
     layoutType: {
       type: String,
-      enum: ["single", "duo", "grid-3", "bento-4", "bento-5", "single-card"],
+      enum: ["single", "duo", "grid-3", "bento-4", "bento-5", "single-card", "two-column"],
       required: true,
     },
     backgroundColor: {

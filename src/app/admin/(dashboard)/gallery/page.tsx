@@ -18,6 +18,22 @@ const LAYOUTS = [
       </div>
     )
   },
+  { 
+    id: "two-column", 
+    name: "Two-Column Card",
+    slots: 1, 
+    renderIcon: () => (
+      <div className="w-full h-full flex flex-col gap-1 items-center justify-center p-2">
+        <div className="w-20 h-10 bg-gray-200 rounded border border-gray-300 flex">
+          <div className="w-1/2 h-full bg-gray-300 border-r border-gray-200"></div>
+          <div className="w-1/2 h-full p-1 flex flex-col gap-0.5 justify-center">
+            <div className="w-full h-1 bg-gray-400 rounded-full"></div>
+            <div className="w-2/3 h-1 bg-gray-300 rounded-full"></div>
+          </div>
+        </div>
+      </div>
+    )
+  },
 ];
 
 const COLORS = [
