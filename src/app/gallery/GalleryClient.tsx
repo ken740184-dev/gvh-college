@@ -27,7 +27,35 @@ const cardVariants = {
   }
 } as any;
 
-const categories = ["All", "Campus", "Academic", "Sports", "Events"];
+const categories = [
+  "All",
+  "Campus 🏫",
+  "Academic 📚",
+  "Cultural 🎭",
+  "Sports 🏅",
+  "Competitions 🏆",
+  "Workshops & Seminars 🎤",
+  "Exhibitions 🖼️",
+  "Community Service / NSS 🤝",
+  "Festivals & Celebrations 🎉"
+];
+
+const matchCategory = (galleryCat: string, activeCat: string) => {
+  if (!galleryCat || !activeCat) return false;
+  const clean = (str: string) => 
+    str.replace(/[\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD00-\uDFFF]/g, '')
+       .toLowerCase()
+       .replace(/[^a-z0-9]/g, '')
+       .trim();
+
+  const c1 = clean(galleryCat);
+  const c2 = clean(activeCat);
+  
+  // Custom mapping for old "events" category to "Cultural" or "Academic"
+  if (c1 === "events" && c2.includes("celebrations")) return true;
+  
+  return c1.includes(c2) || c2.includes(c1);
+};
 
 const isDarkColor = (color: string) => {
   if (!color) return false;
@@ -56,7 +84,7 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
         // If the image has its own category, use it. Otherwise fallback to the block's category.
         const imgCategory = img.category && img.category !== "None" ? img.category : block.category;
         
-        if (activeCategory === "All" || imgCategory === activeCategory) {
+        if (activeCategory === "All" || matchCategory(imgCategory, activeCategory)) {
           flatBlocks.push({
             _id: img._id || (block._id + "-" + img.url),
             layoutType: block.layoutType || "single-card",

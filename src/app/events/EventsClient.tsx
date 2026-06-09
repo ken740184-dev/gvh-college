@@ -28,7 +28,30 @@ const cardVariants = {
   },
 } as any;
 
-const categories = ["All", "Cultural", "Academic", "Sports", "Seminars", "Exhibitions"];
+const categories = [
+  "All",
+  "Academic 📚",
+  "Cultural 🎭",
+  "Sports 🏅",
+  "Competitions 🏆",
+  "Workshops & Seminars 🎤",
+  "Exhibitions 🖼️",
+  "Community Service / NSS 🤝",
+  "Festivals & Celebrations 🎉"
+];
+
+const matchCategory = (eventCat: string, activeCat: string) => {
+  if (!eventCat || !activeCat) return false;
+  const clean = (str: string) => 
+    str.replace(/[\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD00-\uDFFF]/g, '')
+       .toLowerCase()
+       .replace(/[^a-z0-9]/g, '')
+       .trim();
+
+  const c1 = clean(eventCat);
+  const c2 = clean(activeCat);
+  return c1.includes(c2) || c2.includes(c1);
+};
 
 export default function EventsClient({ initialEvents }: { initialEvents: any[] }) {
   const [events] = useState<any[]>(initialEvents);
@@ -43,9 +66,7 @@ export default function EventsClient({ initialEvents }: { initialEvents: any[] }
 
   const filteredEvents = useMemo(() => {
     if (activeCategory === "All") return events;
-    return events.filter(
-      (e) => e.category?.toLowerCase() === activeCategory.toLowerCase()
-    );
+    return events.filter((e) => matchCategory(e.category, activeCategory));
   }, [events, activeCategory]);
 
   const toggleExpand = (id: string) => {
