@@ -150,7 +150,7 @@ export default function AchievementsClient({ initialAchievements }: { initialAch
                     <motion.div
                       key={item._id}
                       variants={cardVariants}
-                      className="bg-[#F2F3F5] border border-gray-200 shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col rounded-none overflow-hidden relative group md:col-span-2 lg:col-span-3"
+                      className="bg-[#f3f4f6] border border-gray-200 shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col rounded-none overflow-hidden relative group md:col-span-2 lg:col-span-3"
                     >
                       {/* Shimmer sweep reflection */}
                       <div className="absolute inset-0 pointer-events-none overflow-hidden z-10">
@@ -158,8 +158,8 @@ export default function AchievementsClient({ initialAchievements }: { initialAch
                       </div>
 
                       {/* Image container padded to leave space around it as a border */}
-                      <div className="w-full p-4 md:p-6 pb-0 md:pb-0 shrink-0">
-                        <div className="relative w-full aspect-[21/9] md:aspect-[3/1] min-h-[220px] overflow-hidden">
+                      <div className="w-full p-6 pb-4 shrink-0">
+                        <div className="relative w-full aspect-[21/9] md:aspect-[3/1] min-h-[220px] overflow-hidden rounded-md shadow-sm">
                           <Image
                             src={item.image}
                             alt={item.title}
@@ -170,7 +170,7 @@ export default function AchievementsClient({ initialAchievements }: { initialAch
                         </div>
                       </div>
                       
-                      <div className="p-6 md:p-8 flex flex-col justify-center flex-grow">
+                      <div className="px-6 pb-6 flex flex-col justify-center flex-grow">
                         <span className="bg-red-500/10 border border-red-500/20 text-accent px-2 py-0.5 rounded-none text-[10px] font-bold uppercase tracking-wider mb-3 shadow-[0_2px_10px_rgba(220,38,38,0.05)] self-start">
                           {formatDate(item.date)}
                         </span>
