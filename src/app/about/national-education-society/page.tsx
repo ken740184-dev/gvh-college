@@ -56,7 +56,7 @@ export default function NationalEducationSocietyPage() {
           <h1 className="text-3xl sm:text-5xl font-sans font-extrabold tracking-tight mb-4">
             National Education Society
           </h1>
-          <div className="h-[3px] w-24 bg-accent mb-4 rounded-full"></div>
+          <div className="h-[3px] w-24 bg-accent mb-4"></div>
           <p className="text-base md:text-lg text-gray-300 font-medium max-w-2xl">
             Empowering Rural Communities Through Education Since 1963
           </p>
@@ -78,7 +78,7 @@ export default function NationalEducationSocietyPage() {
             <h2 className="text-2xl md:text-3xl font-extrabold text-slate-800 tracking-tight">
               A Legacy of Rural Empowerment
             </h2>
-            <div className="w-12 h-[3px] bg-accent rounded-full"></div>
+            <div className="w-12 h-[3px] bg-accent"></div>
             <div className="space-y-4 text-secondary-text text-sm md:text-base leading-relaxed">
               <p>
                 The **National Education Society (NES)**, based in Hosaritti, Haveri district, is a premier educational trust committed to rural development. Guided by the principles of social equity and educational access, the society has established a robust ecosystem of learning.
@@ -88,7 +88,7 @@ export default function NationalEducationSocietyPage() {
               </p>
             </div>
           </div>
-          <div className="relative aspect-video rounded-xl overflow-hidden border border-gray-200 shadow-sm bg-gray-50">
+          <div className="relative aspect-video rounded-none overflow-hidden border border-gray-200 shadow-sm bg-gray-50">
             <Image 
               src="/images/about/heritage-gurukul.webp"
               alt="Historical Campus Overview"
@@ -110,7 +110,7 @@ export default function NationalEducationSocietyPage() {
             <h2 className="text-2xl md:text-3xl font-extrabold text-slate-800 tracking-tight">
               Our Educational Ecosystem
             </h2>
-            <div className="w-12 h-[3px] bg-accent rounded-full"></div>
+            <div className="w-12 h-[3px] bg-accent"></div>
             <p className="text-secondary-text text-sm md:text-base max-w-3xl">
               NES runs an integrated cluster of institutions in Hosaritti, offering students a seamless path from primary education to undergraduate and postgraduate degrees.
             </p>
@@ -118,7 +118,7 @@ export default function NationalEducationSocietyPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-2">
             {institutions.map((inst) => (
-              <div key={inst.name} className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+              <div key={inst.name} className="bg-white border border-gray-200 rounded-none overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
                 <div className="relative aspect-video w-full overflow-hidden bg-gray-50">
                   <Image 
                     src={inst.image}
@@ -148,16 +148,13 @@ export default function NationalEducationSocietyPage() {
       </div>
 
       {/* Quote Banner */}
-      <div className="bg-navbar text-white py-16 relative overflow-hidden border-t border-gray-800">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-blue-500 rounded-full blur-3xl"></div>
-        </div>
-        <div className="max-w-4xl mx-auto px-4 text-center relative z-10 space-y-5">
-          <p className="text-xl md:text-2xl font-serif italic text-blue-200 leading-relaxed">
+      <div className="bg-gray-100 text-slate-800 py-16 border-t border-b border-gray-200">
+        <div className="max-w-4xl mx-auto px-4 text-center space-y-5">
+          <p className="text-xl md:text-2xl font-serif italic text-slate-700 leading-relaxed">
             "To build rural institutions is to build the nation’s foundation. We teach not just to inform, but to transform local communities."
           </p>
           <div className="w-12 h-[2px] bg-accent mx-auto"></div>
-          <h4 className="font-sans font-bold text-xs tracking-widest uppercase text-gray-400">
+          <h4 className="font-sans font-bold text-xs tracking-widest uppercase text-slate-500">
             National Education Society Core Philosophy
           </h4>
         </div>
