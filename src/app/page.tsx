@@ -227,11 +227,11 @@ export default async function Home() {
       </section>
 
       {/* Gallery Preview & Call to Action */}
-      <section className="py-12 bg-gray-50 text-center">
+      <section className="py-8 bg-gray-50 text-center">
         <div className="max-w-3xl mx-auto px-4">
-          <h2 className="text-4xl font-sans font-bold mb-4">Discover Our Institution</h2>
-          <p className="text-xl text-secondary-text mb-6">Take a visual tour of our campus, academic facilities, and student life.</p>
-          <Button href="/gallery" size="lg">View Complete Gallery</Button>
+          <h2 className="text-3xl font-sans font-bold mb-2">Discover Our Institution</h2>
+          <p className="text-lg text-secondary-text mb-4">Take a visual tour of our campus, academic facilities, and student life.</p>
+          <Button href="/gallery" size="default">View Complete Gallery</Button>
         </div>
       </section>
 
