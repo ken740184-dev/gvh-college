@@ -40,6 +40,9 @@ const achievementSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-const Achievement = mongoose.models.Achievement || mongoose.model('Achievement', achievementSchema);
+if (mongoose.models.Achievement) {
+  delete mongoose.models.Achievement;
+}
+const Achievement = mongoose.model('Achievement', achievementSchema);
 
 export default Achievement;

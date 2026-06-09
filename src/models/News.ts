@@ -39,6 +39,9 @@ const newsSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-const News = mongoose.models.News || mongoose.model('News', newsSchema);
+if (mongoose.models.News) {
+  delete mongoose.models.News;
+}
+const News = mongoose.model('News', newsSchema);
 
 export default News;

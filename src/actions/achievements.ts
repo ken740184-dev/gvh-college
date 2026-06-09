@@ -55,14 +55,14 @@ export async function addAchievement(formData: FormData) {
     });
 
     await connectToDatabase();
-    const count = await Achievement.countDocuments({ category });
+    const count = await Achievement.countDocuments({ category: category as any });
     const newAchievement = await Achievement.create({
       title,
       date,
-      category,
+      category: category as any,
       description,
       isBanner,
-      layoutSize,
+      layoutSize: layoutSize as any,
       image: uploadResponse.secure_url,
       imagePublicId: uploadResponse.public_id,
       order: count,

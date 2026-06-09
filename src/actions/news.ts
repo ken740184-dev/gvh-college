@@ -90,7 +90,7 @@ export async function addNews(formData: FormData) {
       category,
       excerpt,
       isBanner,
-      layoutSize,
+      layoutSize: layoutSize as any,
       image: uploadResponse.secure_url,
       imagePublicId: uploadResponse.public_id,
       order: count,
