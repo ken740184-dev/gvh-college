@@ -130,6 +130,8 @@ export default function AdminGalleryPage() {
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [editingBlockId, setEditingBlockId] = useState<string | null>(null);
+  const [showUploadMoreModal, setShowUploadMoreModal] = useState(false);
+  const [modalSubstep, setModalSubstep] = useState(1);
 
   const fileInputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
@@ -346,11 +348,17 @@ export default function AdminGalleryPage() {
       setIsUploading(false);
       
       if (res.success) {
+        const wasEditing = !!editingBlockId;
         setSlots(Array(selectedLayout.slots).fill({ file: null, previewUrl: null, title: "", category: "Campus" }));
         setBlockTitle("");
         setBlockDescription("");
         setEditingBlockId(null);
         fetchBlocks(); 
+        
+        if (!wasEditing) {
+          setShowUploadMoreModal(true);
+          setModalSubstep(1);
+        }
       } else {
         alert(`Failed to ${editingBlockId ? "update" : "upload"} block: ` + res.error);
       }
@@ -957,6 +965,94 @@ export default function AdminGalleryPage() {
               )}
         </div>
       </div>
+
+      {/* Upload More / Choose Next Layout Modal */}
+      {showUploadMoreModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-gray-100 transform transition-all scale-100 animate-in zoom-in-95 duration-200">
+            {modalSubstep === 1 ? (
+              <div className="text-center">
+                <div className="w-16 h-16 bg-cyan-50 rounded-full flex items-center justify-center mx-auto mb-4 text-cyan-600 border border-cyan-100">
+                  <CheckCircle2 className="w-8 h-8" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Published Successfully!</h3>
+                <p className="text-sm text-gray-500 mb-6">
+                  Would you like to return to the dashboard or upload another photo to your gallery?
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <button
+                    onClick={() => {
+                      setShowUploadMoreModal(false);
+                      setStep(1);
+                    }}
+                    className="w-full sm:w-auto px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded-xl text-sm transition-colors"
+                  >
+                    Done & Exit
+                  </button>
+                  <button
+                    onClick={() => setModalSubstep(2)}
+                    className="w-full sm:w-auto px-6 py-2.5 bg-cyan-600 hover:bg-cyan-700 text-white font-bold rounded-xl text-sm transition-colors shadow-md shadow-cyan-600/10"
+                  >
+                    Upload Another
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2 text-center">Choose Layout Style</h3>
+                <p className="text-sm text-gray-500 mb-6 text-center">
+                  Which style would you like to use for your next card?
+                </p>
+                <div className="grid grid-cols-2 gap-4 mb-6">
+                  {/* Single Column Option */}
+                  <button
+                    onClick={() => {
+                      const layout = LAYOUTS.find(l => l.id === "single-card") || LAYOUTS[0];
+                      setSelectedLayout(layout);
+                      setSlots(Array(layout.slots).fill({ file: null, previewUrl: null, title: "", category: "Campus" }));
+                      setStep(2);
+                      setShowUploadMoreModal(false);
+                    }}
+                    className="flex flex-col items-center justify-center p-4 border border-gray-200 rounded-2xl hover:border-cyan-500 hover:bg-cyan-50/20 transition-all text-center group"
+                  >
+                    <div className="w-full aspect-video bg-gray-100 rounded-lg mb-3 flex items-center justify-center border border-gray-200 group-hover:border-cyan-200">
+                      <div className="w-8 h-8 bg-gray-300 rounded border border-gray-400"></div>
+                    </div>
+                    <span className="font-bold text-xs text-gray-800">Single Card</span>
+                    <span className="text-[10px] text-gray-400 mt-0.5">(1 Column)</span>
+                  </button>
+
+                  {/* Two Column Option */}
+                  <button
+                    onClick={() => {
+                      const layout = LAYOUTS.find(l => l.id === "two-column") || LAYOUTS[0];
+                      setSelectedLayout(layout);
+                      setSlots(Array(layout.slots).fill({ file: null, previewUrl: null, title: "", category: "Campus" }));
+                      setStep(2);
+                      setShowUploadMoreModal(false);
+                    }}
+                    className="flex flex-col items-center justify-center p-4 border border-gray-200 rounded-2xl hover:border-cyan-500 hover:bg-cyan-50/20 transition-all text-center group"
+                  >
+                    <div className="w-full aspect-video bg-gray-100 rounded-lg mb-3 flex items-center justify-center border border-gray-200 group-hover:border-cyan-200">
+                      <div className="w-14 h-7 bg-gray-300 rounded border border-gray-400"></div>
+                    </div>
+                    <span className="font-bold text-xs text-gray-800">Two-Column Card</span>
+                    <span className="text-[10px] text-gray-400 mt-0.5">(2 Columns)</span>
+                  </button>
+                </div>
+                <div className="text-center">
+                  <button
+                    onClick={() => setModalSubstep(1)}
+                    className="text-sm font-bold text-gray-500 hover:text-gray-700 hover:underline"
+                  >
+                    Back
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
