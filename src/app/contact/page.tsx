@@ -146,7 +146,7 @@ export default function ContactPage() {
         ></iframe>
         
         {/* Info Card (Top-Left) */}
-        <div className="absolute top-4 left-4 z-10 w-[260px] sm:w-[360px] bg-white/95 backdrop-blur-md p-3.5 rounded-md shadow-lg border border-gray-200/85 transition-all duration-300 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transform translate-y-2 group-hover:translate-y-0">
+        <div className="absolute top-4 left-4 z-10 w-[260px] sm:w-[360px] bg-white/95 backdrop-blur-md p-3.5 rounded-md shadow-lg border border-gray-200/85 pointer-events-auto">
           <div className="flex gap-3 text-gray-800">
             <div className="flex-1 min-w-0">
               <h4 className="font-sans font-bold text-xs sm:text-sm text-gray-900 leading-tight break-words">
@@ -199,7 +199,7 @@ export default function ContactPage() {
         </div>
         
         {/* Top-Right Action Buttons Stack */}
-        <div className="absolute top-4 right-4 z-10 flex flex-col gap-2.5 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 pointer-events-none group-hover:pointer-events-auto">
+        <div className="absolute top-4 right-4 z-10 flex flex-col gap-2.5 pointer-events-auto">
           {/* View on Google Maps Button */}
           <a 
             href="https://www.google.com/maps/place/14.896620,75.554571"
