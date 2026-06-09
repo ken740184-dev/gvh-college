@@ -57,6 +57,34 @@ const formatDate = (dateStr: string) => {
   return dateStr;
 };
 
+function ExpandableText({ text, limit = 180 }: { text: string; limit?: number }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  if (!text) return null;
+  if (text.length <= limit) {
+    return <p className="text-secondary-text leading-relaxed text-sm font-sans whitespace-pre-wrap">{text}</p>;
+  }
+
+  const shownText = isExpanded ? text : text.slice(0, limit) + "...";
+
+  return (
+    <div className="space-y-1">
+      <p className="text-secondary-text leading-relaxed text-sm font-sans whitespace-pre-wrap">
+        {shownText}
+      </p>
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          setIsExpanded(!isExpanded);
+        }}
+        className="text-accent hover:text-accent/80 font-bold text-xs tracking-wider uppercase inline-flex items-center gap-1 transition-colors mt-1 focus:outline-none"
+      >
+        {isExpanded ? "Read Less ▲" : "Read More ▼"}
+      </button>
+    </div>
+  );
+}
+
 export default function AchievementsClient({ initialAchievements }: { initialAchievements: any[] }) {
   const [activeTab, setActiveTab] = useState("student");
   const [achievements] = useState<any[]>(initialAchievements);
@@ -162,9 +190,7 @@ export default function AchievementsClient({ initialAchievements }: { initialAch
                           {item.title}
                         </h3>
                         <div className="w-10 h-[2px] bg-[#1e40af] mt-2 mb-3" />
-                        <p className="text-secondary-text leading-relaxed text-sm md:text-base font-sans whitespace-pre-wrap">
-                          {item.description}
-                        </p>
+                        <ExpandableText text={item.description} limit={220} />
                       </motion.div>
                     </motion.div>
                   );
@@ -198,9 +224,7 @@ export default function AchievementsClient({ initialAchievements }: { initialAch
                           {item.title}
                         </h3>
                         <div className="w-10 h-[2px] bg-[#1e40af] mt-2 mb-3" />
-                        <p className="text-secondary-text leading-relaxed text-sm md:text-base font-sans whitespace-pre-wrap">
-                          {item.description}
-                        </p>
+                        <ExpandableText text={item.description} limit={250} />
                       </div>
                     </motion.div>
                   );
@@ -235,9 +259,7 @@ export default function AchievementsClient({ initialAchievements }: { initialAch
                         {item.title}
                       </h3>
                       <div className="w-8 h-[2px] bg-[#1e40af] mt-1.5 mb-2.5" />
-                      <p className="text-secondary-text leading-relaxed text-sm font-sans whitespace-pre-wrap">
-                        {item.description}
-                      </p>
+                      <ExpandableText text={item.description} limit={180} />
                     </div>
                   </motion.div>
                 );
