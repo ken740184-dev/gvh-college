@@ -41,7 +41,7 @@ const sampleNews = [
 export async function getNews() {
   try {
     await connectToDatabase();
-    let newsList = await News.find().sort({ order: 1, createdAt: -1 }).lean();
+    let newsList = await News.find().sort({ createdAt: -1 }).lean();
 
     // Seed if empty (only if first run, but if the database gets empty by deletion we don't want it to seed again)
     // To make sure clean installs get seeded, we check if there are any documents, but to allow users to delete all,
