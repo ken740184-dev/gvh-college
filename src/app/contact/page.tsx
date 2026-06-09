@@ -2,7 +2,7 @@
 
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
-import { MapPin, Phone, Mail, Clock, Navigation } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Navigation, ExternalLink } from "lucide-react";
 
 export default function ContactPage() {
   return (
@@ -146,7 +146,7 @@ export default function ContactPage() {
         ></iframe>
         
         {/* Info Card (Top-Left) */}
-        <div className="absolute top-4 left-4 z-10 w-[260px] sm:w-[360px] bg-white/90 backdrop-blur-md p-3.5 rounded-md shadow-lg border border-gray-200/85 pointer-events-auto">
+        <div className="absolute top-4 left-4 z-10 w-[260px] sm:w-[360px] bg-white/95 backdrop-blur-md p-3.5 rounded-md shadow-lg border border-gray-200/85 transition-all duration-300 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transform translate-y-2 group-hover:translate-y-0">
           <div className="flex gap-3 text-gray-800">
             <div className="flex-1 min-w-0">
               <h4 className="font-sans font-bold text-xs sm:text-sm text-gray-900 leading-tight break-words">
@@ -159,14 +159,30 @@ export default function ContactPage() {
                 Hosaritti, Haveri District<br />
                 Karnataka - 581115
               </p>
-              <div className="mt-2.5 pt-2 border-t border-gray-100">
+              <div className="mt-3 pt-2.5 border-t border-gray-100 flex items-center gap-3">
+                {/* View larger map button */}
                 <a 
                   href="https://www.google.com/maps/place/14.896620,75.554571"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[11px] text-blue-600 hover:text-blue-800 hover:underline font-semibold flex items-center gap-1 transition-colors"
+                  className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center border border-gray-200 shadow-sm transition-all duration-300 hover:scale-105"
+                  title="View Larger Map"
                 >
-                  <span>View larger map</span>
+                  <ExternalLink className="w-4 h-4 text-blue-600" />
+                </a>
+
+                {/* Directions button */}
+                <a 
+                  href="https://www.google.com/maps/dir/?api=1&destination=14.896620,75.554571"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center border border-gray-200 shadow-sm transition-all duration-300 hover:scale-105"
+                  title="Get Directions"
+                >
+                  <svg viewBox="0 0 24 24" className="w-7 h-7">
+                    <path fill="#1a73e8" d="M12 2L2 12l10 10 10-10L12 2z" />
+                    <path fill="#fff" d="M11.5 15.5v-4a1 1 0 0 1 1-1h2.5V8.5L18.5 12l-3.5 3.5V13.5h-2.5v2h-1z" />
+                  </svg>
                 </a>
               </div>
             </div>
@@ -183,12 +199,12 @@ export default function ContactPage() {
         </div>
         
         {/* Directions Button (Top-Right) */}
-        <div className="absolute top-4 right-4 z-10 pointer-events-none">
+        <div className="absolute top-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 pointer-events-none group-hover:pointer-events-auto">
           <a 
             href="https://www.google.com/maps/dir/?api=1&destination=14.896620,75.554571"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-accent hover:bg-accent/90 text-white px-4 py-2.5 sm:px-5 sm:py-3 rounded-lg font-bold shadow-lg transition-all duration-300 hover:scale-[1.03] flex items-center gap-2 pointer-events-auto border border-white/20 text-xs sm:text-sm"
+            className="bg-accent hover:bg-accent/90 text-white px-4 py-2.5 sm:px-5 sm:py-3 rounded-lg font-bold shadow-lg transition-all duration-300 hover:scale-[1.03] flex items-center gap-2 border border-white/20 text-xs sm:text-sm"
           >
             <Navigation className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
             <span className="hidden sm:inline">Get Directions on Google Maps</span>

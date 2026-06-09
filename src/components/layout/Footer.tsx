@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { MapPin, Phone, Mail, Navigation } from "lucide-react";
+import { MapPin, Phone, Mail, Navigation, ExternalLink } from "lucide-react";
 
 export default function Footer() {
   const pathname = usePathname();
@@ -113,28 +113,44 @@ export default function Footer() {
           {/* Map Link */}
           <div>
             <h4 className="font-bold text-lg mb-6 tracking-wider uppercase">Location</h4>
-            <Link
-              href="/contact#map"
+            <div
               className="block relative w-full h-48 bg-gray-900 rounded-lg overflow-hidden border border-gray-700 hover:border-accent transition-all duration-300 shadow-inner group"
-              title="View Interactive Map on Contact Page"
             >
               {/* Static Map Placeholder Image */}
               <Image
                 src="/images/layout/map-footer.png"
                 alt="GVH College Location Map"
                 fill
-                className="object-cover opacity-100 group-hover:opacity-50 group-hover:scale-105 transition-all duration-500 ease-in-out"
+                className="object-cover opacity-100 group-hover:opacity-40 group-hover:scale-105 transition-all duration-500 ease-in-out"
                 sizes="(max-width: 768px) 100vw, 300px"
               />
 
-              {/* Clickable Overlay Link to Interactive Map */}
-              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/0 group-hover:bg-black/50 transition-colors duration-300">
-                <div className="bg-navbar/95 backdrop-blur-sm border border-gray-700 text-white px-4 py-2 rounded-full text-xs font-bold shadow-lg flex items-center gap-1.5 opacity-0 group-hover:opacity-100 scale-95 group-hover:scale-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                  <MapPin className="w-3.5 h-3.5 text-accent animate-pulse" />
-                  <span>View Map & Directions</span>
-                </div>
+              {/* Clickable Overlay with Two Separate Circular Buttons */}
+              <div className="absolute inset-0 z-10 flex items-center justify-center gap-6 bg-black/0 group-hover:bg-black/60 transition-colors duration-300">
+                {/* View Map Button */}
+                <Link
+                  href="/contact#map"
+                  className="w-12 h-12 rounded-full bg-white/95 hover:bg-white flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0"
+                  title="View Interactive Map"
+                >
+                  <ExternalLink className="w-5 h-5 text-blue-600" />
+                </Link>
+
+                {/* Directions Button */}
+                <a
+                  href="https://www.google.com/maps/dir/?api=1&destination=14.896620,75.554571"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-12 h-12 rounded-full bg-white/95 hover:bg-white flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 delay-[50ms]"
+                  title="Get Directions on Google Maps"
+                >
+                  <svg viewBox="0 0 24 24" className="w-8 h-8">
+                    <path fill="#1a73e8" d="M12 2L2 12l10 10 10-10L12 2z" />
+                    <path fill="#fff" d="M11.5 15.5v-4a1 1 0 0 1 1-1h2.5V8.5L18.5 12l-3.5 3.5V13.5h-2.5v2h-1z" />
+                  </svg>
+                </a>
               </div>
-            </Link>
+            </div>
           </div>
         </div>
 
