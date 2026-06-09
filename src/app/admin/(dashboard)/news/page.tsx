@@ -163,7 +163,6 @@ export default function NewsAdminPage() {
 
   return (
     <div className="max-w-6xl mx-auto pb-20 md:pb-0 relative">
-      <MobileHeader />
 
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
         <div>
@@ -201,6 +200,13 @@ export default function NewsAdminPage() {
           {newsList.map((item) => (
             <div key={item._id} className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all group flex flex-col">
               <div className="aspect-square w-full bg-gray-100 relative overflow-hidden">
+                {item.image && (
+                  <img 
+                    src={item.image} 
+                    alt={item.title} 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                  />
+                )}
                 <div className="absolute top-4 left-4 flex flex-col gap-1.5">
                   <span className="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-md self-start">
                     {item.category}

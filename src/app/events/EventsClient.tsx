@@ -258,6 +258,7 @@ export default function EventsClient({ initialEvents }: { initialEvents: any[] }
           </div>
         ) : (
           <motion.div 
+            key={activeCategory}
             className="space-y-12 mt-6"
             variants={containerVariants}
             initial="hidden"

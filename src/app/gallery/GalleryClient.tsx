@@ -233,7 +233,7 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
       </div>
 
       {/* Render Blocks */}
-      <div className="flex flex-col">
+      <div key={activeCategory} className="flex flex-col">
         {(() => {
           const grouped: any[] = [];
           let currentCardGroup: any = null;
