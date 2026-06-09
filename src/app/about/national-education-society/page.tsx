@@ -81,10 +81,10 @@ export default function NationalEducationSocietyPage() {
             <div className="w-12 h-[3px] bg-accent"></div>
             <div className="space-y-4 text-secondary-text text-sm md:text-base leading-relaxed">
               <p>
-                The **National Education Society (NES)**, based in Hosaritti, Haveri district, is a premier educational trust committed to rural development. Guided by the principles of social equity and educational access, the society has established a robust ecosystem of learning.
+                The <strong>National Education Society (NES)</strong>, based in Hosaritti, Haveri district, is a premier educational trust committed to rural development. Guided by the principles of social equity and educational access, the society has established a robust ecosystem of learning.
               </p>
               <p>
-                The foundational vision of the society is deeply connected to the legacy of the freedom fighter **Gudleppa Hallikeri**, who donated his ancestral property and wealth to establish educational opportunities in the region. Today, the society administers a full academic pipeline, from primary schooling to pre-university and higher degree colleges.
+                The foundational vision of the society is deeply connected to the legacy of the freedom fighter <strong>Gudleppa Hallikeri</strong>, who donated his ancestral property and wealth to establish educational opportunities in the region. Today, the society administers a full academic pipeline, from primary schooling to pre-university and higher degree colleges.
               </p>
             </div>
           </div>
