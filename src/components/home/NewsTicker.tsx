@@ -3,9 +3,14 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
-const announcementText = "this is a ribbon what am supposed to say this , addmission for 2026 has started apply now";
+interface NewsTickerProps {
+  text?: string;
+  isActive?: boolean;
+}
 
-export default function NewsTicker() {
+export default function NewsTicker({ text, isActive = true }: NewsTickerProps) {
+  if (!isActive || !text) return null;
+
   return (
     <div className="bg-accent text-white flex items-center relative overflow-hidden h-14 w-full border-b border-white/20 z-20 shadow-md">
       {/* Static Button Container on the Left */}
@@ -24,11 +29,11 @@ export default function NewsTicker() {
         <div className="flex items-center shrink-0">
           <span className="mx-12 text-sm font-medium tracking-wider uppercase flex items-center gap-2 shrink-0 select-none">
             <span className="inline-block w-2 h-2 rounded-full bg-white animate-pulse shrink-0" />
-            {announcementText}
+            {text}
           </span>
           <span className="mx-12 text-sm font-medium tracking-wider uppercase flex items-center gap-2 shrink-0 select-none">
             <span className="inline-block w-2 h-2 rounded-full bg-white/60 shrink-0" />
-            {announcementText}
+            {text}
           </span>
         </div>
         
@@ -36,11 +41,11 @@ export default function NewsTicker() {
         <div className="flex items-center shrink-0" aria-hidden="true">
           <span className="mx-12 text-sm font-medium tracking-wider uppercase flex items-center gap-2 shrink-0 select-none">
             <span className="inline-block w-2 h-2 rounded-full bg-white animate-pulse shrink-0" />
-            {announcementText}
+            {text}
           </span>
           <span className="mx-12 text-sm font-medium tracking-wider uppercase flex items-center gap-2 shrink-0 select-none">
             <span className="inline-block w-2 h-2 rounded-full bg-white/60 shrink-0" />
-            {announcementText}
+            {text}
           </span>
         </div>
       </div>
