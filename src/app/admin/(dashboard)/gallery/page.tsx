@@ -18,64 +18,6 @@ const LAYOUTS = [
       </div>
     )
   },
-  { 
-    id: "single", 
-    name: "Single Feature",
-    slots: 1, 
-    renderIcon: () => (
-      <div className="w-full h-24 bg-gray-200 rounded-md border border-gray-300"></div>
-    )
-  },
-  { 
-    id: "duo", 
-    name: "Duo Layout",
-    slots: 1, 
-    renderIcon: () => (
-      <div className="w-full h-16 sm:h-20 grid grid-cols-2 gap-1">
-        <div className="col-span-1 bg-gray-200 rounded border border-gray-300"></div>
-        <div className="col-span-1 bg-gray-100 border-2 border-dashed border-gray-300 rounded flex items-center justify-center text-gray-400 text-xs">+</div>
-      </div>
-    )
-  },
-  { 
-    id: "grid-3", 
-    name: "Dynamic Grid",
-    slots: 1, 
-    renderIcon: () => (
-      <div className="w-full h-16 sm:h-20 grid grid-cols-3 gap-1">
-        <div className="col-span-1 bg-gray-200 rounded border border-gray-300"></div>
-        <div className="col-span-1 bg-gray-100 border-2 border-dashed border-gray-300 rounded flex items-center justify-center text-gray-400 text-xs">+</div>
-        <div className="col-span-1 bg-gray-50 border-2 border-dashed border-gray-200 rounded"></div>
-      </div>
-    )
-  },
-  { 
-    id: "bento-4", 
-    name: "Bento (4)",
-    slots: 4, 
-    renderIcon: () => (
-      <div className="w-full h-20 sm:h-24 grid grid-cols-[1.8fr_1fr_1fr] gap-1">
-        <div className="col-start-1 col-end-2 row-start-1 row-end-3 bg-gray-200 rounded border border-gray-300"></div>
-        <div className="col-start-2 col-end-3 row-start-1 row-end-2 bg-gray-200 rounded border border-gray-300"></div>
-        <div className="col-start-3 col-end-4 row-start-1 row-end-2 bg-gray-200 rounded border border-gray-300"></div>
-        <div className="col-start-2 col-end-4 row-start-2 row-end-3 bg-gray-200 rounded border border-gray-300 h-6 sm:h-8"></div>
-      </div>
-    )
-  },
-  { 
-    id: "bento-5", 
-    name: "Bento (5)",
-    slots: 5, 
-    renderIcon: () => (
-      <div className="w-full h-20 sm:h-24 grid grid-cols-[1.8fr_1fr_1fr] gap-1">
-        <div className="col-start-1 col-end-2 row-start-1 row-end-3 bg-gray-200 rounded border border-gray-300"></div>
-        <div className="col-start-2 col-end-3 row-start-1 row-end-2 bg-gray-200 rounded border border-gray-300"></div>
-        <div className="col-start-3 col-end-4 row-start-1 row-end-2 bg-gray-200 rounded border border-gray-300"></div>
-        <div className="col-start-2 col-end-3 row-start-2 row-end-3 bg-gray-200 rounded border border-gray-300 h-6 sm:h-8"></div>
-        <div className="col-start-3 col-end-4 row-start-2 row-end-3 bg-gray-200 rounded border border-gray-300 h-6 sm:h-8"></div>
-      </div>
-    )
-  },
 ];
 
 const COLORS = [
@@ -161,12 +103,12 @@ export default function AdminGalleryPage() {
   
   // Builder State
   const [step, setStep] = useState(1);
-  const [selectedLayout, setSelectedLayout] = useState(LAYOUTS[2]);
+  const [selectedLayout, setSelectedLayout] = useState(LAYOUTS[0]);
   const [bgColor, setBgColor] = useState(COLORS[0]);
   const [customColor, setCustomColor] = useState("#1e40af");
   const [blockTitle, setBlockTitle] = useState("");
   const [blockDescription, setBlockDescription] = useState("");
-  const [slots, setSlots] = useState<SlotData[]>(Array(LAYOUTS[2].slots).fill({ file: null, previewUrl: null, title: "", category: "Campus" }));
+  const [slots, setSlots] = useState<SlotData[]>(Array(LAYOUTS[0].slots).fill({ file: null, previewUrl: null, title: "", category: "Campus" }));
   
   const [isUploading, setIsUploading] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
@@ -330,11 +272,11 @@ export default function AdminGalleryPage() {
 
   const handleCancelEdit = () => {
     setEditingBlockId(null);
-    setSelectedLayout(LAYOUTS[2]);
+    setSelectedLayout(LAYOUTS[0]);
     setBgColor(COLORS[0]);
     setBlockTitle("");
     setBlockDescription("");
-    setSlots(Array(LAYOUTS[2].slots).fill({ file: null, previewUrl: null, title: "", category: "Campus" }));
+    setSlots(Array(LAYOUTS[0].slots).fill({ file: null, previewUrl: null, title: "", category: "Campus" }));
     setStep(1);
   };
 

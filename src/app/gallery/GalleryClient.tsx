@@ -48,24 +48,23 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
   const [activeCategory, setActiveCategory] = useState("All");
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
 
-  // Filter logic: if "All", show original blocks. Otherwise, flatten matching images into single cards.
+  // Filter logic: always flatten all blocks' images into single cards, filtering by category if active.
   const filteredBlocks = useMemo(() => {
-    if (activeCategory === "All") return blocks;
-    
     const flatBlocks: any[] = [];
     blocks.forEach((block) => {
       block.images.forEach((img: any) => {
         // If the image has its own category, use it. Otherwise fallback to the block's category.
-        const effectiveCategory = img.category && img.category !== "None" ? img.category : block.category;
+        const imgCategory = img.category && img.category !== "None" ? img.category : block.category;
         
-        if (effectiveCategory === activeCategory) {
+        if (activeCategory === "All" || imgCategory === activeCategory) {
           flatBlocks.push({
-            _id: img._id + "-flat",
+            _id: img._id || (block._id + "-" + img.url),
             layoutType: "single-card",
-            backgroundColor: "bg-white",
+            backgroundColor: block.backgroundColor || "bg-white",
             images: [img],
-            title: img.title || "",
-            description: img.description || "",
+            title: img.title || block.title || "",
+            description: img.description || block.description || "",
+            category: imgCategory,
           });
         }
       });
@@ -253,7 +252,10 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
                             {/* Top Line: right-aligned, reversed gradient */}
                             <div className="w-[60%] h-[3px] bg-gradient-to-r from-blue-400 to-accent mb-3.5 rounded-full opacity-90 shadow-sm ml-auto"></div>
                              
-                            <div className="w-full aspect-square relative overflow-hidden border border-white/10 bg-gray-100/50 rounded-xl shadow-sm">
+                            <div 
+                              className="w-full aspect-square relative overflow-hidden border border-white/10 bg-gray-100/50 rounded-xl shadow-sm cursor-pointer"
+                              onClick={() => block.images[0] && setLightboxImage(block.images[0].url)}
+                            >
                               {block.images[0] && (
                                 <Image 
                                   src={block.images[0].url} 
