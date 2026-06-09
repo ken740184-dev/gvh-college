@@ -130,7 +130,7 @@ export default function AchievementsClient({ initialAchievements }: { initialAch
                           {item.title}
                         </h3>
                         <div className="w-10 h-[2px] bg-[#1e40af] mt-2 mb-3" />
-                        <p className="text-secondary-text leading-relaxed text-sm md:text-base font-sans">
+                        <p className="text-secondary-text leading-relaxed text-sm md:text-base font-sans whitespace-pre-wrap">
                           {item.description}
                         </p>
                       </div>
@@ -166,7 +166,7 @@ export default function AchievementsClient({ initialAchievements }: { initialAch
                           {item.title}
                         </h3>
                         <div className="w-10 h-[2px] bg-[#1e40af] mt-2 mb-3" />
-                        <p className="text-secondary-text leading-relaxed text-sm md:text-base font-sans">
+                        <p className="text-secondary-text leading-relaxed text-sm md:text-base font-sans whitespace-pre-wrap">
                           {item.description}
                         </p>
                       </div>
@@ -200,7 +200,7 @@ export default function AchievementsClient({ initialAchievements }: { initialAch
                         {item.title}
                       </h3>
                       <div className="w-8 h-[2px] bg-[#1e40af] mt-1.5 mb-2.5" />
-                      <p className="text-secondary-text leading-relaxed text-sm font-sans">
+                      <p className="text-secondary-text leading-relaxed text-sm font-sans whitespace-pre-wrap">
                         {item.description}
                       </p>
                     </div>
