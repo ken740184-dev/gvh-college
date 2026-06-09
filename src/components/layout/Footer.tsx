@@ -123,12 +123,12 @@ export default function Footer() {
                 src="/images/map_placeholder.png"
                 alt="GVH College Location Map"
                 fill
-                className="object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500 ease-in-out"
+                className="object-cover opacity-100 group-hover:opacity-50 group-hover:scale-105 transition-all duration-500 ease-in-out"
                 sizes="(max-width: 768px) 100vw, 300px"
               />
 
               {/* Clickable Overlay Link to Interactive Map */}
-              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/45 group-hover:bg-black/25 transition-colors duration-300">
+              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/0 group-hover:bg-black/50 transition-colors duration-300">
                 <div className="bg-navbar/95 backdrop-blur-sm border border-gray-700 text-white px-4 py-2 rounded-full text-xs font-bold shadow-lg flex items-center gap-1.5 opacity-0 group-hover:opacity-100 scale-95 group-hover:scale-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
                   <MapPin className="w-3.5 h-3.5 text-accent animate-pulse" />
                   <span>View Map & Directions</span>
