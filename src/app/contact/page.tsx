@@ -2,7 +2,7 @@
 
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
-import { MapPin, Phone, Mail, Clock, Navigation, ExternalLink } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Navigation, ExternalLink, Globe } from "lucide-react";
 
 export default function ContactPage() {
   return (
@@ -171,18 +171,15 @@ export default function ContactPage() {
                   <ExternalLink className="w-4 h-4 text-blue-600" />
                 </a>
 
-                {/* Directions button */}
+                {/* Satellite View button */}
                 <a 
-                  href="https://www.google.com/maps/dir/?api=1&destination=14.896620,75.554571"
+                  href="https://www.google.com/maps/place/14.896620,75.554571/@14.896620,75.554571,17z/data=!3m1!1e3"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center border border-gray-200 shadow-sm transition-all duration-300 hover:scale-105"
-                  title="Get Directions"
+                  title="Satellite View"
                 >
-                  <svg viewBox="0 0 24 24" className="w-7 h-7">
-                    <path fill="#1a73e8" d="M12 2L2 12l10 10 10-10L12 2z" />
-                    <path fill="#fff" d="M11.5 15.5v-4a1 1 0 0 1 1-1h2.5V8.5L18.5 12l-3.5 3.5V13.5h-2.5v2h-1z" />
-                  </svg>
+                  <Globe className="w-4.5 h-4.5 text-blue-600" />
                 </a>
               </div>
             </div>
@@ -198,17 +195,16 @@ export default function ContactPage() {
           </div>
         </div>
         
-        {/* Directions Button (Top-Right) */}
+        {/* View on Google Maps Button (Top-Right) */}
         <div className="absolute top-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 pointer-events-none group-hover:pointer-events-auto">
           <a 
-            href="https://www.google.com/maps/dir/?api=1&destination=14.896620,75.554571"
+            href="https://www.google.com/maps/place/14.896620,75.554571"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-accent hover:bg-accent/90 text-white px-4 py-2.5 sm:px-5 sm:py-3 rounded-lg font-bold shadow-lg transition-all duration-300 hover:scale-[1.03] flex items-center gap-2 border border-white/20 text-xs sm:text-sm"
           >
-            <Navigation className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-            <span className="hidden sm:inline">Get Directions on Google Maps</span>
-            <span className="inline sm:hidden">Directions</span>
+            <MapPin className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+            <span>View on Google Maps</span>
           </a>
         </div>
       </div>

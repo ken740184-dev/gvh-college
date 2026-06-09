@@ -136,18 +136,15 @@ export default function Footer() {
                   <ExternalLink className="w-5 h-5 text-blue-600" />
                 </Link>
 
-                {/* Directions Button */}
+                {/* View on Google Maps Button */}
                 <a
-                  href="https://www.google.com/maps/dir/?api=1&destination=14.896620,75.554571"
+                  href="https://www.google.com/maps/place/14.896620,75.554571"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-12 h-12 rounded-full bg-white/95 hover:bg-white flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 delay-[50ms]"
-                  title="Get Directions on Google Maps"
+                  title="View on Google Maps"
                 >
-                  <svg viewBox="0 0 24 24" className="w-8 h-8">
-                    <path fill="#1a73e8" d="M12 2L2 12l10 10 10-10L12 2z" />
-                    <path fill="#fff" d="M11.5 15.5v-4a1 1 0 0 1 1-1h2.5V8.5L18.5 12l-3.5 3.5V13.5h-2.5v2h-1z" />
-                  </svg>
+                  <MapPin className="w-5 h-5 text-blue-600" />
                 </a>
               </div>
             </div>
