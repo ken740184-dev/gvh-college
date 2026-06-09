@@ -756,7 +756,7 @@ export default function AdminGalleryPage() {
 
                     blocks.forEach((block, index) => {
                       const blockWithOriginalIdx = { ...block, originalIndex: index };
-                      if (blockWithOriginalIdx.layoutType === "single-card") {
+                      if (blockWithOriginalIdx.layoutType === "single-card" || blockWithOriginalIdx.layoutType === "two-column") {
                         if (!currentCardGroup) {
                           currentCardGroup = { _id: `group-${blockWithOriginalIdx._id}`, isGroup: true, blocks: [] };
                           grouped.push(currentCardGroup);
@@ -780,10 +780,14 @@ export default function AdminGalleryPage() {
                                   onDragStart={(e) => handleDragStart(e, block.originalIndex)}
                                   onDragOver={(e) => handleDragOver(e, block.originalIndex)}
                                   onDrop={(e) => handleDrop(e, block.originalIndex)}
-                                  className={`relative group cursor-move ${draggedIdx === block.originalIndex ? 'opacity-50 scale-95' : 'hover:scale-[1.01]'} ${dropIdx === block.originalIndex ? 'ring-4 ring-cyan-500 rounded-xl' : ''} transition-all`}
+                                  className={`relative group cursor-move ${draggedIdx === block.originalIndex ? 'opacity-50 scale-95' : 'hover:scale-[1.01]'} ${dropIdx === block.originalIndex ? 'ring-4 ring-cyan-500 rounded-xl' : ''} transition-all ${
+                                    block.layoutType === "two-column"
+                                      ? "col-span-1 sm:col-span-2"
+                                      : "col-span-1"
+                                  }`}
                                 >
                                   {/* Floating Actions */}
-                                  <div className="absolute top-2 right-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 flex flex-col gap-2 z-20 transition-opacity">
+                                  <div className="absolute top-4 right-4 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 flex flex-col gap-2 z-20 transition-opacity">
                                     <button onClick={(e) => { e.stopPropagation(); handleEdit(block); }} className="bg-white p-2 rounded shadow-md hover:bg-cyan-50 text-cyan-600 border border-gray-200" title="Edit">
                                       <Edit2 className="w-4 h-4" />
                                     </button>
@@ -793,41 +797,61 @@ export default function AdminGalleryPage() {
                                   </div>
 
                                   <div 
-                                    className={`flex flex-col border ${
-                                      isDarkColor(block.backgroundColor) ? 'border-gray-800/80' : 'border-white/50'
-                                    } ${
-                                      block.backgroundColor === 'bg-white' 
-                                        ? 'bg-gradient-to-br from-white/75 via-white/50 to-white/20 backdrop-blur-xl' 
-                                        : (block.backgroundColor.startsWith('bg-') ? block.backgroundColor : '')
-                                    } shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full rounded-none overflow-hidden`} 
-                                    style={{ backgroundColor: block.backgroundColor.startsWith('#') ? block.backgroundColor : undefined }}
+                                    className="flex flex-col border border-gray-200 bg-white shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-500 h-full rounded-none overflow-hidden relative" 
                                   >
-                                    <div className="bg-gray-100/50 px-3 py-1.5 border-b border-gray-200/50 flex items-center gap-2">
-                                      <span className="text-[10px] font-bold text-gray-500 tracking-wider uppercase">{block.layoutType}</span>
-                                      <div className={`w-3 h-3 rounded-full border border-gray-300 shadow-inner ${block.backgroundColor.startsWith('bg-') ? block.backgroundColor : ''}`} style={{ backgroundColor: block.backgroundColor.startsWith('#') ? block.backgroundColor : undefined }}></div>
+                                    {/* Layout type indicator badge */}
+                                    <div className="absolute top-4 left-4 bg-gray-900/80 backdrop-blur-sm text-white px-2 py-0.5 rounded-none text-[9px] font-bold uppercase tracking-wider z-10">
+                                      {block.layoutType}
                                     </div>
-                                    <div className="p-3 md:p-4 pb-0 flex flex-col">
+
+                                    <div className="p-3 pb-0 flex flex-col w-full">
                                       {/* Top Line: right-aligned, reversed gradient */}
-                                      <div className="w-[60%] h-[3px] bg-gradient-to-r from-blue-400 to-accent mb-3 md:mb-4 rounded-full opacity-90 shadow-sm ml-auto"></div>
+                                      <div className="w-[60%] h-[3px] bg-gradient-to-r from-blue-400 to-accent mb-3.5 rounded-full opacity-90 shadow-sm ml-auto"></div>
                                       
-                                      <div className="w-full aspect-square relative overflow-hidden border border-white/20 bg-gray-100">
+                                      <div 
+                                        className={`w-full relative overflow-hidden border border-white/10 bg-gray-100/50 rounded-none shadow-sm ${
+                                          block.layoutType === "two-column" ? "aspect-video" : "aspect-square"
+                                        }`}
+                                      >
                                         {block.images[0] && (
-                                          <img src={block.images[0].url} alt="" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+                                          <img 
+                                            src={block.images[0].url} 
+                                            alt="" 
+                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)]" 
+                                          />
                                         )}
                                       </div>
                                     </div>
-                                    <div className="p-4 flex flex-col flex-grow items-start">
-                                       {/* Blue accent line: shorter than card, longer than small title */}
-                                       <div className="w-[60%] h-[3px] bg-gradient-to-r from-accent to-blue-400 mb-3.5 rounded-full opacity-90 shadow-sm"></div>
-                                       {block.title ? (
-                                         <h3 className="text-base font-bold mb-1.5 font-sans text-slate-800 uppercase tracking-tight">{block.title}</h3>
-                                       ) : (
-                                         <h3 className="text-base font-bold mb-1.5 font-sans text-slate-400 italic">Untitled Image</h3>
+
+                                    <div className="p-5 flex flex-col flex-grow items-start w-full">
+                                       {/* Accent blue line */}
+                                       <div className="w-[60%] h-[3px] bg-gradient-to-r from-accent to-blue-400 mb-4 rounded-full opacity-90 shadow-sm"></div>
+                                       
+                                       {/* Category badge */}
+                                       {block.images[0]?.category && block.images[0]?.category !== "None" && (
+                                         <span className="bg-red-500/10 border border-red-500/20 text-accent px-2 py-0.5 rounded-none text-[10px] font-bold uppercase tracking-wider mb-3 shadow-[0_2px_10px_rgba(220,38,38,0.05)]">
+                                           {block.images[0].category}
+                                         </span>
                                        )}
-                                       {block.description ? (
-                                         <p className={`${isDarkColor(block.backgroundColor) ? 'text-slate-200' : 'text-slate-600'} text-xs leading-relaxed`}>{block.description}</p>
+
+                                       {block.title ? (
+                                         <h3 className="text-base md:text-lg font-bold text-slate-800 transition-colors duration-300 mb-2 uppercase font-sans tracking-tight leading-snug">
+                                           {block.title}
+                                         </h3>
                                        ) : (
-                                         <p className="text-xs text-slate-400 italic">No description provided.</p>
+                                         <h3 className="text-base md:text-lg font-bold text-slate-400 italic mb-2 font-sans tracking-tight">
+                                           Untitled Image
+                                         </h3>
+                                       )}
+                                       
+                                       {block.description ? (
+                                         <p className="text-slate-600 text-xs md:text-sm leading-relaxed flex-grow font-sans">
+                                           {block.description}
+                                         </p>
+                                       ) : (
+                                         <p className="text-xs md:text-sm text-slate-400 italic flex-grow font-sans">
+                                           No description provided.
+                                         </p>
                                        )}
                                     </div>
                                   </div>

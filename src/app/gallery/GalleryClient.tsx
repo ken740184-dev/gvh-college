@@ -59,7 +59,7 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
         if (activeCategory === "All" || imgCategory === activeCategory) {
           flatBlocks.push({
             _id: img._id || (block._id + "-" + img.url),
-            layoutType: "single-card",
+            layoutType: block.layoutType || "single-card",
             backgroundColor: block.backgroundColor || "bg-white",
             images: [img],
             title: img.title || block.title || "",
