@@ -29,7 +29,7 @@ export default function Home() {
               </div>
             </Reveal>
             <Reveal direction="left" delay={0.2}>
-              <div className="relative h-[400px] rounded-lg overflow-hidden shadow-xl">
+              <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-xl">
                 <Image 
                   src="/images/swarthmore-college-Eric-Behrens-flickr-5706ffe35f9b581408d48cb3.webp" 
                   alt="Campus overview" 

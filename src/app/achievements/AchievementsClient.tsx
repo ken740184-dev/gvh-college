@@ -112,17 +112,12 @@ export default function AchievementsClient({ initialAchievements }: { initialAch
                     <motion.div
                       key={item._id}
                       variants={cardVariants}
-                      className={`border border-gray-400/60 bg-[#d1d5db] shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col rounded-none overflow-hidden relative group cursor-pointer md:col-span-2 lg:col-span-3 ${
+                      className={`border border-gray-400/60 bg-[#d1d5db] shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col rounded-2xl overflow-hidden relative group cursor-pointer md:col-span-2 lg:col-span-3 ${
                         currentBannerIndex % 2 === 1 ? "md:flex-row-reverse" : "md:flex-row"
                       }`}
                     >
-                      {/* Shimmer sweep reflection */}
-                      <div className="absolute inset-0 pointer-events-none overflow-hidden z-10">
-                        <div className="w-[150%] h-full bg-gradient-to-r from-transparent via-white/15 to-transparent -skew-x-12 translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-[1200ms] ease-in-out" />
-                      </div>
-
                       <div className="w-full md:w-1/2 p-5 shrink-0">
-                        <div className="relative w-full h-[250px] md:h-full min-h-[250px] md:min-h-[300px] overflow-hidden rounded-md shadow-sm">
+                        <div className="relative w-full h-[250px] md:h-full min-h-[250px] md:min-h-[300px] overflow-hidden rounded-xl shadow-sm">
                           <Image
                             src={item.image}
                             alt={item.title}
@@ -152,16 +147,11 @@ export default function AchievementsClient({ initialAchievements }: { initialAch
                     <motion.div
                       key={item._id}
                       variants={cardVariants}
-                      className="bg-[#d1d5db] border border-gray-400/60 shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col rounded-none overflow-hidden relative group cursor-pointer md:col-span-2 lg:col-span-3"
+                      className="bg-[#d1d5db] border border-gray-400/60 shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col rounded-2xl overflow-hidden relative group cursor-pointer md:col-span-2 lg:col-span-3"
                     >
-                      {/* Shimmer sweep reflection */}
-                      <div className="absolute inset-0 pointer-events-none overflow-hidden z-10">
-                        <div className="w-[150%] h-full bg-gradient-to-r from-transparent via-white/15 to-transparent -skew-x-12 translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-[1200ms] ease-in-out" />
-                      </div>
-
                       {/* Image container padded to leave space around it as a border */}
                       <div className="w-full p-6 pb-4 shrink-0">
-                        <div className="relative w-full aspect-[21/9] md:aspect-[3/1] min-h-[220px] overflow-hidden rounded-md shadow-sm">
+                        <div className="relative w-full aspect-[21/9] md:aspect-[3/1] min-h-[220px] overflow-hidden rounded-xl shadow-sm">
                           <Image
                             src={item.image}
                             alt={item.title}
@@ -192,15 +182,10 @@ export default function AchievementsClient({ initialAchievements }: { initialAch
                   <motion.div
                     key={item._id}
                     variants={cardVariants}
-                    className="border border-gray-400/60 bg-[#d1d5db] shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col rounded-none overflow-hidden relative group cursor-pointer col-span-1"
+                    className="border border-gray-400/60 bg-[#d1d5db] shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col rounded-2xl overflow-hidden relative group cursor-pointer col-span-1"
                   >
-                    {/* Shimmer sweep reflection */}
-                    <div className="absolute inset-0 pointer-events-none overflow-hidden z-10">
-                      <div className="w-[150%] h-full bg-gradient-to-r from-transparent via-white/15 to-transparent -skew-x-12 translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-[1200ms] ease-in-out" />
-                    </div>
-
                     <div className="w-full p-4 pb-2.5 shrink-0">
-                      <div className="relative w-full aspect-video overflow-hidden rounded-md shadow-sm">
+                      <div className="relative w-full aspect-video overflow-hidden rounded-xl shadow-sm">
                         <Image
                           src={item.image}
                           alt={item.title}
