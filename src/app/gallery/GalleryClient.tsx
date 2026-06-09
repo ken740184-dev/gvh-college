@@ -168,13 +168,7 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
   };
 
   return (
-    <div className="pt-20 relative overflow-hidden bg-background">
-      {/* Ambient background glow blobs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute top-[20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-red-950/10 dark:bg-red-950/20 blur-[120px]" />
-        <div className="absolute top-[60%] right-[-10%] w-[600px] h-[600px] rounded-full bg-amber-950/10 dark:bg-amber-950/20 blur-[130px]" />
-        <div className="absolute bottom-[10%] left-[20%] w-[500px] h-[500px] rounded-full bg-red-950/5 dark:bg-red-950/10 blur-[120px]" />
-      </div>
+    <div className="pt-20 relative overflow-hidden bg-[#f3f4f6]">
       <div className="bg-navbar py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-bold mb-6">Gallery</h1>
@@ -239,14 +233,7 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
                         <motion.div 
                           key={block._id}
                           variants={cardVariants}
-                          className={`flex flex-col border ${
-                            isDarkColor(block.backgroundColor) ? 'border-gray-800/80' : 'border-white/20'
-                          } ${
-                            block.backgroundColor === 'bg-white' 
-                              ? 'bg-gradient-to-br from-white/80 via-white/50 to-white/10 backdrop-blur-xl' 
-                              : (block.backgroundColor.startsWith('bg-') ? block.backgroundColor : '')
-                          } shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] h-full rounded-2xl overflow-hidden relative group`} 
-                          style={{ backgroundColor: block.backgroundColor.startsWith('#') ? block.backgroundColor : undefined }}
+                          className="flex flex-col border border-gray-200 bg-white shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] h-full rounded-2xl overflow-hidden relative group"
                         >
                           <div className="p-3 pb-0 flex flex-col">
                             {/* Top Line: right-aligned, reversed gradient */}
@@ -289,7 +276,7 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
                             ) }
                             
                             {block.description ? (
-                              <p className={`${isDarkColor(block.backgroundColor) ? 'text-slate-200' : 'text-slate-600'} text-xs md:text-sm leading-relaxed flex-grow font-sans`}>
+                              <p className="text-slate-600 text-xs md:text-sm leading-relaxed flex-grow font-sans">
                                 {block.description}
                               </p>
                             ) : (
