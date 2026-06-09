@@ -126,9 +126,10 @@ export default function AchievementsClient({ initialAchievements }: { initialAch
                         <span className="bg-red-500/10 border border-red-500/20 text-accent px-2 py-0.5 rounded-none text-[10px] font-bold uppercase tracking-wider mb-3 shadow-[0_2px_10px_rgba(220,38,38,0.05)] self-start">
                           {formatDate(item.date)}
                         </span>
-                        <h3 className="font-bold font-sans text-slate-800 uppercase tracking-tight leading-snug mb-3 text-2xl md:text-3xl">
+                        <h3 className="font-bold font-sans text-slate-800 uppercase tracking-tight leading-snug text-2xl md:text-3xl">
                           {item.title}
                         </h3>
+                        <div className="w-10 h-[2px] bg-[#1e40af] mt-2 mb-3" />
                         <p className="text-secondary-text leading-relaxed text-sm md:text-base font-sans">
                           {item.description}
                         </p>
@@ -161,9 +162,10 @@ export default function AchievementsClient({ initialAchievements }: { initialAch
                         <span className="bg-red-500/10 border border-red-500/20 text-accent px-2 py-0.5 rounded-none text-[10px] font-bold uppercase tracking-wider mb-3 shadow-[0_2px_10px_rgba(220,38,38,0.05)] self-start">
                           {formatDate(item.date)}
                         </span>
-                        <h3 className="font-bold font-sans text-slate-800 uppercase tracking-tight leading-snug mb-3 text-xl md:text-2xl">
+                        <h3 className="font-bold font-sans text-slate-800 uppercase tracking-tight leading-snug text-xl md:text-2xl">
                           {item.title}
                         </h3>
+                        <div className="w-10 h-[2px] bg-[#1e40af] mt-2 mb-3" />
                         <p className="text-secondary-text leading-relaxed text-sm md:text-base font-sans">
                           {item.description}
                         </p>
@@ -194,9 +196,10 @@ export default function AchievementsClient({ initialAchievements }: { initialAch
                       <span className="bg-red-500/10 border border-red-500/20 text-accent px-2 py-0.5 rounded-none text-[10px] font-bold uppercase tracking-wider mb-3 shadow-[0_2px_10px_rgba(220,38,38,0.05)] self-start">
                         {formatDate(item.date)}
                       </span>
-                      <h3 className="font-bold font-sans text-slate-800 uppercase tracking-tight leading-snug mb-3 text-xl">
+                      <h3 className="font-bold font-sans text-slate-800 uppercase tracking-tight leading-snug text-xl">
                         {item.title}
                       </h3>
+                      <div className="w-8 h-[2px] bg-[#1e40af] mt-1.5 mb-2.5" />
                       <p className="text-secondary-text leading-relaxed text-sm font-sans">
                         {item.description}
                       </p>

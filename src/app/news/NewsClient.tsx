@@ -99,9 +99,10 @@ export default function NewsClient({ initialNews }: { initialNews: any[] }) {
                         <span className="bg-red-500/10 border border-red-500/20 text-accent px-2 py-0.5 rounded-none text-[10px] font-bold uppercase tracking-wider mb-3 shadow-[0_2px_10px_rgba(220,38,38,0.05)] self-start">
                           {formatDate(news.date)}
                         </span>
-                        <h3 className="font-bold font-sans text-slate-800 uppercase tracking-tight leading-snug mb-3 group-hover:text-accent transition-colors text-2xl md:text-3xl">
+                        <h3 className="font-bold font-sans text-slate-800 uppercase tracking-tight leading-snug group-hover:text-accent transition-colors text-2xl md:text-3xl">
                           {news.title}
                         </h3>
+                        <div className="w-10 h-[2px] bg-[#1e40af] mt-2 mb-3" />
                         <p className="text-secondary-text leading-relaxed text-sm font-sans">{news.excerpt}</p>
                       </div>
                     </motion.article>
@@ -134,9 +135,10 @@ export default function NewsClient({ initialNews }: { initialNews: any[] }) {
                         <span className="bg-red-500/10 border border-red-500/20 text-accent px-2 py-0.5 rounded-none text-[10px] font-bold uppercase tracking-wider mb-3 shadow-[0_2px_10px_rgba(220,38,38,0.05)] self-start">
                           {formatDate(news.date)}
                         </span>
-                        <h3 className="font-bold font-sans text-slate-800 uppercase tracking-tight leading-snug mb-3 group-hover:text-accent transition-colors text-xl md:text-2xl">
+                        <h3 className="font-bold font-sans text-slate-800 uppercase tracking-tight leading-snug group-hover:text-accent transition-colors text-xl md:text-2xl">
                           {news.title}
                         </h3>
+                        <div className="w-10 h-[2px] bg-[#1e40af] mt-2 mb-3" />
                         <p className="text-secondary-text leading-relaxed text-sm font-sans">{news.excerpt}</p>
                       </div>
                     </motion.article>
@@ -169,9 +171,10 @@ export default function NewsClient({ initialNews }: { initialNews: any[] }) {
                       <span className="bg-red-500/10 border border-red-500/20 text-accent px-2 py-0.5 rounded-none text-[10px] font-bold uppercase tracking-wider mb-3 shadow-[0_2px_10px_rgba(220,38,38,0.05)] self-start">
                         {formatDate(news.date)}
                       </span>
-                      <h3 className="font-bold font-sans text-slate-800 uppercase tracking-tight leading-snug mb-3 group-hover:text-accent transition-colors text-xl">
+                      <h3 className="font-bold font-sans text-slate-800 uppercase tracking-tight leading-snug group-hover:text-accent transition-colors text-xl">
                         {news.title}
                       </h3>
+                      <div className="w-8 h-[2px] bg-[#1e40af] mt-1.5 mb-2.5" />
                       <p className="text-secondary-text leading-relaxed text-sm font-sans">{news.excerpt}</p>
                     </div>
                   </motion.article>
