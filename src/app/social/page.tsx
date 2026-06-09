@@ -9,49 +9,49 @@ import { Heart, MessageCircle, Send, Bookmark, MoreHorizontal, MapPin, Link2, Ca
 const instagramPosts = [
   {
     id: 1,
-    image: "/images/swarthmore-college-Eric-Behrens-flickr-5706ffe35f9b581408d48cb3.webp",
+    image: "/images/about/campus-overview.webp",
     likes: "1,204",
     caption: "Beautiful morning at the GVH College main campus! ☀️ Ready for another week of learning and innovation. #GVHCollege #CampusLife",
     time: "2 hours ago"
   },
   {
     id: 2,
-    image: "/images/f4b83665-42eb-4514-93eb-afe1ce1f84e2.webp",
+    image: "/images/campus-life/sports.webp",
     likes: "856",
     caption: "The Republic Day Cup 2026 preparations are in full swing! 🏆 Who are you cheering for this year? #Sports #GVHAthletics",
     time: "5 hours ago"
   },
   {
     id: 3,
-    image: "/images/b465b6c6-83ea-4042-99ad-f907e1e65696.webp",
+    image: "/images/academics/bcom-banner.webp",
     likes: "2,109",
     caption: "Massive congratulations to our Cricket Team for bringing home the State Championship trophy! 🥇🏏 #Champions #ProudMoment",
     time: "1 day ago"
   },
   {
     id: 4,
-    image: "/images/52931d59-6890-4dd1-afc3-6cd109fe6d3b.webp",
+    image: "/images/academics/ba-banner.webp",
     likes: "943",
     caption: "Exploring the new state-of-the-art Digital Library. Over 100,000 resources now available at your fingertips! 📚💻 #Education #DigitalLearning",
     time: "2 days ago"
   },
   {
     id: 5,
-    image: "/images/chatgpt-image.webp",
+    image: "/images/campus-life/cultural-fest.webp",
     likes: "432",
     caption: "Our new AI assistant is helping students debug their code! 🤖 #Innovation #Tech",
     time: "3 days ago"
   },
   {
     id: 6,
-    image: "/images/52931d59-6890-4dd1-afc3-6cd109fe6d3b.webp",
+    image: "/images/academics/ba-banner.webp",
     likes: "678",
     caption: "Another amazing view of the campus library. Studying here feels different. 📚 #Library",
     time: "4 days ago"
   },
   {
     id: 7,
-    image: "/images/swarthmore-college-Eric-Behrens-flickr-5706ffe35f9b581408d48cb3.webp",
+    image: "/images/about/campus-overview.webp",
     likes: "1,492",
     caption: "Throwback to orientation week! Can't wait to welcome the next batch of freshmen. 🎓🎉 #Freshman #TBT",
     time: "1 week ago"
@@ -212,7 +212,7 @@ function SocialHubContent() {
                                 {/* Avatar */}
                                 <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 p-[2px] flex-shrink-0">
                                   <div className="w-full h-full bg-black rounded-full flex items-center justify-center font-bold text-lg border-2 border-black overflow-hidden">
-                                    <Image src="/images/swarthmore-college-Eric-Behrens-flickr-5706ffe35f9b581408d48cb3.webp" alt="Profile" width={80} height={80} className="object-cover h-full w-full opacity-80" />
+                                    <Image src="/images/about/campus-overview.webp" alt="Profile" width={80} height={80} className="object-cover h-full w-full opacity-80" />
                                   </div>
                                 </div>
                                 
@@ -296,7 +296,7 @@ function SocialHubContent() {
                                  <div className="flex items-center justify-between px-3 py-2">
                                     <div className="flex items-center gap-2">
                                       <div className="w-8 h-8 rounded-full bg-gray-800 overflow-hidden relative border border-gray-800">
-                                        <Image src="/images/swarthmore-college-Eric-Behrens-flickr-5706ffe35f9b581408d48cb3.webp" alt="Profile" fill className="object-cover" />
+                                        <Image src="/images/about/campus-overview.webp" alt="Profile" fill className="object-cover" />
                                       </div>
                                       <span className="font-bold text-sm">gvh_college_official</span>
                                     </div>
@@ -353,7 +353,7 @@ function SocialHubContent() {
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="8" x2="16" y1="12" y2="12"/><line x1="12" x2="12" y1="8" y2="16"/></svg>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
                         <div onClick={() => setInstaView("profile")} className={`w-6 h-6 rounded-full bg-white flex items-center justify-center text-black overflow-hidden border cursor-pointer ${instaView === "profile" ? "border-white" : "border-gray-600"}`}>
-                          <Image src="/images/swarthmore-college-Eric-Behrens-flickr-5706ffe35f9b581408d48cb3.webp" alt="Profile" width={24} height={24} className="object-cover h-full w-full" />
+                          <Image src="/images/about/campus-overview.webp" alt="Profile" width={24} height={24} className="object-cover h-full w-full" />
                         </div>
                       </div>
                     </motion.div>
@@ -373,9 +373,9 @@ function SocialHubContent() {
                       <div className="flex-1 overflow-y-auto scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                         {/* Cover & Avatar */}
                         <div className="h-28 bg-gray-800 w-full relative">
-                          <Image src="/images/b465b6c6-83ea-4042-99ad-f907e1e65696.webp" alt="Cover" fill className="object-cover opacity-70" />
+                          <Image src="/images/academics/bcom-banner.webp" alt="Cover" fill className="object-cover opacity-70" />
                           <div className="absolute -bottom-8 left-4 w-16 h-16 rounded-full border-4 border-black bg-white overflow-hidden">
-                            <Image src="/images/swarthmore-college-Eric-Behrens-flickr-5706ffe35f9b581408d48cb3.webp" alt="Profile" fill className="object-cover" />
+                            <Image src="/images/about/campus-overview.webp" alt="Profile" fill className="object-cover" />
                           </div>
                         </div>
                         
@@ -416,7 +416,7 @@ function SocialHubContent() {
                           {[1, 2].map((i) => (
                             <div key={i} className="p-4 flex gap-3 hover:bg-gray-900 cursor-pointer transition-colors">
                               <div className="w-10 h-10 rounded-full border border-gray-800 overflow-hidden flex-shrink-0 relative">
-                                <Image src="/images/swarthmore-college-Eric-Behrens-flickr-5706ffe35f9b581408d48cb3.webp" alt="Avatar" fill className="object-cover" />
+                                <Image src="/images/about/campus-overview.webp" alt="Avatar" fill className="object-cover" />
                               </div>
                               <div className="flex-1">
                                 <div className="flex items-center gap-1 mb-1">
@@ -429,7 +429,7 @@ function SocialHubContent() {
                                 </p>
                                 {i === 1 && (
                                   <div className="relative w-full h-32 rounded-xl overflow-hidden mb-3 border border-gray-800">
-                                    <Image src="/images/52931d59-6890-4dd1-afc3-6cd109fe6d3b.webp" alt="Tweet Image" fill className="object-cover" />
+                                    <Image src="/images/academics/ba-banner.webp" alt="Tweet Image" fill className="object-cover" />
                                   </div>
                                 )}
                                 <div className="flex justify-between text-gray-500 pr-8 text-xs">
@@ -471,9 +471,9 @@ function SocialHubContent() {
                         {/* Cover & Profile Section */}
                         <div className="bg-white pb-4 shadow-sm">
                           <div className="relative h-32 bg-gray-200">
-                            <Image src="/images/b465b6c6-83ea-4042-99ad-f907e1e65696.webp" alt="Cover" fill className="object-cover" />
+                            <Image src="/images/academics/bcom-banner.webp" alt="Cover" fill className="object-cover" />
                             <div className="absolute -bottom-8 left-4 w-24 h-24 rounded-full border-4 border-white bg-white overflow-hidden shadow-md">
-                              <Image src="/images/swarthmore-college-Eric-Behrens-flickr-5706ffe35f9b581408d48cb3.webp" alt="Profile" fill className="object-cover" />
+                              <Image src="/images/about/campus-overview.webp" alt="Profile" fill className="object-cover" />
                             </div>
                           </div>
                           
@@ -516,7 +516,7 @@ function SocialHubContent() {
                             <div key={i} className="bg-white p-4 shadow-sm">
                               <div className="flex items-center gap-3 mb-3">
                                 <div className="w-10 h-10 rounded-full overflow-hidden relative flex-shrink-0">
-                                  <Image src="/images/swarthmore-college-Eric-Behrens-flickr-5706ffe35f9b581408d48cb3.webp" alt="Avatar" fill className="object-cover" />
+                                  <Image src="/images/about/campus-overview.webp" alt="Avatar" fill className="object-cover" />
                                 </div>
                                 <div>
                                   <p className="font-bold text-sm">GVH College</p>
@@ -528,7 +528,7 @@ function SocialHubContent() {
                               </p>
                               {i === 1 && (
                                 <div className="relative w-full h-48 bg-gray-100 -mx-4 mb-3 border-y border-gray-100" style={{ width: 'calc(100% + 32px)' }}>
-                                  <Image src="/images/52931d59-6890-4dd1-afc3-6cd109fe6d3b.webp" alt="FB Post" fill className="object-cover" />
+                                  <Image src="/images/academics/ba-banner.webp" alt="FB Post" fill className="object-cover" />
                                 </div>
                               )}
                               <div className="flex border-t border-gray-200 pt-2 text-gray-500 font-semibold text-xs justify-between">
@@ -561,18 +561,18 @@ function SocialHubContent() {
                         {/* Cover & Profile Section */}
                         <div className="bg-white pb-4 shadow-sm">
                           <div className="relative h-24 bg-gray-300">
-                            <Image src="/images/b465b6c6-83ea-4042-99ad-f907e1e65696.webp" alt="Cover" fill className="object-cover" />
+                            <Image src="/images/academics/bcom-banner.webp" alt="Cover" fill className="object-cover" />
                           </div>
                           <div className="px-4 relative">
                             <div className="absolute -top-10 w-20 h-20 rounded-md shadow-sm bg-white overflow-hidden border-2 border-white">
-                              <Image src="/images/swarthmore-college-Eric-Behrens-flickr-5706ffe35f9b581408d48cb3.webp" alt="Logo" fill className="object-cover" />
+                              <Image src="/images/about/campus-overview.webp" alt="Logo" fill className="object-cover" />
                             </div>
                             <div className="pt-12">
                               <h1 className="font-bold text-xl leading-tight">GVH College</h1>
                               <p className="text-gray-600 text-xs mt-1">Higher Education • Hosaritti, Karnataka • 10K followers</p>
                               <div className="flex items-center gap-1 text-xs text-gray-500 mt-2">
                                 <div className="w-6 h-6 rounded-full overflow-hidden relative">
-                                   <Image src="/images/chatgpt-image.webp" alt="Connection" fill className="object-cover" />
+                                   <Image src="/images/campus-life/cultural-fest.webp" alt="Connection" fill className="object-cover" />
                                 </div>
                                 <span>Sarah and 15 other connections work here</span>
                               </div>
@@ -615,7 +615,7 @@ function SocialHubContent() {
                             <div key={i} className="bg-white pt-3 pb-2 shadow-sm">
                               <div className="flex items-center gap-3 px-4 mb-2">
                                 <div className="w-10 h-10 rounded-md overflow-hidden relative flex-shrink-0 border border-gray-200">
-                                  <Image src="/images/swarthmore-college-Eric-Behrens-flickr-5706ffe35f9b581408d48cb3.webp" alt="Logo" fill className="object-cover" />
+                                  <Image src="/images/about/campus-overview.webp" alt="Logo" fill className="object-cover" />
                                 </div>
                                 <div>
                                   <p className="font-bold text-sm leading-tight">GVH College</p>
@@ -627,7 +627,7 @@ function SocialHubContent() {
                                 We are thrilled to announce that our students won 1st place in the National Robotics Competition! 🤖🏆 A testament to our dedication to STEM education.
                               </p>
                               <div className="relative w-full h-48 bg-gray-100 mb-2">
-                                <Image src="/images/52931d59-6890-4dd1-afc3-6cd109fe6d3b.webp" alt="LinkedIn Post" fill className="object-cover" />
+                                <Image src="/images/academics/ba-banner.webp" alt="LinkedIn Post" fill className="object-cover" />
                               </div>
                               <div className="px-4 flex items-center justify-between border-b border-gray-100 pb-2 text-xs text-gray-500">
                                 <span className="flex items-center gap-1"><Heart className="w-3 h-3 text-red-500 fill-red-500"/> 245</span>
@@ -665,13 +665,13 @@ function SocialHubContent() {
                       <div className="flex-1 overflow-y-auto scrollbar-hide pb-6" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                         {/* Channel Banner */}
                         <div className="relative h-24 bg-gray-800 w-full">
-                          <Image src="/images/b465b6c6-83ea-4042-99ad-f907e1e65696.webp" alt="Banner" fill className="object-cover opacity-80" />
+                          <Image src="/images/academics/bcom-banner.webp" alt="Banner" fill className="object-cover opacity-80" />
                         </div>
                         
                         {/* Channel Info */}
                         <div className="px-4 py-4 flex flex-col items-center text-center">
                           <div className="w-16 h-16 rounded-full overflow-hidden mb-3">
-                            <Image src="/images/swarthmore-college-Eric-Behrens-flickr-5706ffe35f9b581408d48cb3.webp" alt="Logo" width={64} height={64} className="object-cover w-full h-full" />
+                            <Image src="/images/about/campus-overview.webp" alt="Logo" width={64} height={64} className="object-cover w-full h-full" />
                           </div>
                           <h1 className="font-bold text-xl">GVH College Official</h1>
                           <p className="text-gray-400 text-sm mt-1">@gvhcollege • 5.2K subscribers • 120 videos</p>
@@ -696,9 +696,9 @@ function SocialHubContent() {
                         {/* Videos Grid */}
                         <div className="p-2 space-y-4 mt-2 pb-12">
                           {[
-                            { title: "Campus Tour 2026 | Aerial View", views: "1.2K views", time: "2 weeks ago", img: "/images/52931d59-6890-4dd1-afc3-6cd109fe6d3b.webp" },
-                            { title: "Annual Sports Meet Highlights", views: "856 views", time: "1 month ago", img: "/images/chatgpt-image.webp" },
-                            { title: "Convocation Ceremony", views: "3.4K views", time: "6 months ago", img: "/images/b465b6c6-83ea-4042-99ad-f907e1e65696.webp" }
+                            { title: "Campus Tour 2026 | Aerial View", views: "1.2K views", time: "2 weeks ago", img: "/images/academics/ba-banner.webp" },
+                            { title: "Annual Sports Meet Highlights", views: "856 views", time: "1 month ago", img: "/images/campus-life/cultural-fest.webp" },
+                            { title: "Convocation Ceremony", views: "3.4K views", time: "6 months ago", img: "/images/academics/bcom-banner.webp" }
                           ].map((video, i) => (
                             <div key={i} className="flex flex-col gap-2">
                               <div className="relative w-full aspect-video bg-gray-800 rounded-xl overflow-hidden">
@@ -709,7 +709,7 @@ function SocialHubContent() {
                               </div>
                               <div className="flex gap-3 px-1">
                                 <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0 mt-1">
-                                  <Image src="/images/swarthmore-college-Eric-Behrens-flickr-5706ffe35f9b581408d48cb3.webp" alt="Logo" width={32} height={32} className="object-cover w-full h-full" />
+                                  <Image src="/images/about/campus-overview.webp" alt="Logo" width={32} height={32} className="object-cover w-full h-full" />
                                 </div>
                                 <div>
                                   <h3 className="font-semibold text-sm line-clamp-2 leading-tight">{video.title}</h3>
@@ -729,7 +729,7 @@ function SocialHubContent() {
                         <div className="flex flex-col items-center gap-1"><Video className="w-5 h-5" />Shorts</div>
                         <div className="flex flex-col items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="text-white"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg></div>
                         <div className="flex flex-col items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>Subs</div>
-                        <div className="flex flex-col items-center gap-1"><div className="w-5 h-5 rounded-full overflow-hidden"><Image src="/images/swarthmore-college-Eric-Behrens-flickr-5706ffe35f9b581408d48cb3.webp" alt="You" width={20} height={20} className="object-cover h-full w-full"/></div>You</div>
+                        <div className="flex flex-col items-center gap-1"><div className="w-5 h-5 rounded-full overflow-hidden"><Image src="/images/about/campus-overview.webp" alt="You" width={20} height={20} className="object-cover h-full w-full"/></div>You</div>
                       </div>
                     </motion.div>
                   )}

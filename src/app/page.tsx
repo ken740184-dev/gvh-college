@@ -37,7 +37,7 @@ export default async function Home() {
             <Reveal direction="left" delay={0.2}>
               <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-xl">
                 <Image 
-                  src="/images/swarthmore-college-Eric-Behrens-flickr-5706ffe35f9b581408d48cb3.webp" 
+                  src="/images/about/campus-overview.webp" 
                   alt="Campus overview" 
                   fill 
                   className="object-cover"
@@ -62,7 +62,7 @@ export default async function Home() {
                     <div className="w-[150%] h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-[1200ms] ease-in-out" />
                   </div>
                   <Image 
-                    src="/images/gudleppa-hallikeri.jpg" 
+                    src="/images/about/gudleppa-biography.jpg" 
                     alt="Gudleppa Hallikeri" 
                     fill 
                     className="object-cover group-hover:scale-105 transition-transform duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
@@ -115,7 +115,7 @@ export default async function Home() {
               <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="relative h-64">
                   <Image 
-                    src="/images/b465b6c6-83ea-4042-99ad-f907e1e65696.webp" 
+                    src="/images/academics/bcom-banner.webp" 
                     alt="Commerce Department" 
                     fill 
                     className="object-cover"
@@ -138,7 +138,7 @@ export default async function Home() {
               <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="relative h-64">
                   <Image 
-                    src="/images/52931d59-6890-4dd1-afc3-6cd109fe6d3b.webp" 
+                    src="/images/academics/ba-banner.webp" 
                     alt="Arts Department" 
                     fill 
                     className="object-cover"
@@ -199,25 +199,25 @@ export default async function Home() {
         <Reveal delay={0.2}>
           <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-2 h-[600px] w-full gap-2 px-2">
             <div className="col-span-2 row-span-2 relative group overflow-hidden">
-              <Image src="/images/chatgpt-image.webp" alt="Campus Life" fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
+              <Image src="/images/campus-life/cultural-fest.webp" alt="Campus Life" fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-8">
                 <h3 className="text-2xl font-bold">Cultural Festivals</h3>
               </div>
             </div>
             <div className="relative group overflow-hidden">
-              <Image src="/images/f4b83665-42eb-4514-93eb-afe1ce1f84e2.webp" alt="Sports" fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
+              <Image src="/images/campus-life/sports.webp" alt="Sports" fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4">
                 <h3 className="text-lg font-bold">Sports & Athletics</h3>
               </div>
             </div>
             <div className="relative group overflow-hidden">
-              <Image src="/images/b465b6c6-83ea-4042-99ad-f907e1e65696.webp" alt="Library" fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
+              <Image src="/images/academics/bcom-banner.webp" alt="Library" fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4">
                 <h3 className="text-lg font-bold">Central Library</h3>
               </div>
             </div>
             <div className="col-span-2 relative group overflow-hidden">
-              <Image src="/images/swarthmore-college-Eric-Behrens-flickr-5706ffe35f9b581408d48cb3.webp" alt="Campus" fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
+              <Image src="/images/about/campus-overview.webp" alt="Campus" fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6">
                 <h3 className="text-xl font-bold">Historic Campus</h3>
               </div>

@@ -120,7 +120,7 @@ export default function Footer() {
             >
               {/* Static Map Placeholder Image */}
               <Image
-                src="/images/map_placeholder.png"
+                src="/images/layout/map-footer.png"
                 alt="GVH College Location Map"
                 fill
                 className="object-cover opacity-100 group-hover:opacity-50 group-hover:scale-105 transition-all duration-500 ease-in-out"

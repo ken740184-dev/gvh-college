@@ -32,7 +32,7 @@ export default function GudleppaHallikeriPage() {
         {/* Background Overlay image */}
         <div className="absolute inset-0 z-0 opacity-35">
           <Image 
-            src="/images/gudleppa_hallikeri_hero.webp"
+            src="/images/about/gudleppa-hero.webp"
             alt="Gudleppa Hallikeri Hero Background"
             fill
             className="object-cover filter grayscale blur-[1px]"
@@ -101,7 +101,7 @@ export default function GudleppaHallikeriPage() {
           <div className="w-full md:w-80 h-96 relative overflow-hidden bg-white shadow-lg border border-gray-200 p-2">
             <div className="relative w-full h-full">
               <Image 
-                src="/images/gudleppa-hallikeri.jpg"
+                src="/images/about/gudleppa-biography.jpg"
                 alt="Gudleppa Hallikeri Portrait"
                 fill
                 className="object-cover transition-all duration-700"
@@ -142,7 +142,7 @@ export default function GudleppaHallikeriPage() {
           <div className="w-full h-[350px] md:h-[450px] relative overflow-hidden bg-white shadow-lg border border-gray-200 p-2">
             <div className="relative w-full h-full">
               <Image 
-                src="/images/hosaritti_village_1906.webp"
+                src="/images/about/hosaritti-village.webp"
                 alt="Historic village in Karnataka representation"
                 fill
                 className="object-cover hover:scale-105 transition-transform duration-700 ease-out"
@@ -179,7 +179,7 @@ export default function GudleppaHallikeriPage() {
           <div className="lg:order-1 w-full h-[350px] md:h-[450px] relative overflow-hidden bg-white shadow-lg border border-gray-200 p-2">
             <div className="relative w-full h-full">
               <Image 
-                src="/images/indian_freedom_struggle_satyagraha.webp"
+                src="/images/about/freedom-struggle.webp"
                 alt="Protesters marching for Indian independence movement"
                 fill
                 className="object-cover hover:scale-105 transition-transform duration-700 ease-out"
@@ -216,7 +216,7 @@ export default function GudleppaHallikeriPage() {
           <div className="w-full h-[350px] md:h-[450px] relative overflow-hidden bg-white shadow-lg border border-gray-200 p-2">
             <div className="relative w-full h-full">
               <Image 
-                src="/images/gandhi_grameena_gurukul_heritage.webp"
+                src="/images/about/heritage-gurukul.webp"
                 alt="Gandhi Grameena Gurukul Campus traditional architecture"
                 fill
                 className="object-cover hover:scale-105 transition-transform duration-700 ease-out"

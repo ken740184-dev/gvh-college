@@ -8,7 +8,7 @@ export default function BAPage() {
     <div className="pt-20">
       <div className="relative h-[40vh] bg-black">
         <Image 
-          src="/images/52931d59-6890-4dd1-afc3-6cd109fe6d3b.webp" 
+          src="/images/academics/ba-banner.webp" 
           alt="Bachelor of Arts" 
           fill 
           className="object-cover opacity-60"

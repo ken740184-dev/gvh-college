@@ -149,7 +149,7 @@ export default function Navbar() {
             <div className="flex-shrink-0 flex items-center gap-3" ref={logoRef}>
               <div className="relative w-12 h-12 rounded-full overflow-hidden border border-red-500/50 shadow-[0_0_15px_rgba(220,38,38,0.5)] bg-white/10">
                 <Image
-                  src="/images/logo.jpg"
+                  src="/images/layout/logo.jpg"
                   alt="GH College Logo"
                   fill
                   className="object-cover"
@@ -178,7 +178,7 @@ export default function Navbar() {
             <Link href="/" className="flex-shrink-0 flex items-center gap-3">
               <div className="relative w-12 h-12 rounded-full overflow-hidden border border-red-500/50 shadow-[0_0_15px_rgba(220,38,38,0.5)] bg-white/10">
                 <Image
-                  src="/images/logo.jpg"
+                  src="/images/layout/logo.jpg"
                   alt="GH College Logo"
                   fill
                   className="object-cover"
