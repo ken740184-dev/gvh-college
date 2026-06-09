@@ -244,7 +244,9 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
                             <div className="w-[60%] h-[3px] bg-gradient-to-r from-blue-400 to-accent mb-3.5 rounded-full opacity-90 shadow-sm ml-auto"></div>
                              
                             <div 
-                              className="w-full aspect-square relative overflow-hidden border border-white/10 bg-gray-100/50 rounded-none shadow-sm cursor-pointer"
+                              className={`w-full relative overflow-hidden border border-white/10 bg-gray-100/50 rounded-none shadow-sm cursor-pointer ${
+                                block.layoutType === "two-column" ? "aspect-video" : "aspect-square"
+                              }`}
                               onClick={() => block.images[0] && setLightboxImage(block.images[0].url)}
                             >
                               {block.images[0] && (

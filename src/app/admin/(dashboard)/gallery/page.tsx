@@ -481,8 +481,8 @@ export default function AdminGalleryPage() {
                {/* Top Line: right-aligned, reversed gradient */}
                <div className="w-[60%] h-[3px] bg-gradient-to-r from-blue-400 to-accent mb-3 md:mb-4 rounded-full opacity-90 shadow-sm ml-auto"></div>
                
-               <div className="border border-white/20 overflow-hidden bg-gray-100 h-full min-h-[200px]">
-                 {renderSlot(0, "aspect-square w-full h-full")}
+               <div className="border border-white/20 overflow-hidden bg-gray-100">
+                 {renderSlot(0, "aspect-video w-full")}
                </div>
             </div>
             <div className="p-6 flex flex-col flex-grow items-start justify-center w-full md:w-1/2">
