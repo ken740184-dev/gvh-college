@@ -27,37 +27,40 @@ export default async function FacultyPage() {
             No faculty members have been added yet. Check back soon!
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-12">
             {facultyList.map((faculty: any) => (
-              <div key={faculty._id} className="bg-white rounded-lg shadow-md border border-border-color overflow-hidden hover:shadow-xl transition-shadow">
-                <div className="relative h-64 w-full bg-gray-100">
-                  <Image 
-                    src={faculty.image} 
-                    alt={faculty.name}
-                    fill
-                    className="object-cover"
-                  />
+              <div key={faculty._id} className="bg-white rounded-none shadow-md border border-border-color overflow-hidden hover:shadow-xl transition-all duration-300">
+                {/* Padded Image Container (not aligned with card border) */}
+                <div className="p-5 pb-0">
+                  <div className="relative h-72 w-full bg-gray-100 rounded-none overflow-hidden border border-gray-200/60">
+                    <Image 
+                      src={faculty.image} 
+                      alt={faculty.name}
+                      fill
+                      className="object-cover hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-accent mb-1">{faculty.name}</h3>
-                  <p className="text-sm font-semibold text-primary-text mb-4">{faculty.designation}</p>
+                  <h3 className="text-2xl font-bold text-accent mb-1.5">{faculty.name}</h3>
+                  <p className="text-sm font-semibold text-primary-text mb-5 uppercase tracking-wider">{faculty.designation}</p>
                   
-                  <div className="space-y-2 text-sm text-secondary-text">
+                  <div className="space-y-2.5 text-sm text-secondary-text border-t border-gray-100 pt-4">
                     {faculty.qualification && (
-                      <div className="flex flex-col">
-                        <span className="font-medium text-gray-900">Qualification:</span>
+                      <div className="leading-relaxed">
+                        <span className="font-semibold text-gray-900">Qualification: </span>
                         <span>{faculty.qualification}</span>
                       </div>
                     )}
                     {faculty.experience && (
-                      <div className="flex flex-col">
-                        <span className="font-medium text-gray-900">Experience:</span>
+                      <div className="leading-relaxed">
+                        <span className="font-semibold text-gray-900">Experience: </span>
                         <span>{faculty.experience}</span>
                       </div>
                     )}
                     {faculty.specialization && (
-                      <div className="flex flex-col">
-                        <span className="font-medium text-gray-900">Specialization:</span>
+                      <div className="leading-relaxed">
+                        <span className="font-semibold text-gray-900">Specialization: </span>
                         <span>{faculty.specialization}</span>
                       </div>
                     )}
