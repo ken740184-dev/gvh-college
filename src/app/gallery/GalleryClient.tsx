@@ -80,7 +80,7 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
     const renderImage = (img: any, className: string) => (
       <div 
         key={img._id} 
-        className={`relative rounded-xl overflow-hidden group cursor-pointer shadow-md hover:shadow-2xl transition-all duration-500 ${className}`}
+        className={`relative rounded-none overflow-hidden group cursor-pointer shadow-md hover:shadow-2xl transition-all duration-500 ${className}`}
         onClick={() => setLightboxImage(img.url)}
       >
         <Image 
@@ -233,14 +233,14 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
                         <motion.div 
                           key={block._id}
                           variants={cardVariants}
-                          className="flex flex-col border border-gray-200 bg-white shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] h-full rounded-2xl overflow-hidden relative group"
+                          className="flex flex-col border border-gray-200 bg-white shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] h-full rounded-none overflow-hidden relative group"
                         >
                           <div className="p-3 pb-0 flex flex-col">
                             {/* Top Line: right-aligned, reversed gradient */}
                             <div className="w-[60%] h-[3px] bg-gradient-to-r from-blue-400 to-accent mb-3.5 rounded-full opacity-90 shadow-sm ml-auto"></div>
                              
                             <div 
-                              className="w-full aspect-square relative overflow-hidden border border-white/10 bg-gray-100/50 rounded-xl shadow-sm cursor-pointer"
+                              className="w-full aspect-square relative overflow-hidden border border-white/10 bg-gray-100/50 rounded-none shadow-sm cursor-pointer"
                               onClick={() => block.images[0] && setLightboxImage(block.images[0].url)}
                             >
                               {block.images[0] && (
