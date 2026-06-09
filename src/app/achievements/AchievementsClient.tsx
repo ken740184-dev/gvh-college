@@ -49,17 +49,12 @@ export default function AchievementsClient({ initialAchievements }: { initialAch
   const filteredAchievements = achievements.filter(a => a.category === activeTab);
 
   return (
-    <div className="pt-20">
-      <div className="bg-navbar py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">Our Achievements</h1>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            Celebrating excellence across academics, sports, and institutional milestones.
-          </p>
-        </div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 min-h-[50vh]">
+    <div className="pt-32 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-6 min-h-[50vh]">
+        <SectionHeading 
+          title="Our Achievements" 
+          subtitle="Celebrating excellence across academics, sports, and institutional milestones." 
+        />
         {/* Tabs */}
         <div className="flex flex-wrap justify-center gap-4 mb-16">
           <button
@@ -112,12 +107,12 @@ export default function AchievementsClient({ initialAchievements }: { initialAch
                     <motion.div
                       key={item._id}
                       variants={cardVariants}
-                      className={`border border-gray-400/60 bg-[#d1d5db] shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col rounded-2xl overflow-hidden relative group cursor-pointer md:col-span-2 lg:col-span-3 ${
+                      className={`border border-gray-200 bg-[#f3f4f6] shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col rounded-none overflow-hidden relative group cursor-pointer md:col-span-2 lg:col-span-3 ${
                         currentBannerIndex % 2 === 1 ? "md:flex-row-reverse" : "md:flex-row"
                       }`}
                     >
                       <div className="w-full md:w-1/2 p-5 shrink-0">
-                        <div className="relative w-full h-[250px] md:h-full min-h-[250px] md:min-h-[300px] overflow-hidden rounded-xl shadow-sm">
+                        <div className="relative w-full h-[250px] md:h-full min-h-[250px] md:min-h-[300px] overflow-hidden rounded-none shadow-sm">
                           <Image
                             src={item.image}
                             alt={item.title}
@@ -147,11 +142,11 @@ export default function AchievementsClient({ initialAchievements }: { initialAch
                     <motion.div
                       key={item._id}
                       variants={cardVariants}
-                      className="bg-[#d1d5db] border border-gray-400/60 shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col rounded-2xl overflow-hidden relative group cursor-pointer md:col-span-2 lg:col-span-3"
+                      className="bg-[#f3f4f6] border border-gray-200 shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col rounded-none overflow-hidden relative group cursor-pointer md:col-span-2 lg:col-span-3"
                     >
                       {/* Image container padded to leave space around it as a border */}
                       <div className="w-full p-6 pb-4 shrink-0">
-                        <div className="relative w-full aspect-[21/9] md:aspect-[3/1] min-h-[220px] overflow-hidden rounded-xl shadow-sm">
+                        <div className="relative w-full aspect-[21/9] md:aspect-[3/1] min-h-[220px] overflow-hidden rounded-none shadow-sm">
                           <Image
                             src={item.image}
                             alt={item.title}
@@ -182,10 +177,10 @@ export default function AchievementsClient({ initialAchievements }: { initialAch
                   <motion.div
                     key={item._id}
                     variants={cardVariants}
-                    className="border border-gray-400/60 bg-[#d1d5db] shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col rounded-2xl overflow-hidden relative group cursor-pointer col-span-1"
+                    className="border border-gray-200 bg-[#f3f4f6] shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col rounded-none overflow-hidden relative group cursor-pointer col-span-1"
                   >
                     <div className="w-full p-4 pb-2.5 shrink-0">
-                      <div className="relative w-full aspect-video overflow-hidden rounded-xl shadow-sm">
+                      <div className="relative w-full aspect-video overflow-hidden rounded-none shadow-sm">
                         <Image
                           src={item.image}
                           alt={item.title}
