@@ -15,7 +15,7 @@ export function SectionHeading({ title, subtitle, centered = false, light = fals
       >
         {title}
       </h2>
-      <div className={`w-12 h-1 bg-accent mb-6 ${centered ? "mx-auto" : ""}`} />
+      <div className={`w-12 h-1 bg-[#1e40af] mb-6 ${centered ? "mx-auto" : ""}`} />
       {subtitle && (
         <p className={`text-lg max-w-2xl ${centered ? "mx-auto" : ""} ${
           light ? "text-gray-300" : "text-secondary-text"
