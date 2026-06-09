@@ -59,15 +59,15 @@ const isDarkColor = (color: string) => {
 };
 
 const CATEGORIES = [
-  "Campus 🏫",
-  "Academic 📚",
-  "Cultural 🎭",
-  "Sports 🏅",
-  "Competitions 🏆",
-  "Workshops & Seminars 🎤",
-  "Exhibitions 🖼️",
-  "Community Service / NSS 🤝",
-  "Festivals & Celebrations 🎉"
+  "Campus",
+  "Academic",
+  "Cultural",
+  "Sports",
+  "Competitions",
+  "Workshops & Seminars",
+  "Exhibitions",
+  "Community Service / NSS",
+  "Festivals & Celebrations"
 ];
 
 type SlotData = {
@@ -134,7 +134,7 @@ export default function AdminGalleryPage() {
   const [customColor, setCustomColor] = useState("#1e40af");
   const [blockTitle, setBlockTitle] = useState("");
   const [blockDescription, setBlockDescription] = useState("");
-  const [slots, setSlots] = useState<SlotData[]>(Array(LAYOUTS[0].slots).fill({ file: null, previewUrl: null, title: "", category: "Campus 🏫" }));
+  const [slots, setSlots] = useState<SlotData[]>(Array(LAYOUTS[0].slots).fill({ file: null, previewUrl: null, title: "", category: "Campus" }));
   
   const [isUploading, setIsUploading] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
@@ -166,7 +166,7 @@ export default function AdminGalleryPage() {
 
   const handleLayoutSelect = (layout: typeof LAYOUTS[0]) => {
     setSelectedLayout(layout);
-    setSlots(Array(layout.slots).fill({ file: null, previewUrl: null, title: "", category: "Campus 🏫" }));
+    setSlots(Array(layout.slots).fill({ file: null, previewUrl: null, title: "", category: "Campus" }));
     setUploadSuccess(false);
     setStep(2);
   };
@@ -286,7 +286,7 @@ export default function AdminGalleryPage() {
           existingPublicId: existingImage.publicId
         };
       }
-      return { file: null, previewUrl: null, title: "", category: "Campus 🏫" };
+      return { file: null, previewUrl: null, title: "", category: "Campus" };
     });
     
     setEditingBlockId(block._id);
@@ -304,7 +304,7 @@ export default function AdminGalleryPage() {
     setBgColor(COLORS[0]);
     setBlockTitle("");
     setBlockDescription("");
-    setSlots(Array(LAYOUTS[0].slots).fill({ file: null, previewUrl: null, title: "", category: "Campus 🏫" }));
+    setSlots(Array(LAYOUTS[0].slots).fill({ file: null, previewUrl: null, title: "", category: "Campus" }));
     setStep(1);
   };
 
@@ -359,7 +359,7 @@ export default function AdminGalleryPage() {
       
       if (res.success) {
         const wasEditing = !!editingBlockId;
-        setSlots(Array(selectedLayout.slots).fill({ file: null, previewUrl: null, title: "", category: "Campus 🏫" }));
+        setSlots(Array(selectedLayout.slots).fill({ file: null, previewUrl: null, title: "", category: "Campus" }));
         setBlockTitle("");
         setBlockDescription("");
         setEditingBlockId(null);
@@ -412,7 +412,7 @@ export default function AdminGalleryPage() {
             <img src={slots[index].previewUrl as string} alt={`Slot ${index}`} className="w-full h-full object-cover absolute inset-0" />
             <div className="absolute inset-0 bg-black/60 flex flex-col justify-between p-4 opacity-0 hover:opacity-100 transition-opacity">
               <button 
-                onClick={(e) => { e.stopPropagation(); const newSlots = [...slots]; newSlots[index] = { file: null, previewUrl: null, title: "", category: "Campus 🏫" }; setSlots(newSlots); }}
+                onClick={(e) => { e.stopPropagation(); const newSlots = [...slots]; newSlots[index] = { file: null, previewUrl: null, title: "", category: "Campus" }; setSlots(newSlots); }}
                 className="bg-red-500 text-white p-2 rounded-none self-end hover:bg-red-600 transition-transform hover:scale-105"
               >
                 <X className="w-4 h-4" />
@@ -527,7 +527,7 @@ export default function AdminGalleryPage() {
           {slots.map((_, i) => renderSlot(i, "aspect-video"))}
           {slots.length < 2 && (
             <div 
-              onClick={() => setSlots([...slots, { file: null, previewUrl: null, title: "", category: "Campus 🏫" }])}
+              onClick={() => setSlots([...slots, { file: null, previewUrl: null, title: "", category: "Campus" }])}
               className="border-2 border-dashed border-gray-300 rounded-none flex items-center justify-center cursor-pointer hover:bg-gray-50 hover:border-cyan-500 transition-colors text-gray-500 hover:text-cyan-600 font-medium aspect-video"
             >
               + Add second photo
@@ -543,7 +543,7 @@ export default function AdminGalleryPage() {
           {slots.map((_, i) => renderSlot(i, "aspect-square"))}
           {slots.length < 3 && (
             <div 
-              onClick={() => setSlots([...slots, { file: null, previewUrl: null, title: "", category: "Campus 🏫" }])}
+              onClick={() => setSlots([...slots, { file: null, previewUrl: null, title: "", category: "Campus" }])}
               className="border-2 border-dashed border-gray-300 rounded-none flex items-center justify-center cursor-pointer hover:bg-gray-50 hover:border-cyan-500 transition-colors text-gray-500 hover:text-cyan-600 font-medium aspect-square"
             >
               + Add photo
@@ -1022,7 +1022,7 @@ export default function AdminGalleryPage() {
                     onClick={() => {
                       const layout = LAYOUTS.find(l => l.id === "single-card") || LAYOUTS[0];
                       setSelectedLayout(layout);
-                      setSlots(Array(layout.slots).fill({ file: null, previewUrl: null, title: "", category: "Campus 🏫" }));
+                      setSlots(Array(layout.slots).fill({ file: null, previewUrl: null, title: "", category: "Campus" }));
                       setStep(2);
                       setShowUploadMoreModal(false);
                     }}
@@ -1040,7 +1040,7 @@ export default function AdminGalleryPage() {
                     onClick={() => {
                       const layout = LAYOUTS.find(l => l.id === "two-column") || LAYOUTS[0];
                       setSelectedLayout(layout);
-                      setSlots(Array(layout.slots).fill({ file: null, previewUrl: null, title: "", category: "Campus 🏫" }));
+                      setSlots(Array(layout.slots).fill({ file: null, previewUrl: null, title: "", category: "Campus" }));
                       setStep(2);
                       setShowUploadMoreModal(false);
                     }}

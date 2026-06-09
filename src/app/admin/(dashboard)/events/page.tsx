@@ -45,14 +45,14 @@ const formatDate = (dateStr: string) => {
 };
 
 const CATEGORIES = [
-  "Academic 📚",
-  "Cultural 🎭",
-  "Sports 🏅",
-  "Competitions 🏆",
-  "Workshops & Seminars 🎤",
-  "Exhibitions 🖼️",
-  "Community Service / NSS 🤝",
-  "Festivals & Celebrations 🎉"
+  "Academic",
+  "Cultural",
+  "Sports",
+  "Competitions",
+  "Workshops & Seminars",
+  "Exhibitions",
+  "Community Service / NSS",
+  "Festivals & Celebrations"
 ];
 
 export default function AdminEventsPage() {
@@ -66,7 +66,7 @@ export default function AdminEventsPage() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [title, setTitle] = useState("");
   const [date, setDate] = useState(getTodayString());
-  const [category, setCategory] = useState("Academic 📚");
+  const [category, setCategory] = useState("Academic");
   const [description, setDescription] = useState("");
   
   // Images to upload
@@ -97,7 +97,7 @@ export default function AdminEventsPage() {
     setEditingId(null);
     setTitle("");
     setDate(getTodayString());
-    setCategory("Academic 📚");
+    setCategory("Academic");
     setDescription("");
     setNewImageFiles([]);
     setNewImagePreviews([]);

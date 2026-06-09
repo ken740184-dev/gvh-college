@@ -30,14 +30,14 @@ const cardVariants = {
 
 const categories = [
   "All",
-  "Academic 📚",
-  "Cultural 🎭",
-  "Sports 🏅",
-  "Competitions 🏆",
-  "Workshops & Seminars 🎤",
-  "Exhibitions 🖼️",
-  "Community Service / NSS 🤝",
-  "Festivals & Celebrations 🎉"
+  "Academic",
+  "Cultural",
+  "Sports",
+  "Competitions",
+  "Workshops & Seminars",
+  "Exhibitions",
+  "Community Service / NSS",
+  "Festivals & Celebrations"
 ];
 
 const matchCategory = (eventCat: string, activeCat: string) => {
@@ -225,19 +225,26 @@ export default function EventsClient({ initialEvents }: { initialEvents: any[] }
       </div>
 
       {/* Filter Tabs */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-6">
-        <div className="flex flex-wrap gap-2 justify-center">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-6 border-b border-gray-200/80">
+        <div className="flex flex-wrap gap-x-8 gap-y-4 justify-center">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              className={`relative pb-3 text-xs uppercase tracking-wider font-bold transition-all focus:outline-none rounded-none ${
                 activeCategory === cat
-                  ? "bg-accent text-white"
-                  : "bg-gray-100 text-secondary-text hover:bg-gray-200"
+                  ? "text-accent"
+                  : "text-gray-500 hover:text-gray-800"
               }`}
             >
-              {cat}
+              <span>{cat}</span>
+              {activeCategory === cat && (
+                <motion.div 
+                  layoutId="activeEventTabUnderline" 
+                  className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-accent to-blue-500 rounded-none shadow-sm"
+                  transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                />
+              )}
             </button>
           ))}
         </div>
