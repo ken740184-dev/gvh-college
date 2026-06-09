@@ -16,15 +16,30 @@ const containerVariants = {
   }
 };
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
+const slideLeft = {
+  hidden: { opacity: 0, x: -70 },
+  show: { 
+    opacity: 1, 
+    x: 0,
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+  }
+} as any;
+
+const slideRight = {
+  hidden: { opacity: 0, x: 70 },
+  show: { 
+    opacity: 1, 
+    x: 0,
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+  }
+} as any;
+
+const slideUp = {
+  hidden: { opacity: 0, y: 70 },
   show: { 
     opacity: 1, 
     y: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.16, 1, 0.3, 1]
-    }
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
   }
 } as any;
 
@@ -67,20 +82,30 @@ export default function NewsClient({ initialNews }: { initialNews: any[] }) {
           >
             {(() => {
               let bannerIndex = 0;
-              return newsItems.map((news) => {
+              return newsItems.map((news, index) => {
                 const layoutSize = news.layoutSize || (news.isBanner ? "medium" : "small");
                 const currentBannerIndex = layoutSize === "medium" ? bannerIndex++ : 0;
                 
                 if (layoutSize === "medium") {
+                  const isImageRight = currentBannerIndex % 2 === 1;
+                  const imageVariant = isImageRight ? slideRight : slideLeft;
+                  const textVariant = isImageRight ? slideLeft : slideRight;
+
                   return (
                     <motion.article 
                       key={news._id} 
-                      variants={cardVariants}
+                      variants={slideUp}
                       className={`border border-gray-200 bg-[#f3f4f6] shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col rounded-none overflow-hidden relative group cursor-pointer md:col-span-2 lg:col-span-3 ${
-                        currentBannerIndex % 2 === 1 ? "md:flex-row-reverse" : "md:flex-row"
+                        isImageRight ? "md:flex-row-reverse" : "md:flex-row"
                       }`}
                     >
-                      <div className="w-full md:w-1/2 p-5 shrink-0">
+                      <motion.div 
+                        variants={imageVariant}
+                        initial="hidden"
+                        whileInView="show"
+                        viewport={{ once: true, margin: "-100px" }}
+                        className="w-full md:w-1/2 p-5 shrink-0"
+                      >
                         <div className="relative w-full h-[250px] md:h-full min-h-[250px] md:min-h-[300px] overflow-hidden rounded-none shadow-sm">
                           <Image 
                             src={news.image} 
@@ -93,9 +118,15 @@ export default function NewsClient({ initialNews }: { initialNews: any[] }) {
                             {news.category}
                           </div>
                         </div>
-                      </div>
+                      </motion.div>
                       
-                      <div className="p-6 md:p-8 flex flex-col justify-center flex-grow md:w-1/2">
+                      <motion.div 
+                        variants={textVariant}
+                        initial="hidden"
+                        whileInView="show"
+                        viewport={{ once: true, margin: "-100px" }}
+                        className="p-6 md:p-8 flex flex-col justify-center flex-grow md:w-1/2"
+                      >
                         <span className="bg-red-500/10 border border-red-500/20 text-accent px-2 py-0.5 rounded-none text-[10px] font-bold uppercase tracking-wider mb-3 shadow-[0_2px_10px_rgba(220,38,38,0.05)] self-start">
                           {formatDate(news.date)}
                         </span>
@@ -104,7 +135,7 @@ export default function NewsClient({ initialNews }: { initialNews: any[] }) {
                         </h3>
                         <div className="w-10 h-[2px] bg-[#1e40af] mt-2 mb-3" />
                         <p className="text-secondary-text leading-relaxed text-sm font-sans whitespace-pre-wrap">{news.excerpt}</p>
-                      </div>
+                      </motion.div>
                     </motion.article>
                   );
                 }
@@ -113,7 +144,7 @@ export default function NewsClient({ initialNews }: { initialNews: any[] }) {
                   return (
                     <motion.article 
                       key={news._id} 
-                      variants={cardVariants}
+                      variants={slideUp}
                       className="bg-[#f3f4f6] border border-gray-200 shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col rounded-none overflow-hidden relative group cursor-pointer md:col-span-2 lg:col-span-3"
                     >
                       <div className="w-full p-6 pb-4 shrink-0">
@@ -146,10 +177,13 @@ export default function NewsClient({ initialNews }: { initialNews: any[] }) {
                 }
 
                 // Default is small card
+                const columnIndex = index % 3;
+                const smallCardVariant = columnIndex === 0 ? slideLeft : (columnIndex === 1 ? slideUp : slideRight);
+
                 return (
                   <motion.article 
                     key={news._id} 
-                    variants={cardVariants}
+                    variants={smallCardVariant}
                     className="border border-gray-200 bg-[#f3f4f6] shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col rounded-none overflow-hidden relative group cursor-pointer col-span-1"
                   >
                     <div className="w-full p-4 pb-2.5 shrink-0">
