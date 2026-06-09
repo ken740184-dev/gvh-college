@@ -171,15 +171,18 @@ export default function ContactPage() {
                   <ExternalLink className="w-4 h-4 text-blue-600" />
                 </a>
 
-                {/* Satellite View button */}
+                {/* Directions button */}
                 <a 
-                  href="https://www.google.com/maps/place/14.896620,75.554571/@14.896620,75.554571,17z/data=!3m1!1e3"
+                  href="https://www.google.com/maps/dir/?api=1&destination=14.896620,75.554571"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center border border-gray-200 shadow-sm transition-all duration-300 hover:scale-105"
-                  title="Satellite View"
+                  title="Get Directions"
                 >
-                  <Globe className="w-4.5 h-4.5 text-blue-600" />
+                  <svg viewBox="0 0 24 24" className="w-7 h-7">
+                    <path fill="#1a73e8" d="M12 2L2 12l10 10 10-10L12 2z" />
+                    <path fill="#fff" d="M11.5 15.5v-4a1 1 0 0 1 1-1h2.5V8.5L18.5 12l-3.5 3.5V13.5h-2.5v2h-1z" />
+                  </svg>
                 </a>
               </div>
             </div>
@@ -195,16 +198,28 @@ export default function ContactPage() {
           </div>
         </div>
         
-        {/* View on Google Maps Button (Top-Right) */}
-        <div className="absolute top-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 pointer-events-none group-hover:pointer-events-auto">
+        {/* Top-Right Action Buttons Stack */}
+        <div className="absolute top-4 right-4 z-10 flex flex-col gap-2.5 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 pointer-events-none group-hover:pointer-events-auto">
+          {/* View on Google Maps Button */}
           <a 
             href="https://www.google.com/maps/place/14.896620,75.554571"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-accent hover:bg-accent/90 text-white px-4 py-2.5 sm:px-5 sm:py-3 rounded-lg font-bold shadow-lg transition-all duration-300 hover:scale-[1.03] flex items-center gap-2 border border-white/20 text-xs sm:text-sm"
+            className="bg-accent hover:bg-accent/90 text-white px-4 py-2.5 sm:px-5 sm:py-3 rounded-lg font-bold shadow-lg transition-all duration-300 hover:scale-[1.03] flex items-center justify-center gap-2 border border-white/20 text-xs sm:text-sm"
           >
             <MapPin className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
             <span>View on Google Maps</span>
+          </a>
+
+          {/* Get Directions Button */}
+          <a 
+            href="https://www.google.com/maps/dir/?api=1&destination=14.896620,75.554571"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 sm:px-5 sm:py-3 rounded-lg font-bold shadow-lg transition-all duration-300 hover:scale-[1.03] flex items-center justify-center gap-2 border border-white/20 text-xs sm:text-sm pointer-events-auto"
+          >
+            <Navigation className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+            <span>Get Directions</span>
           </a>
         </div>
       </div>
