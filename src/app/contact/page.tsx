@@ -135,7 +135,7 @@ export default function ContactPage() {
       </div>
 
       {/* Map Embed */}
-      <div className="w-full h-[500px] bg-gray-200 relative group">
+      <div id="map" className="w-full h-[500px] bg-gray-200 relative group">
         <iframe 
           src="https://maps.google.com/maps?q=14.896620,75.554571&hl=en&z=17&output=embed" 
           className="w-full h-full border-0" 

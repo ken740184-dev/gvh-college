@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { MapPin, Phone, Mail, Navigation } from "lucide-react";
 
@@ -112,33 +113,28 @@ export default function Footer() {
           {/* Map Link */}
           <div>
             <h4 className="font-bold text-lg mb-6 tracking-wider uppercase">Location</h4>
-            <div className="relative w-full h-48 bg-gray-900 rounded-lg overflow-hidden border border-gray-700 hover:border-accent transition-all duration-300 shadow-inner group">
-              {/* Google Maps Iframe with dark styling filter */}
-              <iframe
-                src="https://maps.google.com/maps?q=14.896620,75.554571&hl=en&z=16&output=embed"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen={false}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="opacity-80 group-hover:opacity-100 transition-opacity duration-300"
-              ></iframe>
+            <Link
+              href="/contact#map"
+              className="block relative w-full h-48 bg-gray-900 rounded-lg overflow-hidden border border-gray-700 hover:border-accent transition-all duration-300 shadow-inner group"
+              title="View Interactive Map on Contact Page"
+            >
+              {/* Static Map Placeholder Image */}
+              <Image
+                src="/images/map_placeholder.png"
+                alt="GVH College Location Map"
+                fill
+                className="object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500 ease-in-out"
+                sizes="(max-width: 768px) 100vw, 300px"
+              />
 
-              {/* Clickable Overlay Link to Get Directions (GPS Path) */}
-              <a
-                href="https://www.google.com/maps/dir/?api=1&destination=14.896620,75.554571"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/25 hover:bg-black/10 transition-colors duration-300 cursor-pointer"
-                title="Get Directions on Google Maps"
-              >
-                <div className="bg-navbar/95 backdrop-blur-sm border border-gray-700 text-white px-4 py-2 rounded-full text-xs font-bold shadow-lg flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-all transform translate-y-3 group-hover:translate-y-0 duration-300">
-                  <Navigation className="w-4 h-4 text-accent" />
-                  <span>Get Directions (GPS Path)</span>
+              {/* Clickable Overlay Link to Interactive Map */}
+              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/20 group-hover:bg-black/10 transition-colors duration-300">
+                <div className="bg-navbar/95 backdrop-blur-sm border border-gray-700 text-white px-4 py-2 rounded-full text-xs font-bold shadow-lg flex items-center gap-1.5 opacity-90 group-hover:opacity-100 transition-all transform scale-100 group-hover:scale-105 duration-300">
+                  <MapPin className="w-3.5 h-3.5 text-accent animate-pulse" />
+                  <span>View Map & Directions</span>
                 </div>
-              </a>
-            </div>
+              </div>
+            </Link>
           </div>
         </div>
 
