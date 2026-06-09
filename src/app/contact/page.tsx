@@ -5,28 +5,6 @@ import { Button } from "@/components/ui/Button";
 import { MapPin, Phone, Mail, Clock, Navigation } from "lucide-react";
 
 export default function ContactPage() {
-  const handleGetDirections = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    const destination = "14.896620,75.554571";
-    
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          const url = `https://www.google.com/maps/dir/?api=1&origin=${latitude},${longitude}&destination=${destination}`;
-          window.open(url, "_blank", "noopener,noreferrer");
-        },
-        (error) => {
-          const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
-          window.open(url, "_blank", "noopener,noreferrer");
-        },
-        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-      );
-    } else {
-      const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
-      window.open(url, "_blank", "noopener,noreferrer");
-    }
-  };
   return (
     <div className="pt-20">
       <div className="bg-navbar py-20">
@@ -208,7 +186,6 @@ export default function ContactPage() {
         <div className="absolute top-4 right-4 z-10 pointer-events-none">
           <a 
             href="https://www.google.com/maps/dir/?api=1&destination=14.896620,75.554571"
-            onClick={handleGetDirections}
             target="_blank"
             rel="noopener noreferrer"
             className="bg-accent hover:bg-accent/90 text-white px-4 py-2.5 sm:px-5 sm:py-3 rounded-lg font-bold shadow-lg transition-all duration-300 hover:scale-[1.03] flex items-center gap-2 pointer-events-auto border border-white/20 text-xs sm:text-sm"

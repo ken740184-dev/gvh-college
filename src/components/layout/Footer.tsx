@@ -7,29 +7,6 @@ import { MapPin, Phone, Mail, Navigation } from "lucide-react";
 export default function Footer() {
   const pathname = usePathname();
 
-  const handleGetDirections = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    const destination = "14.896620,75.554571";
-    
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          const url = `https://www.google.com/maps/dir/?api=1&origin=${latitude},${longitude}&destination=${destination}`;
-          window.open(url, "_blank", "noopener,noreferrer");
-        },
-        (error) => {
-          const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
-          window.open(url, "_blank", "noopener,noreferrer");
-        },
-        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-      );
-    } else {
-      const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
-      window.open(url, "_blank", "noopener,noreferrer");
-    }
-  };
-
   if (pathname.startsWith("/admin")) {
     return null;
   }
@@ -151,7 +128,6 @@ export default function Footer() {
               {/* Clickable Overlay Link to Get Directions (GPS Path) */}
               <a
                 href="https://www.google.com/maps/dir/?api=1&destination=14.896620,75.554571"
-                onClick={handleGetDirections}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/25 hover:bg-black/10 transition-colors duration-300 cursor-pointer"
