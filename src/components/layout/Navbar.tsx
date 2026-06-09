@@ -37,6 +37,7 @@ const originalNavigation = [
   { name: "Faculty", href: "/faculty" },
   { name: "Campus Life", href: "/campus-life" },
   { name: "Achievements", href: "/achievements" },
+  { name: "Events", href: "/events" },
   { name: "News", href: "/news" },
   { name: "Gallery", href: "/gallery" },
   { name: "Contact", href: "/contact" },
