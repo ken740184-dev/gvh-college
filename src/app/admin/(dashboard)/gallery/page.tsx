@@ -464,6 +464,37 @@ export default function AdminGalleryPage() {
         </div>
       );
     }
+    if (selectedLayout.id === "two-column") {
+      return (
+        <div className="max-w-3xl mx-auto">
+          <div 
+            className={`border ${
+              isDarkColor(bgColor.id === 'custom' ? customColor : bgColor.id) ? 'border-gray-800/80' : 'border-white/50'
+            } ${
+              bgColor.id === 'bg-white' 
+                ? 'bg-gradient-to-br from-white/75 via-white/50 to-white/10 backdrop-blur-xl' 
+                : (bgColor.id.startsWith('bg-') ? bgColor.id : '')
+            } h-full flex flex-col md:flex-row rounded-none shadow-lg`} 
+            style={{ backgroundColor: bgColor.id === 'custom' ? customColor : undefined }}
+          >
+            <div className="p-3 md:p-4 pb-0 md:pb-4 md:pr-0 flex flex-col w-full md:w-1/2">
+               {/* Top Line: right-aligned, reversed gradient */}
+               <div className="w-[60%] h-[3px] bg-gradient-to-r from-blue-400 to-accent mb-3 md:mb-4 rounded-full opacity-90 shadow-sm ml-auto"></div>
+               
+               <div className="border border-white/20 overflow-hidden bg-gray-100 h-full min-h-[200px]">
+                 {renderSlot(0, "aspect-square w-full h-full")}
+               </div>
+            </div>
+            <div className="p-6 flex flex-col flex-grow items-start justify-center w-full md:w-1/2">
+               {/* Blue accent line: shorter than card, longer than small title */}
+               <div className="w-[60%] h-[3px] bg-gradient-to-r from-accent to-blue-400 mb-4 rounded-full opacity-90 shadow-sm"></div>
+               <h3 className="text-lg font-bold mb-1.5 font-sans text-slate-800 uppercase tracking-tight">{blockTitle || "Card Title"}</h3>
+               <p className={`${isDarkColor(bgColor.id === 'custom' ? customColor : bgColor.id) ? 'text-slate-200' : 'text-slate-600'} text-sm leading-relaxed`}>{blockDescription || "Card description will appear here..."}</p>
+            </div>
+          </div>
+        </div>
+      );
+    }
 
     if (selectedLayout.id === "single") {
       return <div className="grid grid-cols-1">{renderSlot(0, "aspect-[21/9]")}</div>;
