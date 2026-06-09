@@ -8,19 +8,19 @@ import { Button } from "@/components/ui/Button";
 const slides = [
   {
     id: 1,
-    image: "/images/swarthmore-college-Eric-Behrens-flickr-5706ffe35f9b581408d48cb3.webp",
+    image: "/images/home/hero/image1.png",
     title: "Quality Education for a Successful Future",
     description: "Providing students with the knowledge, skills, and confidence needed to excel in an evolving world.",
   },
   {
     id: 2,
-    image: "/images/52931d59-6890-4dd1-afc3-6cd109fe6d3b.webp",
+    image: "/images/home/hero/image2.png",
     title: "Building Leaders of Tomorrow",
     description: "Empowering students through innovation, critical thinking, and academic excellence.",
   },
   {
     id: 3,
-    image: "/images/b465b6c6-83ea-4042-99ad-f907e1e65696.webp",
+    image: "/images/home/hero/image3.png",
     title: "A Campus That Inspires Growth",
     description: "Creating an environment where students learn, explore, and succeed.",
   }

@@ -11,7 +11,7 @@ const columns = [
     icon: Newspaper,
     date: "Dec 22, 2025",
     headline: "Day 1 - National Conference of Indian Council of Chemists Inaugurated at GVH College",
-    image: "/images/about/campus-overview.webp",
+    image: "/images/home/news/news1.png",
     link: "/news"
   },
   {
@@ -19,7 +19,7 @@ const columns = [
     icon: Calendar,
     date: "Jan 25, 2026",
     headline: "GVH College to Host Prestigious Republic Day Cup 2026",
-    image: "/images/campus-life/sports.webp",
+    image: "/images/home/news/news2.png",
     link: "/campus-life"
   },
   {
@@ -27,7 +27,7 @@ const columns = [
     icon: Trophy,
     date: "Sep 24, 2024",
     headline: "GVH College Cricket Team Wins State Inter-University Championship",
-    image: "/images/academics/bcom-banner.webp",
+    image: "/images/home/news/news3.png",
     link: "/achievements"
   }
 ];

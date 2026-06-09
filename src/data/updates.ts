@@ -4,7 +4,7 @@ export const latestUpdates = [
     type: "LATEST NEWS",
     date: "Dec 22, 2025",
     title: "Day 1 - National Conference of Indian Council of Chemists Inaugurated",
-    image: "/images/about/campus-overview.webp",
+    image: "/images/home/news/news1.png",
     link: "/news",
     badgeColor: "bg-accent text-white"
   },
@@ -13,7 +13,7 @@ export const latestUpdates = [
     type: "UPCOMING EVENT",
     date: "Jan 25, 2026",
     title: "GVH College to Host Prestigious Republic Day Cup 2026",
-    image: "/images/campus-life/sports.webp",
+    image: "/images/home/news/news2.png",
     link: "/campus-life",
     badgeColor: "bg-white text-primary-text"
   },
@@ -22,7 +22,7 @@ export const latestUpdates = [
     type: "ACHIEVEMENT",
     date: "", // No date explicitly shown on this layout
     title: "Cricket Team Wins State Championship",
-    image: "/images/academics/bcom-banner.webp",
+    image: "/images/home/news/news3.png",
     link: "/achievements",
     badgeColor: "bg-yellow-500 text-black"
   },
@@ -31,7 +31,7 @@ export const latestUpdates = [
     type: "NEWS",
     date: "", // No date
     title: "New State-of-the-Art Digital Library",
-    image: "/images/academics/ba-banner.webp",
+    image: "/images/home/news/news1.png",
     link: "/news",
     badgeColor: "bg-accent text-white"
   }
