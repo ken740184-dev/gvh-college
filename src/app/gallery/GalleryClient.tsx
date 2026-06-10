@@ -128,17 +128,12 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
           </span>
         )}
 
-        {/* Title & description sliding up on hover */}
+        {/* Title sliding up on hover */}
         {img.title && (
           <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-20">
-            <h3 className="text-white font-sans font-bold text-lg md:text-xl leading-tight mb-1">
+            <h3 className="text-white font-sans font-bold text-lg md:text-xl leading-tight font-sans">
               {img.title}
             </h3>
-            {img.description && (
-              <p className="text-gray-300 text-xs line-clamp-2 leading-relaxed font-sans">
-                {img.description}
-              </p>
-            )}
           </div>
         )}
       </div>
@@ -307,23 +302,13 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
                             )}
 
                             {block.title ? (
-                              <h3 className="text-base md:text-lg font-bold text-slate-800 transition-colors duration-300 mb-2 uppercase font-sans tracking-tight leading-snug">
+                              <h3 className="text-base md:text-lg font-bold text-slate-800 transition-colors duration-300 uppercase font-sans tracking-tight leading-snug">
                                 {block.title}
                               </h3>
                             ) : (
-                              <h3 className="text-base md:text-lg font-bold text-slate-400 italic mb-2 font-sans tracking-tight">
+                              <h3 className="text-base md:text-lg font-bold text-slate-400 italic font-sans tracking-tight">
                                 Untitled Image
                               </h3>
-                            ) }
-                            
-                            {block.description ? (
-                              <p className="text-slate-600 text-xs md:text-sm leading-relaxed flex-grow font-sans">
-                                {block.description}
-                              </p>
-                            ) : (
-                              <p className="text-xs md:text-sm text-slate-400 italic flex-grow font-sans">
-                                No description provided.
-                              </p>
                             ) }
                           </div>
                         </motion.div>
@@ -358,7 +343,7 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
                   >
 
                     {/* Content Header inside the card */}
-                    {(block.title || block.description || block.category) && (
+                    {(block.title || block.category) && (
                       <div className="p-2 flex flex-col items-start mb-6">
                         {block.category && block.category !== "None" && (
                           <span className="bg-red-500/10 border border-red-500/20 text-accent px-2 py-0.5 rounded-none text-[10px] font-bold uppercase tracking-wider mb-3 shadow-[0_2px_10px_rgba(220,38,38,0.05)]">
@@ -366,14 +351,9 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
                           </span>
                         )}
                         {block.title && (
-                          <h2 className="text-xl md:text-2xl font-bold text-slate-800 transition-colors duration-300 mb-2 uppercase font-sans tracking-tight leading-snug">
+                          <h2 className="text-xl md:text-2xl font-bold text-slate-800 transition-colors duration-300 uppercase font-sans tracking-tight leading-snug">
                             {block.title}
                           </h2>
-                        )}
-                        {block.description && (
-                          <p className={`${isDarkColor(block.backgroundColor) ? 'text-slate-200' : 'text-slate-600'} text-xs md:text-sm leading-relaxed font-sans`}>
-                            {block.description}
-                          </p>
                         )}
                       </div>
                     )}
