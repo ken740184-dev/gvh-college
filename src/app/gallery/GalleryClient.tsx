@@ -74,70 +74,87 @@ const isDarkColor = (color: string) => {
 export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] }) {
   const [blocks] = useState<any[]>(initialBlocks);
   const [activeCategory, setActiveCategory] = useState("All");
-  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  const [lightboxImages, setLightboxImages] = useState<string[] | null>(null);
+  const [lightboxIndex, setLightboxIndex] = useState<number>(0);
 
-  // Filter logic: always flatten all blocks' images into single cards, filtering by category if active.
+  const openLightbox = (images: string[], index: number) => {
+    setLightboxImages(images);
+    setLightboxIndex(index);
+  };
+
   const filteredBlocks = useMemo(() => {
-    const flatBlocks: any[] = [];
+    const result: any[] = [];
     blocks.forEach((block) => {
-      block.images.forEach((img: any) => {
-        // If the image has its own category, use it. Otherwise fallback to the block's category.
-        const imgCategory = img.category && img.category !== "None" ? img.category : block.category;
+      const isMultiImageLayout = ["single", "duo", "grid-3", "bento-4", "bento-5"].includes(block.layoutType);
+      
+      if (isMultiImageLayout) {
+        // For multi-image layouts, keep the block intact and verify if the block category or any image category matches
+        const anyImageMatches = block.images.some((img: any) => {
+          const imgCategory = img.category && img.category !== "None" ? img.category : block.category;
+          return matchCategory(imgCategory, activeCategory);
+        });
         
-        if (activeCategory === "All" || matchCategory(imgCategory, activeCategory)) {
-          flatBlocks.push({
-            _id: img._id || (block._id + "-" + img.url),
-            layoutType: block.layoutType || "single-card",
-            backgroundColor: block.backgroundColor || "bg-white",
-            images: [img],
-            title: img.title || block.title || "",
-            description: img.description || block.description || "",
-            category: imgCategory,
-          });
+        if (activeCategory === "All" || matchCategory(block.category, activeCategory) || anyImageMatches) {
+          result.push(block);
         }
-      });
+      } else {
+        // For single-card and two-column cards, filter by the single image's category
+        const img = block.images[0];
+        if (img) {
+          const imgCategory = img.category && img.category !== "None" ? img.category : block.category;
+          if (activeCategory === "All" || matchCategory(imgCategory, activeCategory)) {
+            result.push(block);
+          }
+        }
+      }
     });
-    return flatBlocks;
+    return result;
   }, [blocks, activeCategory]);
 
   // Helper to render the specific CSS grid layout for the block
   const renderBlockGrid = (block: any) => {
     // Sort images by slot index to ensure they render in the exact right visual spot
     const sortedImages = [...block.images].sort((a, b) => a.slotIndex - b.slotIndex);
+    const imageUrls = sortedImages.map((img: any) => img.url);
 
-    const renderImage = (img: any, className: string) => (
-      <div 
-        key={img._id} 
-        className={`relative rounded-none overflow-hidden group cursor-pointer shadow-md hover:shadow-2xl transition-all duration-500 ${className}`}
-        onClick={() => setLightboxImage(img.url)}
-      >
-        <Image 
-          src={img.url} 
-          alt={img.title || "Gallery image"} 
-          fill 
-          className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
-        />
-        
-        {/* Dark overlay that fades in on hover */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
-        
-        {/* Glowing category indicator */}
-        {img.category && img.category !== "None" && (
-          <span className="absolute top-4 left-4 bg-accent/90 backdrop-blur-md text-white px-2.5 py-0.5 rounded-none text-[10px] font-bold uppercase tracking-wider shadow-[0_0_15px_rgba(220,38,38,0.4)] opacity-0 group-hover:opacity-100 transition-all duration-300 transform -translate-y-2 group-hover:translate-y-0 z-20">
-            {img.category}
-          </span>
-        )}
+    const renderImage = (img: any, className: string, isLastVisibleBentoSlot?: boolean, extraCount?: number) => {
+      const globalIndex = sortedImages.indexOf(img);
+      return (
+        <div 
+          key={img._id} 
+          className={`relative rounded-none overflow-hidden group cursor-pointer shadow-md hover:shadow-2xl transition-all duration-500 ${className}`}
+          onClick={() => openLightbox(imageUrls, globalIndex)}
+        >
+          <Image 
+            src={img.url} 
+            alt={img.title || "Gallery image"} 
+            fill 
+            className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+          />
+          
+          {/* Dark overlay that fades in on hover */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
+          
+          {/* Title sliding up on hover */}
+          {img.title && img.title !== block.title && (
+            <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-20">
+              <h3 className="text-white font-sans font-bold text-lg md:text-xl leading-tight font-sans">
+                {img.title}
+              </h3>
+            </div>
+          )}
 
-        {/* Title sliding up on hover */}
-        {img.title && (
-          <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-20">
-            <h3 className="text-white font-sans font-bold text-lg md:text-xl leading-tight font-sans">
-              {img.title}
-            </h3>
-          </div>
-        )}
-      </div>
-    );
+          {/* +N overlay if this is the last visible bento-5 slot and there are extra images */}
+          {isLastVisibleBentoSlot && extraCount && extraCount > 0 && (
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px] flex items-center justify-center z-30 transition-colors group-hover:bg-black/50">
+              <span className="text-white font-sans font-extrabold text-3xl md:text-4xl tracking-wide animate-pulse">
+                +{extraCount}
+              </span>
+            </div>
+          )}
+        </div>
+      );
+    };
 
     if (block.layoutType === "single") {
       return (
@@ -176,13 +193,14 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
     }
 
     if (block.layoutType === "bento-5") {
+      const extraCount = sortedImages.length - 5;
       return (
-        <div className="grid grid-cols-2 md:grid-cols-[1.8fr_1fr_1fr] gap-1 md:gap-2 auto-rows-[150px] md:auto-rows-[250px] lg:auto-rows-[350px] w-full">
-          {sortedImages[0] && renderImage(sortedImages[0], "col-span-2 md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-3 h-full")}
-          {sortedImages[1] && renderImage(sortedImages[1], "col-span-1 md:col-start-2 md:col-end-3 md:row-start-1 md:row-end-2 h-full")}
-          {sortedImages[2] && renderImage(sortedImages[2], "col-span-1 md:col-start-3 md:col-end-4 md:row-start-1 md:row-end-2 h-full")}
-          {sortedImages[3] && renderImage(sortedImages[3], "col-span-1 md:col-start-2 md:col-end-3 md:row-start-2 md:row-end-3 h-full")}
-          {sortedImages[4] && renderImage(sortedImages[4], "col-span-1 md:col-start-3 md:col-end-4 md:row-start-2 md:row-end-3 h-full")}
+        <div className="grid grid-cols-3 gap-1 md:gap-1.5 w-full">
+          {sortedImages[0] && renderImage(sortedImages[0], "col-span-2 aspect-[2.015/1] w-full")}
+          {sortedImages[1] && renderImage(sortedImages[1], "col-span-1 aspect-square w-full")}
+          {sortedImages[2] && renderImage(sortedImages[2], "col-span-1 aspect-square w-full")}
+          {sortedImages[3] && renderImage(sortedImages[3], "col-span-1 aspect-square w-full")}
+          {sortedImages[4] && renderImage(sortedImages[4], "col-span-1 aspect-square w-full", true, extraCount)}
         </div>
       );
     }
@@ -251,7 +269,7 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
               return (
                 <motion.div 
                   key={item._id} 
-                  className="w-full py-8 md:py-12 transition-colors duration-500 z-10"
+                  className="w-full py-3 md:py-4 transition-colors duration-500 z-10"
                   variants={containerVariants}
                   initial="hidden"
                   whileInView="show"
@@ -275,9 +293,9 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
                              
                             <div 
                               className={`w-full relative overflow-hidden border border-white/10 bg-gray-100/50 rounded-none shadow-sm cursor-pointer ${
-                                block.layoutType === "two-column" ? "aspect-video" : "aspect-square"
+                                block.layoutType === "two-column" ? "aspect-[2.13/1]" : "aspect-square"
                               }`}
-                              onClick={() => block.images[0] && setLightboxImage(block.images[0].url)}
+                              onClick={() => block.images[0] && openLightbox([block.images[0].url], 0)}
                             >
                               {block.images[0] && (
                                 <Image 
@@ -323,7 +341,7 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
             return (
               <motion.div 
                 key={block._id} 
-                className="w-full py-8 md:py-12 transition-colors duration-500 z-10"
+                className="w-full py-3 md:py-4 transition-colors duration-500 z-10"
                 variants={containerVariants}
                 initial="hidden"
                 whileInView="show"
@@ -338,7 +356,7 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
                       block.backgroundColor === 'bg-white' 
                         ? 'bg-gradient-to-br from-white/80 via-white/50 to-white/10 backdrop-blur-xl' 
                         : (block.backgroundColor.startsWith('bg-') ? block.backgroundColor : '')
-                    } shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] p-4 md:p-6 rounded-2xl overflow-hidden relative group`}
+                    } shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] p-4 md:p-6 rounded-none overflow-hidden relative group`}
                     style={{ backgroundColor: block.backgroundColor.startsWith('#') ? block.backgroundColor : undefined }}
                   >
 
@@ -377,24 +395,60 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
       </div>
 
       {/* Lightbox */}
-      {lightboxImage && (
+      {lightboxImages && lightboxImages[lightboxIndex] && (
         <div 
-          className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 cursor-pointer"
-          onClick={() => setLightboxImage(null)}
+          className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 cursor-pointer select-none"
+          onClick={() => setLightboxImages(null)}
         >
+          {/* Close button */}
+          <button 
+            className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors p-2.5 z-50 focus:outline-none bg-white/10 hover:bg-white/20 rounded-full cursor-pointer"
+            onClick={() => setLightboxImages(null)}
+            aria-label="Close lightbox"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+
+          {/* Navigation Controls */}
+          {lightboxIndex > 0 && (
+            <button 
+              className="absolute left-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-3 z-50 focus:outline-none bg-white/10 hover:bg-white/20 rounded-full cursor-pointer"
+              onClick={(e) => { e.stopPropagation(); setLightboxIndex(lightboxIndex - 1); }}
+              aria-label="Previous image"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
+              </svg>
+            </button>
+          )}
+
+          {lightboxIndex < lightboxImages.length - 1 && (
+            <button 
+              className="absolute right-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-3 z-50 focus:outline-none bg-white/10 hover:bg-white/20 rounded-full cursor-pointer"
+              onClick={(e) => { e.stopPropagation(); setLightboxIndex(lightboxIndex + 1); }}
+              aria-label="Next image"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          )}
+
           <div className="relative w-full max-w-6xl aspect-video" onClick={(e) => e.stopPropagation()}>
             <Image 
-              src={lightboxImage} 
+              src={lightboxImages[lightboxIndex]} 
               alt="Full size image" 
               fill 
               className="object-contain"
+              priority
             />
-            <button 
-              className="absolute -top-12 right-0 text-white hover:text-gray-300 font-bold tracking-wider"
-              onClick={() => setLightboxImage(null)}
-            >
-              CLOSE
-            </button>
+            {lightboxImages.length > 1 && (
+              <div className="absolute -bottom-10 left-0 right-0 text-center text-white/60 text-sm font-sans pointer-events-none">
+                {lightboxIndex + 1} / {lightboxImages.length}
+              </div>
+            )}
           </div>
         </div>
       )}

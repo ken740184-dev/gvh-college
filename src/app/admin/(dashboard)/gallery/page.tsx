@@ -34,6 +34,22 @@ const LAYOUTS = [
       </div>
     )
   },
+  {
+    id: "bento-5",
+    name: "5-Image Bento",
+    slots: 5,
+    renderIcon: () => (
+      <div className="w-full h-full flex flex-col gap-1 items-center justify-center p-2">
+        <div className="w-20 h-10 grid grid-cols-3 gap-0.5 bg-gray-200 p-0.5 rounded border border-gray-300">
+          <div className="col-span-2 bg-gray-400 rounded-sm"></div>
+          <div className="col-span-1 bg-gray-300 rounded-sm"></div>
+          <div className="col-span-1 bg-gray-300 rounded-sm"></div>
+          <div className="col-span-1 bg-gray-300 rounded-sm"></div>
+          <div className="col-span-1 bg-gray-300 rounded-sm"></div>
+        </div>
+      </div>
+    )
+  }
 ];
 
 const COLORS = [
@@ -133,7 +149,6 @@ export default function AdminGalleryPage() {
   const [bgColor, setBgColor] = useState(COLORS[0]);
   const [customColor, setCustomColor] = useState("#1e40af");
   const [blockTitle, setBlockTitle] = useState("");
-  const [blockDescription, setBlockDescription] = useState("");
   const [slots, setSlots] = useState<SlotData[]>(Array(LAYOUTS[0].slots).fill({ file: null, previewUrl: null, title: "", category: "Campus" }));
   
   const [isUploading, setIsUploading] = useState(false);
@@ -293,7 +308,6 @@ export default function AdminGalleryPage() {
     setSelectedLayout(targetLayout);
     setBgColor(COLORS.find(c => c.id === block.backgroundColor) || COLORS[0]);
     setBlockTitle(block.title || "");
-    setBlockDescription(block.description || "");
     setSlots(newSlots);
     setStep(2);
   };
@@ -303,7 +317,6 @@ export default function AdminGalleryPage() {
     setSelectedLayout(LAYOUTS[0]);
     setBgColor(COLORS[0]);
     setBlockTitle("");
-    setBlockDescription("");
     setSlots(Array(LAYOUTS[0].slots).fill({ file: null, previewUrl: null, title: "", category: "Campus" }));
     setStep(1);
   };
@@ -328,7 +341,8 @@ export default function AdminGalleryPage() {
     formData.append("layoutType", selectedLayout.id);
     formData.append("backgroundColor", bgColor.id === "custom" ? customColor : bgColor.id);
     formData.append("title", blockTitle);
-    formData.append("description", blockDescription);
+    formData.append("description", "");
+    formData.append("category", slots[0]?.category || "Campus");
 
     const slotsWithOriginalIndex = slots.map((slot, index) => ({ slot, index })).filter(s => s.slot.file || s.slot.previewUrl);
 
@@ -361,7 +375,6 @@ export default function AdminGalleryPage() {
         const wasEditing = !!editingBlockId;
         setSlots(Array(selectedLayout.slots).fill({ file: null, previewUrl: null, title: "", category: "Campus" }));
         setBlockTitle("");
-        setBlockDescription("");
         setEditingBlockId(null);
         fetchBlocks(); 
         
@@ -396,7 +409,9 @@ export default function AdminGalleryPage() {
     const renderSlot = (index: number, className: string) => (
       <div 
         key={index}
-        className={`relative rounded-none border-2 border-dashed ${slots[index]?.previewUrl ? 'border-transparent shadow-none' : 'border-gray-300 hover:border-cyan-500 bg-gray-50 flex flex-col items-center justify-center cursor-pointer'} ${className} transition-all duration-300 min-h-[200px]`}
+        className={`relative rounded-none border-2 border-dashed ${slots[index]?.previewUrl ? 'border-transparent shadow-none' : 'border-gray-300 hover:border-cyan-500 bg-gray-50 flex flex-col items-center justify-center cursor-pointer'} ${className} transition-all duration-300 ${
+          selectedLayout.id === "bento-5" ? "min-h-[100px]" : "min-h-[200px]"
+        }`}
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => handleFileDrop(e, index)}
         onClick={() => !slots[index]?.previewUrl && fileInputRefs.current[index]?.click()}
@@ -475,11 +490,10 @@ export default function AdminGalleryPage() {
                  {renderSlot(0, "aspect-square w-full")}
                </div>
             </div>
-            <div className="p-6 flex flex-col flex-grow items-start">
+            <div className="p-6 flex flex-col items-start">
                {/* Blue accent line: shorter than card, longer than small title */}
                <div className="w-[60%] h-[3px] bg-gradient-to-r from-accent to-blue-400 mb-4 rounded-full opacity-90 shadow-sm"></div>
-               <h3 className="text-lg font-bold mb-1.5 font-sans text-slate-800 uppercase tracking-tight">{blockTitle || "Card Title"}</h3>
-               <p className={`${isDarkColor(bgColor.id === 'custom' ? customColor : bgColor.id) ? 'text-slate-200' : 'text-slate-600'} text-sm leading-relaxed`}>{blockDescription || "Card description will appear here..."}</p>
+               <h3 className="text-lg font-bold font-sans text-slate-800 uppercase tracking-tight">{blockTitle || "Card Title"}</h3>
             </div>
           </div>
         </div>
@@ -503,14 +517,13 @@ export default function AdminGalleryPage() {
                <div className="w-[60%] h-[3px] bg-gradient-to-r from-blue-400 to-accent mb-3 md:mb-4 rounded-full opacity-90 shadow-sm ml-auto"></div>
                
                <div className="border border-white/20 overflow-hidden bg-gray-100 w-full">
-                 {renderSlot(0, "aspect-video w-full")}
+                 {renderSlot(0, "aspect-[2.13/1] w-full")}
                </div>
             </div>
-            <div className="p-6 flex flex-col flex-grow items-start w-full">
+            <div className="p-6 flex flex-col items-start w-full">
                {/* Blue accent line: shorter than card, longer than small title */}
                <div className="w-[60%] h-[3px] bg-gradient-to-r from-accent to-blue-400 mb-4 rounded-full opacity-90 shadow-sm"></div>
-               <h3 className="text-lg font-bold mb-1.5 font-sans text-slate-800 uppercase tracking-tight">{blockTitle || "Card Title"}</h3>
-               <p className={`${isDarkColor(bgColor.id === 'custom' ? customColor : bgColor.id) ? 'text-slate-200' : 'text-slate-600'} text-sm leading-relaxed`}>{blockDescription || "Card description will appear here..."}</p>
+               <h3 className="text-lg font-bold font-sans text-slate-800 uppercase tracking-tight">{blockTitle || "Card Title"}</h3>
             </div>
           </div>
         </div>
@@ -566,12 +579,54 @@ export default function AdminGalleryPage() {
 
     if (selectedLayout.id === "bento-5") {
       return (
-        <div className="grid grid-cols-2 md:grid-cols-[1.8fr_1fr_1fr] gap-4 auto-rows-[200px]">
-          {renderSlot(0, "col-span-2 md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-3")}
-          {renderSlot(1, "col-span-1 md:col-start-2 md:col-end-3 md:row-start-1 md:row-end-2")}
-          {renderSlot(2, "col-span-1 md:col-start-3 md:col-end-4 md:row-start-1 md:row-end-2")}
-          {renderSlot(3, "col-span-1 md:col-start-2 md:col-end-3 md:row-start-2 md:row-end-3")}
-          {renderSlot(4, "col-span-1 md:col-start-3 md:col-end-4 md:row-start-2 md:row-end-3")}
+        <div className="w-full space-y-6">
+          <div className="grid grid-cols-3 gap-1 md:gap-1.5 w-full">
+            {renderSlot(0, "col-span-2 aspect-[2.015/1] w-full rounded-none overflow-hidden")}
+            {renderSlot(1, "col-span-1 aspect-square w-full rounded-none overflow-hidden")}
+            {renderSlot(2, "col-span-1 aspect-square w-full rounded-none overflow-hidden")}
+            {renderSlot(3, "col-span-1 aspect-square w-full rounded-none overflow-hidden")}
+            {renderSlot(4, "col-span-1 aspect-square w-full rounded-none overflow-hidden")}
+          </div>
+          
+          <div className="flex flex-col gap-4">
+            {slots.length > 5 && (
+              <div className="p-4 bg-gray-50 border border-gray-200 rounded-xl">
+                <div className="flex justify-between items-center mb-3">
+                  <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider">Extra Bento Photos ({slots.length - 5} extra)</h4>
+                  <p className="text-[10px] text-gray-400">These will show as a +N count on the 5th photo and be viewable in the lightbox</p>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-3">
+                  {slots.slice(5).map((_, i) => (
+                    <div key={i + 5} className="relative group">
+                      {renderSlot(i + 5, "aspect-square w-full")}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const newSlots = [...slots];
+                          newSlots.splice(i + 5, 1);
+                          setSlots(newSlots);
+                        }}
+                        className="absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-1 shadow z-20 focus:outline-none"
+                        title="Remove extra photo"
+                      >
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            <button
+              type="button"
+              onClick={() => setSlots([...slots, { file: null, previewUrl: null, title: "", category: slots[0]?.category || "Campus" }])}
+              className="px-4 py-2 border-2 border-dashed border-gray-300 hover:border-cyan-500 text-gray-500 hover:text-cyan-600 font-bold rounded-lg text-sm transition-colors w-full cursor-pointer"
+            >
+              + Add Extra Image for Bento (shows as +N badge)
+            </button>
+          </div>
         </div>
       );
     }
@@ -727,13 +782,6 @@ export default function AdminGalleryPage() {
                     onChange={(e) => setBlockTitle(e.target.value)}
                     className="flex-1 min-w-0 bg-white border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none transition-all"
                   />
-                  <input
-                    type="text"
-                    placeholder="Block Description (optional)"
-                    value={blockDescription}
-                    onChange={(e) => setBlockDescription(e.target.value)}
-                    className="flex-[2] min-w-0 bg-white border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none transition-all"
-                  />
                 </div>
 
                 <button
@@ -831,7 +879,7 @@ export default function AdminGalleryPage() {
                                       
                                       <div 
                                         className={`w-full relative overflow-hidden border border-white/10 bg-gray-100/50 rounded-none shadow-sm ${
-                                          block.layoutType === "two-column" ? "aspect-video" : "aspect-square"
+                                          block.layoutType === "two-column" ? "aspect-[2.13/1]" : "aspect-square"
                                         }`}
                                       >
                                         {block.images[0] && (
@@ -856,24 +904,14 @@ export default function AdminGalleryPage() {
                                        )}
 
                                        {block.title ? (
-                                         <h3 className="text-base md:text-lg font-bold text-slate-800 transition-colors duration-300 mb-2 uppercase font-sans tracking-tight leading-snug">
-                                           {block.title}
-                                         </h3>
-                                       ) : (
-                                         <h3 className="text-base md:text-lg font-bold text-slate-400 italic mb-2 font-sans tracking-tight">
-                                           Untitled Image
-                                         </h3>
-                                       )}
-                                       
-                                       {block.description ? (
-                                         <p className="text-slate-600 text-xs md:text-sm leading-relaxed flex-grow font-sans">
-                                           {block.description}
-                                         </p>
-                                       ) : (
-                                         <p className="text-xs md:text-sm text-slate-400 italic flex-grow font-sans">
-                                           No description provided.
-                                         </p>
-                                       )}
+                                          <h3 className="text-base md:text-lg font-bold text-slate-800 transition-colors duration-300 uppercase font-sans tracking-tight leading-snug">
+                                            {block.title}
+                                          </h3>
+                                        ) : (
+                                          <h3 className="text-base md:text-lg font-bold text-slate-400 italic font-sans tracking-tight">
+                                            Untitled Image
+                                          </h3>
+                                        )}
                                     </div>
                                   </div>
                                 </div>
@@ -912,7 +950,7 @@ export default function AdminGalleryPage() {
                             </button>
                           </div>
 
-                          <div className={`border border-gray-200 rounded-xl overflow-hidden shadow-sm flex flex-col`}>
+                          <div className={`border border-gray-200 rounded-none overflow-hidden shadow-sm flex flex-col`}>
                             <div className="bg-gray-50 px-4 py-2 border-b border-gray-200 flex justify-between items-center">
                               <div className="flex items-center gap-3">
                                 <span className="text-xs font-bold text-gray-500 tracking-wider uppercase bg-white px-2 py-1 rounded shadow-sm border border-gray-100">{block.layoutType}</span>
@@ -921,10 +959,9 @@ export default function AdminGalleryPage() {
                             </div>
 
                             <div className={`p-2 md:p-4 ${block.backgroundColor.startsWith('bg-') ? block.backgroundColor : ''}`} style={{ backgroundColor: block.backgroundColor.startsWith('#') ? block.backgroundColor : undefined }}>
-                              {(block.title || block.description) && (
+                              {block.title && (
                                 <div className="mb-4 max-w-3xl">
-                                  {block.title && <h3 className={`text-2xl font-bold mb-2 font-sans ${isDarkColor(block.backgroundColor) ? 'text-white' : 'text-red-600'}`}>{block.title}</h3>}
-                                  {block.description && <p className={`${isDarkColor(block.backgroundColor) ? 'text-gray-300' : 'text-gray-600'}`}>{block.description}</p>}
+                                  <h3 className={`text-2xl font-bold mb-2 font-sans ${isDarkColor(block.backgroundColor) ? 'text-white' : 'text-red-600'}`}>{block.title}</h3>
                                 </div>
                               )}
 
@@ -955,16 +992,12 @@ export default function AdminGalleryPage() {
                                   </div>
                                 )}
                                 {block.layoutType === "bento-5" && (
-                                  <div className="grid grid-cols-2 sm:grid-cols-[1fr_1.5fr_1fr] gap-2 md:gap-4">
-                                    <div className="col-span-2 sm:col-span-1 flex flex-col gap-2 md:gap-4 h-[300px] sm:h-auto">
-                                      {sortedImages[0] && renderImage(sortedImages[0], "w-full flex-1")}
-                                      {sortedImages[1] && renderImage(sortedImages[1], "w-full flex-1")}
-                                    </div>
-                                    {sortedImages[2] && renderImage(sortedImages[2], "col-span-2 sm:col-span-1 aspect-square sm:aspect-auto sm:h-[400px] md:h-[500px] lg:h-[600px]")}
-                                    <div className="col-span-2 sm:col-span-1 flex flex-col gap-2 md:gap-4 h-[300px] sm:h-auto">
-                                      {sortedImages[3] && renderImage(sortedImages[3], "w-full flex-1")}
-                                      {sortedImages[4] && renderImage(sortedImages[4], "w-full flex-1")}
-                                    </div>
+                                  <div className="grid grid-cols-3 gap-1 md:gap-1.5 w-full">
+                                    {sortedImages[0] && renderImage(sortedImages[0], "col-span-2 aspect-[2.015/1] w-full")}
+                                    {sortedImages[1] && renderImage(sortedImages[1], "col-span-1 aspect-square w-full")}
+                                    {sortedImages[2] && renderImage(sortedImages[2], "col-span-1 aspect-square w-full")}
+                                    {sortedImages[3] && renderImage(sortedImages[3], "col-span-1 aspect-square w-full")}
+                                    {sortedImages[4] && renderImage(sortedImages[4], "col-span-1 aspect-square w-full")}
                                   </div>
                                 )}
                               </div>
