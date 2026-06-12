@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -72,10 +73,27 @@ const isDarkColor = (color: string) => {
 };
 
 export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] }) {
+  const { t } = useLanguage();
   const [blocks] = useState<any[]>(initialBlocks);
   const [activeCategory, setActiveCategory] = useState("All");
   const [lightboxImages, setLightboxImages] = useState<string[] | null>(null);
   const [lightboxIndex, setLightboxIndex] = useState<number>(0);
+
+  const getCategoryTranslation = (cat: string) => {
+    switch (cat) {
+      case "All": return t("cat.all");
+      case "Campus": return t("cat.campus");
+      case "Academic": return t("cat.academic");
+      case "Cultural": return t("cat.cultural");
+      case "Sports": return t("cat.sports");
+      case "Competitions": return t("cat.competitions");
+      case "Workshops & Seminars": return t("cat.workshops");
+      case "Exhibitions": return t("cat.exhibitions");
+      case "Community Service / NSS": return t("cat.community");
+      case "Festivals & Celebrations": return t("cat.festivals");
+      default: return cat;
+    }
+  };
 
   const openLightbox = (images: string[], index: number) => {
     setLightboxImages(images);
@@ -212,9 +230,9 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
     <div className="pt-20 relative overflow-hidden bg-[#f3f4f6]">
       <div className="bg-navbar py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-bold mb-6">Gallery</h1>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-bold mb-6">{t("gallery.section_title")}</h1>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            Explore our campus, events, and student life through these moments.
+            {t("gallery.section_subtitle")}
           </p>
         </div>
       </div>
@@ -232,7 +250,7 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
                   : "text-gray-500 hover:text-gray-800"
               }`}
             >
-              <span>{cat}</span>
+              <span>{getCategoryTranslation(cat)}</span>
               {activeCategory === cat && (
                 <motion.div 
                   layoutId="activeGalleryTabUnderline" 
@@ -315,7 +333,7 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
                             {/* Sleek category tag/badge */}
                             {block.images[0]?.category && block.images[0]?.category !== "None" && (
                               <span className="bg-red-500/10 border border-red-500/20 text-accent px-2 py-0.5 rounded-none text-[10px] font-bold uppercase tracking-wider mb-3 shadow-[0_2px_10px_rgba(220,38,38,0.05)]">
-                                {block.images[0].category}
+                                {getCategoryTranslation(block.images[0].category)}
                               </span>
                             )}
 
@@ -325,7 +343,7 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
                               </h3>
                             ) : (
                               <h3 className="text-base md:text-lg font-bold text-slate-400 italic font-sans tracking-tight">
-                                Untitled Image
+                                {t("gallery.untitled")}
                               </h3>
                             ) }
                           </div>
@@ -365,7 +383,7 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
                       <div className="p-2 flex flex-col items-start mb-6">
                         {block.category && block.category !== "None" && (
                           <span className="bg-red-500/10 border border-red-500/20 text-accent px-2 py-0.5 rounded-none text-[10px] font-bold uppercase tracking-wider mb-3 shadow-[0_2px_10px_rgba(220,38,38,0.05)]">
-                            {block.category}
+                            {getCategoryTranslation(block.category)}
                           </span>
                         )}
                         {block.title && (
@@ -389,7 +407,7 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
 
         {filteredBlocks.length === 0 && (
           <div className="text-center py-20 text-secondary-text bg-white">
-            No gallery images found matching your criteria.
+            {t("gallery.no_found")}
           </div>
         )}
       </div>

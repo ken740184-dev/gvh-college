@@ -33,8 +33,8 @@ export async function addFaculty(formData: FormData) {
     const name = formData.get("name") as string;
     const designation = formData.get("designation") as string;
     const qualification = formData.get("qualification") as string;
-    const experience = (formData.get("experience") as string) || "";
-    const specialization = (formData.get("specialization") as string) || "";
+    const experience = formData.get("experience") as string;
+    const specialization = formData.get("specialization") as string;
     const file = formData.get("image") as File;
 
     if (!name || !designation || !file) {
@@ -78,8 +78,8 @@ export async function updateFaculty(id: string, formData: FormData) {
     const name = formData.get("name") as string;
     const designation = formData.get("designation") as string;
     const qualification = formData.get("qualification") as string;
-    const experience = (formData.get("experience") as string) || "";
-    const specialization = (formData.get("specialization") as string) || "";
+    const experience = formData.get("experience") as string;
+    const specialization = formData.get("specialization") as string;
     const file = formData.get("image") as File | null;
 
     await connectToDatabase();

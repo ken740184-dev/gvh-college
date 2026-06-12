@@ -1,9 +1,15 @@
+"use client";
+
+import { useLanguage } from "@/context/LanguageContext";
+
 export default function QuickStats() {
+  const { t } = useLanguage();
+
   const stats = [
-    { label: "Years of Excellence", value: "25+" },
-    { label: "Students Enrolled", value: "5000+" },
-    { label: "Qualified Faculty", value: "150+" },
-    { label: "Programs Offered", value: "20+" }
+    { label: t("stats.years_label"), value: "25+" },
+    { label: t("stats.students_label"), value: "5000+" },
+    { label: t("stats.faculty_label"), value: "150+" },
+    { label: t("stats.programs_label"), value: "20+" }
   ];
 
   return (

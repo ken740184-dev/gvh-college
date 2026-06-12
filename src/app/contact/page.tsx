@@ -3,15 +3,18 @@
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import { MapPin, Phone, Mail, Clock, Navigation, ExternalLink, Globe } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function ContactPage() {
+  const { t } = useLanguage();
+
   return (
     <div className="pt-20">
       <div className="bg-navbar py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-bold mb-6">Contact Us</h1>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-bold mb-6">{t("contact.title")}</h1>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            We'd love to hear from you. Get in touch with our team for any inquiries.
+            {t("contact.subtitle")}
           </p>
         </div>
       </div>
@@ -19,7 +22,7 @@ export default function ContactPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           <div>
-            <SectionHeading title="Get in Touch" />
+            <SectionHeading title={t("contact.get_in_touch")} />
             
             <div className="space-y-8 mb-12">
               <div className="flex items-start">
@@ -27,11 +30,14 @@ export default function ContactPage() {
                   <MapPin className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-lg mb-1">Campus Address</h4>
+                  <h4 className="font-bold text-lg mb-1">{t("contact.address_title")}</h4>
                   <p className="text-secondary-text">
-                    Gudleppa Hallikeri Arts and Commerce First Grade College (Entrance)<br />
-                    Hosaritti, Haveri District<br />
-                    Karnataka, India - 581115
+                    {t("footer.address").split(", ").map((part, index) => (
+                      <span key={index}>
+                        {part}
+                        {index < t("footer.address").split(", ").length - 1 && <br />}
+                      </span>
+                    ))}
                   </p>
                 </div>
               </div>
@@ -41,10 +47,10 @@ export default function ContactPage() {
                   <Phone className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-lg mb-1">Phone Numbers</h4>
+                  <h4 className="font-bold text-lg mb-1">{t("contact.phone_title")}</h4>
                   <p className="text-secondary-text">
-                    Admission Office: +1 (555) 123-4567<br />
-                    Admin Office: +1 (555) 987-6543
+                    {t("contact.admission_office")}: +1 (555) 123-4567<br />
+                    {t("contact.admin_office")}: +1 (555) 987-6543
                   </p>
                 </div>
               </div>
@@ -54,7 +60,7 @@ export default function ContactPage() {
                   <Mail className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-lg mb-1">Email Addresses</h4>
+                  <h4 className="font-bold text-lg mb-1">{t("contact.email_title")}</h4>
                   <p className="text-secondary-text">
                     info@gvhcollege.edu<br />
                     admissions@gvhcollege.edu
@@ -67,10 +73,10 @@ export default function ContactPage() {
                   <Clock className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-lg mb-1">Office Hours</h4>
+                  <h4 className="font-bold text-lg mb-1">{t("contact.hours_title")}</h4>
                   <p className="text-secondary-text">
-                    Monday - Friday: 8:30 AM - 5:00 PM<br />
-                    Saturday: 9:00 AM - 1:00 PM
+                    {t("contact.hours_weekdays")}<br />
+                    {t("contact.hours_saturday")}
                   </p>
                 </div>
               </div>
@@ -79,53 +85,53 @@ export default function ContactPage() {
 
           <div>
             <div className="bg-white p-8 rounded-lg shadow-xl border border-border-color">
-              <h3 className="text-2xl font-sans font-bold mb-6">Send us a Message</h3>
+              <h3 className="text-2xl font-sans font-bold mb-6">{t("contact.form_title")}</h3>
               <form className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">{t("contact.form_name")}</label>
                     <input 
                       type="text" 
                       id="name" 
                       className="w-full px-4 py-2 border border-border-color rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
-                      placeholder="John Doe"
+                      placeholder={t("contact.form_placeholder_name")}
                       suppressHydrationWarning
                     />
                   </div>
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">{t("contact.form_phone")}</label>
                     <input 
                       type="tel" 
                       id="phone" 
                       className="w-full px-4 py-2 border border-border-color rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
-                      placeholder="+1 (555) 000-0000"
+                      placeholder={t("contact.form_placeholder_phone")}
                       suppressHydrationWarning
                     />
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">{t("contact.form_email")}</label>
                   <input 
                     type="email" 
                     id="email" 
                     className="w-full px-4 py-2 border border-border-color rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
-                    placeholder="john@example.com"
+                    placeholder={t("contact.form_placeholder_email")}
                     suppressHydrationWarning
                   />
                 </div>
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">Your Message</label>
+                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">{t("contact.form_message")}</label>
                   <textarea 
                     id="message" 
                     rows={4} 
                     className="w-full px-4 py-2 border border-border-color rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
-                    placeholder="How can we help you?"
+                    placeholder={t("contact.form_placeholder_msg")}
                     suppressHydrationWarning
                   ></textarea>
                 </div>
                 <div suppressHydrationWarning>
                   <Button type="button" className="w-full">
-                    Send Message
+                    {t("contact.form_submit")}
                   </Button>
                 </div>
               </form>
@@ -150,14 +156,18 @@ export default function ContactPage() {
           <div className="flex gap-3 text-gray-800">
             <div className="flex-1 min-w-0">
               <h4 className="font-sans font-bold text-xs sm:text-sm text-gray-900 leading-tight break-words">
-                Gudleppa Hallikeri Arts and Commerce First Grade College
+                {t("footer.address").split(", ")[0]}
               </h4>
               <p className="text-[10px] font-semibold text-accent mt-0.5">
                 14.896620, 75.554571
               </p>
               <p className="text-[11px] text-gray-600 mt-1.5 leading-relaxed">
-                Hosaritti, Haveri District<br />
-                Karnataka - 581115
+                {t("footer.address").split(", ").slice(1).map((part, index) => (
+                  <span key={index}>
+                    {part}
+                    {index < t("footer.address").split(", ").slice(1).length - 1 && <br />}
+                  </span>
+                ))}
               </p>
               <div className="mt-3 pt-2.5 border-t border-gray-100 flex items-center gap-3">
                 {/* View larger map button */}
@@ -208,7 +218,7 @@ export default function ContactPage() {
             className="bg-accent hover:bg-accent/90 text-white px-4 py-2.5 sm:px-5 sm:py-3 rounded-lg font-bold shadow-lg transition-all duration-300 hover:scale-[1.03] flex items-center justify-center gap-2 border border-white/20 text-xs sm:text-sm"
           >
             <MapPin className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-            <span>View on Google Maps</span>
+            <span>{t("contact.maps_view")}</span>
           </a>
 
           {/* Get Directions Button */}
@@ -219,7 +229,7 @@ export default function ContactPage() {
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 sm:px-5 sm:py-3 rounded-lg font-bold shadow-lg transition-all duration-300 hover:scale-[1.03] flex items-center justify-center gap-2 border border-white/20 text-xs sm:text-sm pointer-events-auto"
           >
             <Navigation className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-            <span>Get Directions</span>
+            <span>{t("contact.maps_directions")}</span>
           </a>
         </div>
       </div>

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -59,6 +60,7 @@ const formatDate = (dateStr: string) => {
 
 function ExpandableText({ text, limit = 180 }: { text: string; limit?: number }) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { t } = useLanguage();
 
   if (!text) return null;
   if (text.length <= limit) {
@@ -79,7 +81,7 @@ function ExpandableText({ text, limit = 180 }: { text: string; limit?: number })
         }}
         className="text-accent hover:text-accent/80 font-bold text-xs tracking-wider uppercase inline-flex items-center gap-1 transition-colors mt-1 focus:outline-none"
       >
-        {isExpanded ? "Read Less ▲" : "Read More ▼"}
+        {isExpanded ? t("achievements.read_less") : t("achievements.read_more")}
       </button>
     </div>
   );
@@ -88,6 +90,7 @@ function ExpandableText({ text, limit = 180 }: { text: string; limit?: number })
 export default function AchievementsClient({ initialAchievements }: { initialAchievements: any[] }) {
   const [activeTab, setActiveTab] = useState("student");
   const [achievements] = useState<any[]>(initialAchievements);
+  const { t } = useLanguage();
 
   const filteredAchievements = achievements.filter(a => a.category === activeTab);
 
@@ -95,8 +98,8 @@ export default function AchievementsClient({ initialAchievements }: { initialAch
     <div className="pt-32 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-6 min-h-[50vh]">
         <SectionHeading 
-          title="Our Achievements" 
-          subtitle="Celebrating excellence across academics, sports, and institutional milestones." 
+          title={t("achievements.section_title")} 
+          subtitle={t("achievements.section_subtitle")} 
         />
         {/* Tabs */}
         <div className="flex flex-wrap justify-center gap-4 mb-16">
@@ -106,7 +109,7 @@ export default function AchievementsClient({ initialAchievements }: { initialAch
               activeTab === "student" ? "bg-accent text-white" : "bg-gray-100 text-secondary-text hover:bg-gray-200"
             }`}
           >
-            Student Achievements
+            {t("achievements.tab_student")}
           </button>
           <button
             onClick={() => setActiveTab("faculty")}
@@ -114,7 +117,7 @@ export default function AchievementsClient({ initialAchievements }: { initialAch
               activeTab === "faculty" ? "bg-accent text-white" : "bg-gray-100 text-secondary-text hover:bg-gray-200"
             }`}
           >
-            Faculty Achievements
+            {t("achievements.tab_faculty")}
           </button>
           <button
             onClick={() => setActiveTab("institutional")}
@@ -122,14 +125,14 @@ export default function AchievementsClient({ initialAchievements }: { initialAch
               activeTab === "institutional" ? "bg-accent text-white" : "bg-gray-100 text-secondary-text hover:bg-gray-200"
             }`}
           >
-            Institutional Achievements
+            {t("achievements.tab_inst")}
           </button>
         </div>
 
         {/* Tab Content */}
         {filteredAchievements.length === 0 ? (
           <div className="text-center text-gray-500 py-12 bg-gray-50 rounded-2xl border border-gray-200">
-            <p className="text-xl">No achievements found in this category.</p>
+            <p className="text-xl">{t("achievements.no_found")}</p>
           </div>
         ) : (
           <motion.div 

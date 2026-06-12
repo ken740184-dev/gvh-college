@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface NewsTickerProps {
   text?: string;
@@ -9,6 +10,8 @@ interface NewsTickerProps {
 }
 
 export default function NewsTicker({ text, isActive = true }: NewsTickerProps) {
+  const { t } = useLanguage();
+
   if (!isActive || !text) return null;
 
   return (
@@ -19,7 +22,7 @@ export default function NewsTicker({ text, isActive = true }: NewsTickerProps) {
           href="/admissions/apply" 
           className="bg-white text-accent hover:bg-gray-100 hover:scale-105 active:scale-95 transition-all px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg flex items-center gap-1 whitespace-nowrap"
         >
-          Apply Now <ArrowRight className="w-3.5 h-3.5" />
+          {t("hero.apply_now")} <ArrowRight className="w-3.5 h-3.5" />
         </Link>
       </div>
       

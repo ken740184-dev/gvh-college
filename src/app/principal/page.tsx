@@ -1,14 +1,18 @@
+"use client";
+
 import Image from "next/image";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function PrincipalPage() {
+  const { t } = useLanguage();
+
   return (
     <div className="pt-20">
       <div className="bg-navbar py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">Principal's Message</h1>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">{t("principal.title")}</h1>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            A warm welcome from the desk of the Principal.
+            {t("principal.subtitle")}
           </p>
         </div>
       </div>
@@ -26,27 +30,27 @@ export default function PrincipalPage() {
                 />
               </div>
               <div className="lg:col-span-7 p-10 lg:p-16 flex flex-col justify-center">
-                <h2 className="text-3xl font-bold mb-8 text-primary-text">Welcome to GVH College</h2>
+                <h2 className="text-3xl font-bold mb-8 text-primary-text">{t("principal.welcome")}</h2>
                 
                 <div className="space-y-6 text-secondary-text leading-relaxed">
                   <p>
-                    It is my great privilege to welcome you to GVH College. As the Principal, I am immensely proud of our institution's rich heritage and our steadfast commitment to providing transformative education. We believe that true learning occurs when students are encouraged to ask questions, challenge norms, and explore beyond the syllabus.
+                    {t("principal.p1")}
                   </p>
                   <p>
-                    Our experienced faculty members are not just teachers, but mentors who are deeply invested in the holistic development of every student. Through a rigorous academic curriculum blended with robust extracurricular programs, we strive to nurture critical thinkers, compassionate citizens, and capable leaders.
+                    {t("principal.p2")}
                   </p>
                   <p>
-                    In today's rapidly changing world, adaptability and continuous learning are paramount. We constantly upgrade our facilities, pedagogical approaches, and industry partnerships to ensure that our students are well-prepared for the global challenges ahead. 
+                    {t("principal.p3")}
                   </p>
                   <p>
-                    I invite you to explore our campus, interact with our community, and become a part of the GVH family. Together, let us embark on a journey of discovery, growth, and excellence.
+                    {t("principal.p4")}
                   </p>
                 </div>
 
                 <div className="mt-10 pt-8 border-t border-gray-200">
-                  <h3 className="text-xl font-bold text-primary-text mb-1">Dr. S. K. Verma</h3>
-                  <p className="text-accent font-semibold mb-2">M.Sc., Ph.D., Post-Doc (UK)</p>
-                  <p className="text-sm text-secondary-text">Principal, GVH College</p>
+                  <h3 className="text-xl font-bold text-primary-text mb-1">{t("principal.name")}</h3>
+                  <p className="text-accent font-semibold mb-2">{t("principal.qual")}</p>
+                  <p className="text-sm text-secondary-text">{t("principal.role")}</p>
                 </div>
               </div>
             </div>

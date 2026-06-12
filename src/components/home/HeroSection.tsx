@@ -4,37 +4,39 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/Button";
-
-const slides = [
-  {
-    id: 1,
-    image: "/images/home/hero/image1.png",
-    title: "Quality Education for a Successful Future",
-    description: "Providing students with the knowledge, skills, and confidence needed to excel in an evolving world.",
-  },
-  {
-    id: 2,
-    image: "/images/home/hero/image2.png",
-    title: "Building Leaders of Tomorrow",
-    description: "Empowering students through innovation, critical thinking, and academic excellence.",
-  },
-  {
-    id: 3,
-    image: "/images/home/hero/image3.png",
-    title: "A Campus That Inspires Growth",
-    description: "Creating an environment where students learn, explore, and succeed.",
-  }
-];
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function HeroSection() {
+  const { t } = useLanguage();
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  const slides = [
+    {
+      id: 1,
+      image: "/images/home/hero/image1.png",
+      title: t("hero.slide1_title"),
+      description: t("hero.slide1_desc"),
+    },
+    {
+      id: 2,
+      image: "/images/home/hero/image2.png",
+      title: t("hero.slide2_title"),
+      description: t("hero.slide2_desc"),
+    },
+    {
+      id: 3,
+      image: "/images/home/hero/image3.png",
+      title: t("hero.slide3_title"),
+      description: t("hero.slide3_desc"),
+    }
+  ];
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
     }, 5000);
     return () => clearInterval(timer);
-  }, []);
+  }, [slides.length]);
 
   return (
     <div className="relative h-[85vh] lg:h-[80vh] w-full overflow-hidden bg-black">
@@ -68,10 +70,10 @@ export default function HeroSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="max-w-4xl mx-auto"
           >
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-sans font-bold text-white mb-6 drop-shadow-lg">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-sans font-bold text-white mb-6 drop-shadow-lg min-h-[120px] md:min-h-[160px] flex items-center justify-center">
               {slides[currentSlide].title}
             </h1>
-            <p className="text-xl md:text-2xl text-gray-200 mb-10 max-w-2xl mx-auto drop-shadow-md">
+            <p className="text-xl md:text-2xl text-gray-200 mb-10 max-w-2xl mx-auto drop-shadow-md min-h-[60px]">
               {slides[currentSlide].description}
             </p>
           </motion.div>
@@ -80,14 +82,14 @@ export default function HeroSection() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1 }}
+          transition={{ duration: 1, delay: 0.5 }}
           className="flex flex-col sm:flex-row gap-4 relative z-10"
         >
           <Button href="/admissions" size="lg" className="text-lg">
-            Apply Now
+            {t("hero.apply_now")}
           </Button>
           <Button href="/about" variant="outline" size="lg" className="text-lg bg-transparent border-white text-white hover:bg-white hover:text-black">
-            Explore Campus
+            {t("hero.explore")}
           </Button>
         </motion.div>
       </div>

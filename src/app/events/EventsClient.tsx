@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, Tag, ChevronLeft, ChevronRight, X, ZoomIn, ArrowRight } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -54,6 +55,7 @@ const matchCategory = (eventCat: string, activeCat: string) => {
 };
 
 export default function EventsClient({ initialEvents }: { initialEvents: any[] }) {
+  const { t } = useLanguage();
   const [events] = useState<any[]>(initialEvents);
   const [activeCategory, setActiveCategory] = useState("All");
   
@@ -63,6 +65,21 @@ export default function EventsClient({ initialEvents }: { initialEvents: any[] }
 
   // Expanded Description State (per event ID)
   const [expandedEvents, setExpandedEvents] = useState<Record<string, boolean>>({});
+
+  const getCategoryTranslation = (cat: string) => {
+    switch (cat) {
+      case "All": return t("cat.all");
+      case "Academic": return t("cat.academic");
+      case "Cultural": return t("cat.cultural");
+      case "Sports": return t("cat.sports");
+      case "Competitions": return t("cat.competitions");
+      case "Workshops & Seminars": return t("cat.workshops");
+      case "Exhibitions": return t("cat.exhibitions");
+      case "Community Service / NSS": return t("cat.community");
+      case "Festivals & Celebrations": return t("cat.festivals");
+      default: return cat;
+    }
+  };
 
   const filteredEvents = useMemo(() => {
     if (activeCategory === "All") return events;
@@ -197,7 +214,7 @@ export default function EventsClient({ initialEvents }: { initialEvents: any[] }
                 {isLastThumbnail && extraCount > 0 ? (
                   <div className="absolute inset-0 bg-black/60 hover:bg-black/75 transition-colors duration-300 flex flex-col items-center justify-center text-white">
                     <span className="text-lg md:text-2xl font-bold font-sans">+{extraCount}</span>
-                    <span className="text-[9px] uppercase tracking-wider font-semibold opacity-85">More Photos</span>
+                    <span className="text-[9px] uppercase tracking-wider font-semibold opacity-85">{t("events.more_photos")}</span>
                   </div>
                 ) : (
                   <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
@@ -217,9 +234,9 @@ export default function EventsClient({ initialEvents }: { initialEvents: any[] }
       {/* Header section */}
       <div className="bg-navbar py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-bold mb-6">College Events</h1>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-bold mb-6">{t("events.section_title")}</h1>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            Stay updated with academic seminars, sporting tournaments, and vibrant cultural celebrations at our campus.
+            {t("events.section_subtitle")}
           </p>
         </div>
       </div>
@@ -237,7 +254,7 @@ export default function EventsClient({ initialEvents }: { initialEvents: any[] }
                   : "text-gray-500 hover:text-gray-800"
               }`}
             >
-              <span>{cat}</span>
+              <span>{getCategoryTranslation(cat)}</span>
               {activeCategory === cat && (
                 <motion.div 
                   layoutId="activeEventTabUnderline" 
@@ -254,7 +271,7 @@ export default function EventsClient({ initialEvents }: { initialEvents: any[] }
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         {filteredEvents.length === 0 ? (
           <div className="text-center py-20 bg-white border border-gray-200 text-gray-500 rounded-none shadow-sm font-medium mt-6">
-            No events found matching this category.
+            {t("events.no_found")}
           </div>
         ) : (
           <motion.div 
@@ -301,7 +318,7 @@ export default function EventsClient({ initialEvents }: { initialEvents: any[] }
                         <span className="w-1.5 h-1.5 rounded-full bg-gray-300"></span>
                         <span className="flex items-center gap-1 uppercase tracking-wider bg-red-500/10 text-accent px-2 py-0.5 border border-red-500/10 text-[9px] font-bold">
                           <Tag className="w-3 h-3" />
-                          {event.category}
+                          {getCategoryTranslation(event.category)}
                         </span>
                       </div>
 
@@ -325,7 +342,7 @@ export default function EventsClient({ initialEvents }: { initialEvents: any[] }
                         onClick={() => toggleExpand(event._id)}
                         className="mt-6 text-xs font-bold text-accent hover:text-accent/80 flex items-center gap-1.5 transition-colors focus:outline-none uppercase tracking-wider"
                       >
-                        <span>{isExpanded ? "Collapse Details" : "Read Full Story"}</span>
+                        <span>{isExpanded ? t("events.collapse") : t("events.read_full")}</span>
                         <ArrowRight className={`w-3.5 h-3.5 transition-transform duration-300 ${isExpanded ? "-rotate-90" : ""}`} />
                       </button>
                     )}

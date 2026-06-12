@@ -3,10 +3,17 @@
 import { useState } from "react";
 import { CheckCircle2, ChevronRight, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-
-const steps = ["Personal Info", "Academic History", "Program", "Review"];
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function ApplyPage() {
+  const { t } = useLanguage();
+  const steps = [
+    t("apply.step_personal"),
+    t("apply.step_academic"),
+    t("apply.step_program"),
+    t("apply.step_review")
+  ];
+
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -42,11 +49,11 @@ export default function ApplyPage() {
           <div className="mx-auto w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6">
             <CheckCircle2 className="w-10 h-10 text-green-600" />
           </div>
-          <h2 className="text-3xl font-sans font-bold mb-4">Application Submitted!</h2>
+          <h2 className="text-3xl font-sans font-bold mb-4">{t("apply.success_title")}</h2>
           <p className="text-secondary-text mb-8">
-            Thank you, {formData.firstName}. Your application for {formData.program} has been successfully submitted. Our admissions team will contact you shortly via email.
+            {t("apply.success_desc1")}{formData.firstName}{t("apply.success_desc2")}{formData.program === 'B.Com' ? t("dept.bcom_title") : formData.program === 'B.A.' ? t("dept.ba_title") : formData.program}{t("apply.success_desc3")}
           </p>
-          <Button onClick={() => window.location.href = "/"}>Return to Home</Button>
+          <Button onClick={() => window.location.href = "/"}>{t("apply.return_home")}</Button>
         </div>
       </div>
     );
@@ -56,7 +63,7 @@ export default function ApplyPage() {
     <div className="pt-20 min-h-screen bg-gray-50 pb-20">
       <div className="bg-navbar py-12">
         <div className="max-w-4xl mx-auto px-4 text-center text-white">
-          <h1 className="text-3xl md:text-4xl font-sans font-bold">Online Admission Portal</h1>
+          <h1 className="text-3xl md:text-4xl font-sans font-bold">{t("apply.portal_title")}</h1>
         </div>
       </div>
 
@@ -101,27 +108,27 @@ export default function ApplyPage() {
             {/* Step 1: Personal */}
             {currentStep === 1 && (
               <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
-                <h2 className="text-2xl font-sans font-bold mb-6 border-b pb-4">Personal Details</h2>
+                <h2 className="text-2xl font-sans font-bold mb-6 border-b pb-4">{t("apply.personal_details")}</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium mb-2">First Name</label>
+                    <label className="block text-sm font-medium mb-2">{t("apply.first_name")}</label>
                     <input required type="text" className="w-full px-4 py-2 border rounded-md" 
                       value={formData.firstName} onChange={e => setFormData({...formData, firstName: e.target.value})} />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2">Last Name</label>
+                    <label className="block text-sm font-medium mb-2">{t("apply.last_name")}</label>
                     <input required type="text" className="w-full px-4 py-2 border rounded-md"
                       value={formData.lastName} onChange={e => setFormData({...formData, lastName: e.target.value})} />
                   </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium mb-2">Email Address</label>
+                    <label className="block text-sm font-medium mb-2">{t("apply.email")}</label>
                     <input required type="email" className="w-full px-4 py-2 border rounded-md"
                       value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2">Phone Number</label>
+                    <label className="block text-sm font-medium mb-2">{t("apply.phone")}</label>
                     <input required type="tel" className="w-full px-4 py-2 border rounded-md"
                       value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} />
                   </div>
@@ -132,20 +139,20 @@ export default function ApplyPage() {
             {/* Step 2: Academic */}
             {currentStep === 2 && (
               <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
-                <h2 className="text-2xl font-sans font-bold mb-6 border-b pb-4">Academic History</h2>
+                <h2 className="text-2xl font-sans font-bold mb-6 border-b pb-4">{t("apply.academic_details")}</h2>
                 <div>
-                  <label className="block text-sm font-medium mb-2">Previous School/College Name</label>
+                  <label className="block text-sm font-medium mb-2">{t("apply.prev_school")}</label>
                   <input required type="text" className="w-full px-4 py-2 border rounded-md"
                     value={formData.lastSchool} onChange={e => setFormData({...formData, lastSchool: e.target.value})} />
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium mb-2">Percentage / CGPA (12th Grade)</label>
+                    <label className="block text-sm font-medium mb-2">{t("apply.percentage")}</label>
                     <input required type="text" className="w-full px-4 py-2 border rounded-md"
                       value={formData.percentage} onChange={e => setFormData({...formData, percentage: e.target.value})} />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2">Year of Passing</label>
+                    <label className="block text-sm font-medium mb-2">{t("apply.passing_year")}</label>
                     <input required type="text" className="w-full px-4 py-2 border rounded-md"
                       value={formData.yearOfPassing} onChange={e => setFormData({...formData, yearOfPassing: e.target.value})} />
                   </div>
@@ -156,21 +163,21 @@ export default function ApplyPage() {
             {/* Step 3: Program */}
             {currentStep === 3 && (
               <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
-                <h2 className="text-2xl font-sans font-bold mb-6 border-b pb-4">Select Program</h2>
+                <h2 className="text-2xl font-sans font-bold mb-6 border-b pb-4">{t("apply.select_program")}</h2>
                 <div className="space-y-4">
                   <label className={`block border-2 p-4 rounded-lg cursor-pointer transition-colors ${formData.program === 'B.Com' ? 'border-accent bg-accent/5' : 'border-gray-200 hover:border-accent'}`}>
                     <input required type="radio" name="program" className="sr-only" 
                       onChange={() => setFormData({...formData, program: "B.Com"})} 
                       checked={formData.program === 'B.Com'} />
-                    <span className="font-bold block text-lg">Bachelor of Commerce (B.Com)</span>
-                    <span className="text-sm text-secondary-text">3 Year Full-time Program</span>
+                    <span className="font-bold block text-lg">{t("dept.bcom_title")}</span>
+                    <span className="text-sm text-secondary-text">{t("apply.bcom_desc")}</span>
                   </label>
                   <label className={`block border-2 p-4 rounded-lg cursor-pointer transition-colors ${formData.program === 'B.A.' ? 'border-accent bg-accent/5' : 'border-gray-200 hover:border-accent'}`}>
                     <input required type="radio" name="program" className="sr-only" 
                       onChange={() => setFormData({...formData, program: "B.A."})}
                       checked={formData.program === 'B.A.'} />
-                    <span className="font-bold block text-lg">Bachelor of Arts (B.A.)</span>
-                    <span className="text-sm text-secondary-text">3 Year Full-time Program</span>
+                    <span className="font-bold block text-lg">{t("dept.ba_title")}</span>
+                    <span className="text-sm text-secondary-text">{t("apply.ba_desc")}</span>
                   </label>
                 </div>
               </div>
@@ -179,27 +186,29 @@ export default function ApplyPage() {
             {/* Step 4: Review */}
             {currentStep === 4 && (
               <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
-                <h2 className="text-2xl font-sans font-bold mb-6 border-b pb-4">Review Application</h2>
+                <h2 className="text-2xl font-sans font-bold mb-6 border-b pb-4">{t("apply.review_title")}</h2>
                 <div className="bg-gray-50 p-6 rounded-lg space-y-4">
                   <div className="grid grid-cols-3 gap-4 border-b pb-4">
-                    <span className="font-medium text-gray-500">Name:</span>
+                    <span className="font-medium text-gray-500">{t("apply.rev_name")}:</span>
                     <span className="col-span-2 font-semibold">{formData.firstName} {formData.lastName}</span>
                   </div>
                   <div className="grid grid-cols-3 gap-4 border-b pb-4">
-                    <span className="font-medium text-gray-500">Contact:</span>
+                    <span className="font-medium text-gray-500">{t("apply.rev_contact")}:</span>
                     <span className="col-span-2 font-semibold">{formData.email} <br/> {formData.phone}</span>
                   </div>
                   <div className="grid grid-cols-3 gap-4 border-b pb-4">
-                    <span className="font-medium text-gray-500">Academics:</span>
+                    <span className="font-medium text-gray-500">{t("apply.rev_academics")}:</span>
                     <span className="col-span-2 font-semibold">{formData.percentage} (Passed {formData.yearOfPassing}) <br/> {formData.lastSchool}</span>
                   </div>
                   <div className="grid grid-cols-3 gap-4">
-                    <span className="font-medium text-gray-500">Selected Program:</span>
-                    <span className="col-span-2 font-bold text-accent">{formData.program || "Not selected"}</span>
+                    <span className="font-medium text-gray-500">{t("apply.rev_program")}:</span>
+                    <span className="col-span-2 font-bold text-accent">
+                      {formData.program === 'B.Com' ? t("dept.bcom_title") : formData.program === 'B.A.' ? t("dept.ba_title") : (formData.program || "Not selected")}
+                    </span>
                   </div>
                 </div>
                 <p className="text-sm text-gray-500 italic text-center">
-                  By clicking submit, you confirm that all information provided is accurate.
+                  {t("apply.confirm_text")}
                 </p>
               </div>
             )}
@@ -207,16 +216,16 @@ export default function ApplyPage() {
             {/* Navigation Buttons */}
             <div className="flex justify-between mt-10 pt-6 border-t border-gray-200">
               <Button type="button" variant="outline" onClick={handlePrev} disabled={currentStep === 1 || isSubmitting}>
-                <ChevronLeft className="w-4 h-4 mr-2" /> Back
+                <ChevronLeft className="w-4 h-4 mr-2" /> {t("apply.back")}
               </Button>
               
               {currentStep < 4 ? (
                 <Button type="submit">
-                  Next <ChevronRight className="w-4 h-4 ml-2" />
+                  {t("apply.next")} <ChevronRight className="w-4 h-4 ml-2" />
                 </Button>
               ) : (
                 <Button type="submit" disabled={isSubmitting}>
-                  {isSubmitting ? "Submitting..." : "Submit Application"}
+                  {isSubmitting ? t("apply.submitting") : t("apply.submit")}
                 </Button>
               )}
             </div>

@@ -1,15 +1,20 @@
+"use client";
+
 import Image from "next/image";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CheckCircle2 } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function AdmissionsPage() {
+  const { t } = useLanguage();
+
   return (
     <div className="pt-20">
       <div className="bg-navbar py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-bold mb-6">Admissions</h1>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-bold mb-6">{t("admissions.title")}</h1>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            Take the first step towards a bright future. Join GVH College and become part of our legacy of excellence.
+            {t("admissions.subtitle")}
           </p>
         </div>
       </div>
@@ -17,13 +22,13 @@ export default function AdmissionsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
           <div className="lg:col-span-2">
-            <SectionHeading title="Admission Process" />
+            <SectionHeading title={t("admissions.process")} />
             <div className="space-y-8 mb-16">
               {[
-                { step: "Step 1: Application Submission", desc: "Fill out the online application form and submit the required application fee." },
-                { step: "Step 2: Document Verification", desc: "Submit all necessary academic documents, certificates, and ID proofs for verification." },
-                { step: "Step 3: Admission Confirmation", desc: "Upon successful verification, you will receive an admission confirmation letter." },
-                { step: "Step 4: Fee Payment", desc: "Pay the course fee to finalize your enrollment and secure your seat." }
+                { step: t("admissions.step1_title"), desc: t("admissions.step1_desc") },
+                { step: t("admissions.step2_title"), desc: t("admissions.step2_desc") },
+                { step: t("admissions.step3_title"), desc: t("admissions.step3_desc") },
+                { step: t("admissions.step4_title"), desc: t("admissions.step4_desc") }
               ].map((process, i) => (
                 <div key={i} className="flex bg-gray-50 p-6 rounded-lg border border-border-color">
                   <div className="flex-shrink-0 mr-6">
@@ -39,10 +44,17 @@ export default function AdmissionsPage() {
               ))}
             </div>
 
-            <SectionHeading title="Required Documents" />
+            <SectionHeading title={t("admissions.documents")} />
             <div className="bg-white p-8 rounded-lg shadow-sm border border-border-color mb-16">
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {['10th Mark Sheet', '12th Mark Sheet', 'Transfer Certificate (TC)', 'Migration Certificate', 'Aadhaar Card Copy', 'Passport Size Photographs (6)'].map((doc, i) => (
+                {[
+                  t("admissions.doc1"),
+                  t("admissions.doc2"),
+                  t("admissions.doc3"),
+                  t("admissions.doc4"),
+                  t("admissions.doc5"),
+                  t("admissions.doc6")
+                ].map((doc, i) => (
                   <li key={i} className="flex items-center">
                     <CheckCircle2 className="w-5 h-5 text-accent mr-3" />
                     <span className="text-primary-text font-medium">{doc}</span>
@@ -51,36 +63,36 @@ export default function AdmissionsPage() {
               </ul>
             </div>
             
-            <SectionHeading title="Scholarships" />
+            <SectionHeading title={t("admissions.scholarships")} />
             <p className="text-secondary-text mb-6">
-              GVH College believes that financial constraints should not be a barrier to quality education. We offer various scholarships for deserving students based on merit and financial need.
+              {t("admissions.scholarships_desc")}
             </p>
             <ul className="list-disc pl-5 text-secondary-text space-y-2">
-              <li><strong>Government Scholarships:</strong> Facilitated for eligible SC/ST/OBC and minority students.</li>
-              <li><strong>Merit Scholarships:</strong> Awarded to top-performing students in academics.</li>
-              <li><strong>Financial Assistance:</strong> Need-based aid for economically weaker sections.</li>
+              <li>{t("admissions.sch1")}</li>
+              <li>{t("admissions.sch2")}</li>
+              <li>{t("admissions.sch3")}</li>
             </ul>
           </div>
 
           <div className="lg:col-span-1">
             <div className="bg-gray-50 border border-border-color rounded-lg p-8 sticky top-28">
-              <h3 className="text-xl font-sans font-bold mb-6 border-b border-gray-200 pb-4">Fee Structure (Annual)</h3>
+              <h3 className="text-xl font-sans font-bold mb-6 border-b border-gray-200 pb-4">{t("admissions.fee_structure")}</h3>
               <ul className="space-y-4 mb-8">
                 <li className="flex justify-between items-center py-2 border-b border-gray-200">
-                  <span className="font-medium">Bachelor of Commerce</span>
+                  <span className="font-medium">{t("admissions.fee_bcom")}</span>
                   <span className="font-bold text-accent">₹45,000</span>
                 </li>
                 <li className="flex justify-between items-center py-2 border-b border-gray-200">
-                  <span className="font-medium">Bachelor of Arts</span>
+                  <span className="font-medium">{t("admissions.fee_ba")}</span>
                   <span className="font-bold text-accent">₹35,000</span>
                 </li>
                 <li className="flex justify-between items-center py-2 border-b border-gray-200">
-                  <span className="font-medium">Admission Fee (One-time)</span>
+                  <span className="font-medium">{t("admissions.fee_one_time")}</span>
                   <span className="font-bold text-accent">₹5,000</span>
                 </li>
               </ul>
               <p className="text-sm text-secondary-text italic mt-6">
-                * Note: The fee structure is subject to change. Please contact the admissions office for the most current information.
+                {t("admissions.fee_note")}
               </p>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter, Playfair_Display, Noto_Sans_Kannada } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -12,9 +12,17 @@ const playfair = Playfair_Display({
   subsets: ["latin"],
 });
 
+const notoKannada = Noto_Sans_Kannada({
+  variable: "--font-kannada",
+  subsets: ["kannada"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { ChatbotWidget } from "@/components/ui/ChatbotWidget";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 export const metadata: Metadata = {
   title: "GVH College - Quality Education for a Successful Future",
@@ -29,13 +37,15 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${playfair.variable} h-full antialiased scroll-smooth`}
+      className={`${inter.variable} ${playfair.variable} ${notoKannada.variable} h-full antialiased scroll-smooth`}
     >
       <body className="min-h-full flex flex-col font-sans text-primary-text bg-background">
-        <Navbar />
-        <main className="flex-grow">{children}</main>
-        <Footer />
-        <ChatbotWidget />
+        <LanguageProvider>
+          <Navbar />
+          <main className="flex-grow">{children}</main>
+          <Footer />
+          <ChatbotWidget />
+        </LanguageProvider>
       </body>
     </html>
   );

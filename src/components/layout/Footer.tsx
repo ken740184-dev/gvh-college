@@ -4,9 +4,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { MapPin, Phone, Mail, Navigation, ExternalLink } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Footer() {
   const pathname = usePathname();
+  const { t } = useLanguage();
 
   if (pathname.startsWith("/admin")) {
     return null;
@@ -18,9 +20,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* About Column */}
           <div>
-            <h3 className="font-sans text-2xl font-bold mb-6">GVH COLLEGE</h3>
+            <h3 className="font-sans text-2xl font-bold mb-6">{t("nav.college_name")}</h3>
             <p className="text-gray-400 mb-6 leading-relaxed">
-              Empowering students through innovation, critical thinking, and academic excellence to build the leaders of tomorrow.
+              {t("footer.desc")}
             </p>
             <div className="flex space-x-4">
               <Link href="/social?network=facebook" className="text-gray-400 hover:text-accent transition-colors" aria-label="Facebook">
@@ -52,36 +54,36 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-bold text-lg mb-6 tracking-wider uppercase">Quick Links</h4>
+            <h4 className="font-bold text-lg mb-6 tracking-wider uppercase">{t("footer.quick_links")}</h4>
             <ul className="space-y-3">
               <li>
                 <Link href="/about" className="text-gray-400 hover:text-accent transition-colors">
-                  About College
+                  {t("nav.about")}
                 </Link>
               </li>
               <li>
                 <Link href="/admissions" className="text-gray-400 hover:text-accent transition-colors">
-                  Admissions
+                  {t("nav.admissions")}
                 </Link>
               </li>
               <li>
                 <Link href="/faculty" className="text-gray-400 hover:text-accent transition-colors">
-                  Faculty Directory
+                  {t("nav.faculty")}
                 </Link>
               </li>
               <li>
                 <Link href="/campus-life" className="text-gray-400 hover:text-accent transition-colors">
-                  Campus Life
+                  {t("nav.campus_life")}
                 </Link>
               </li>
               <li>
                 <Link href="/news" className="text-gray-400 hover:text-accent transition-colors">
-                  News & Announcements
+                  {t("nav.news")}
                 </Link>
               </li>
               <li>
                 <Link href="/gallery" className="text-gray-400 hover:text-accent transition-colors">
-                  Gallery
+                  {t("nav.gallery")}
                 </Link>
               </li>
             </ul>
@@ -89,30 +91,33 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h4 className="font-bold text-lg mb-6 tracking-wider uppercase">Contact Us</h4>
+            <h4 className="font-bold text-lg mb-6 tracking-wider uppercase">{t("footer.contact_us")}</h4>
             <ul className="space-y-4">
               <li className="flex items-start">
                 <MapPin className="w-5 h-5 text-accent mr-3 mt-1 flex-shrink-0" />
                 <span className="text-gray-400">
-                  Gudleppa Hallikeri Arts and Commerce First Grade College (Entrance)<br />
-                  Hosaritti, Haveri District<br />
-                  Karnataka, India - 581115
+                  {t("footer.address").split(", ").map((part, index) => (
+                    <span key={index}>
+                      {part}
+                      {index < t("footer.address").split(", ").length - 1 && <br />}
+                    </span>
+                  ))}
                 </span>
               </li>
               <li className="flex items-center">
                 <Phone className="w-5 h-5 text-accent mr-3 flex-shrink-0" />
-                <span className="text-gray-400">+1 (555) 123-4567</span>
+                <span className="text-gray-400">{t("footer.phone_label")}: +1 (555) 123-4567</span>
               </li>
               <li className="flex items-center">
                 <Mail className="w-5 h-5 text-accent mr-3 flex-shrink-0" />
-                <span className="text-gray-400">info@gvhcollege.edu</span>
+                <span className="text-gray-400">{t("footer.email_label")}: info@gvhcollege.edu</span>
               </li>
             </ul>
           </div>
 
           {/* Map Link */}
           <div>
-            <h4 className="font-bold text-lg mb-6 tracking-wider uppercase">Location</h4>
+            <h4 className="font-bold text-lg mb-6 tracking-wider uppercase">{t("footer.location")}</h4>
             <div
               className="block relative w-full h-48 bg-gray-900 rounded-lg overflow-hidden border border-gray-700 hover:border-accent transition-all duration-300 shadow-inner group"
             >
@@ -152,10 +157,10 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gray-800 pt-8 mt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-          <p>&copy; {new Date().getFullYear()} GVH College. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} {t("nav.college_name")}. {t("footer.rights")}</p>
           <div className="flex space-x-4 mt-4 md:mt-0">
-            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+            <Link href="/privacy" className="hover:text-white transition-colors">{t("footer.privacy")}</Link>
+            <Link href="/terms" className="hover:text-white transition-colors">{t("footer.terms")}</Link>
           </div>
         </div>
       </div>

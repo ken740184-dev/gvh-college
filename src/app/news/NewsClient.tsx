@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -58,6 +59,7 @@ const formatDate = (dateStr: string) => {
 };
 
 function ExpandableText({ text, limit = 180 }: { text: string; limit?: number }) {
+  const { t } = useLanguage();
   const [isExpanded, setIsExpanded] = useState(false);
 
   if (!text) return null;
@@ -79,26 +81,43 @@ function ExpandableText({ text, limit = 180 }: { text: string; limit?: number })
         }}
         className="text-accent hover:text-accent/80 font-bold text-xs tracking-wider uppercase inline-flex items-center gap-1 transition-colors mt-1 focus:outline-none"
       >
-        {isExpanded ? "Read Less ▲" : "Read More ▼"}
+        {isExpanded ? t("news.read_less") : t("news.read_more")}
       </button>
     </div>
   );
 }
 
 export default function NewsClient({ initialNews }: { initialNews: any[] }) {
+  const { t } = useLanguage();
   const [newsItems] = useState<any[]>(initialNews);
+
+  const getCategoryTranslation = (cat: string) => {
+    switch (cat) {
+      case "All": return t("cat.all");
+      case "Campus": return t("cat.campus");
+      case "Academic": return t("cat.academic");
+      case "Cultural": return t("cat.cultural");
+      case "Sports": return t("cat.sports");
+      case "Competitions": return t("cat.competitions");
+      case "Workshops & Seminars": return t("cat.workshops");
+      case "Exhibitions": return t("cat.exhibitions");
+      case "Community Service / NSS": return t("cat.community");
+      case "Festivals & Celebrations": return t("cat.festivals");
+      default: return cat;
+    }
+  };
 
   return (
     <div className="pt-32 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-6 min-h-[50vh]">
         <SectionHeading 
-          title="News & Announcements" 
-          subtitle="Stay updated with the latest happenings, academic notices, and upcoming events at GVH College." 
+          title={t("news.section_title")} 
+          subtitle={t("news.section_subtitle")} 
         />
         
         {newsItems.length === 0 ? (
           <div className="text-center text-gray-500 py-12 bg-gray-50 rounded-2xl border border-gray-200">
-            <p className="text-xl">No news articles found.</p>
+            <p className="text-xl">{t("news.no_found")}</p>
           </div>
         ) : (
           <motion.div 
@@ -143,7 +162,7 @@ export default function NewsClient({ initialNews }: { initialNews: any[] }) {
                             sizes="(max-width: 768px) 100vw, 50vw"
                           />
                           <div className="absolute top-4 left-4 bg-accent/90 backdrop-blur-sm text-white text-[10px] font-bold px-2.5 py-0.5 rounded-none uppercase tracking-wider shadow-[0_0_15px_rgba(220,38,38,0.4)] z-20">
-                            {news.category}
+                            {getCategoryTranslation(news.category)}
                           </div>
                         </div>
                       </motion.div>
@@ -185,7 +204,7 @@ export default function NewsClient({ initialNews }: { initialNews: any[] }) {
                             sizes="(max-width: 768px) 100vw, 100vw"
                           />
                           <div className="absolute top-4 left-4 bg-accent/90 backdrop-blur-sm text-white text-[10px] font-bold px-2.5 py-0.5 rounded-none uppercase tracking-wider shadow-[0_0_15px_rgba(220,38,38,0.4)] z-20">
-                            {news.category}
+                            {getCategoryTranslation(news.category)}
                           </div>
                         </div>
                       </div>
@@ -224,7 +243,7 @@ export default function NewsClient({ initialNews }: { initialNews: any[] }) {
                           sizes="(max-width: 768px) 100vw, 33vw"
                         />
                         <div className="absolute top-4 left-4 bg-accent/90 backdrop-blur-sm text-white text-[10px] font-bold px-2.5 py-0.5 rounded-none uppercase tracking-wider shadow-[0_0_15px_rgba(220,38,38,0.4)] z-20">
-                          {news.category}
+                          {getCategoryTranslation(news.category)}
                         </div>
                       </div>
                     </div>

@@ -2,8 +2,11 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function NationalEducationSocietyPage() {
+  const { t } = useLanguage();
+
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
@@ -11,28 +14,32 @@ export default function NationalEducationSocietyPage() {
 
   const institutions = [
     {
-      name: "NES Higher Primary School",
+      name: t("nes.inst.primary_name"),
       image: "/images/about/nes-primary-school.png",
-      description: "Established in 1990. Provides foundational primary education (grades 1–7) in Kannada medium, nurturing young minds in rural Hosaritti.",
-      type: "Government-Aided"
+      description: t("nes.inst.primary_desc"),
+      type: t("nes.type_aided"),
+      isAided: true
     },
     {
-      name: "G.V. Hallikeri High School",
+      name: t("nes.inst.high_name"),
       image: "/images/about/nes-high-school.png",
-      description: "Delivering secondary education (grades 8–10) with a focus on leadership. Features an active NCC wing (28 Karnataka Battalion) and high academic success.",
-      type: "Government-Aided"
+      description: t("nes.inst.high_desc"),
+      type: t("nes.type_aided"),
+      isAided: true
     },
     {
-      name: "G.V. Composite PU College",
+      name: t("nes.inst.pu_name"),
       image: "/images/about/nes-pu-college.png",
-      description: "Established July 1, 1963. Specialized pre-university course node in Commerce and Arts, bridging basic school and professional careers in Haveri.",
-      type: "Government-Aided"
+      description: t("nes.inst.pu_desc"),
+      type: t("nes.type_aided"),
+      isAided: true
     },
     {
-      name: "G.V.H. First Grade College",
+      name: t("nes.inst.degree_name"),
       image: "/images/about/nes-first-grade.png",
-      description: "Established in 2021. Offers UG & PG courses with modern infrastructure including digital library, 24/7 Wi-Fi, modern labs, and a sports arena.",
-      type: "Private Un-Aided"
+      description: t("nes.inst.degree_desc"),
+      type: t("nes.type_unaided"),
+      isAided: false
     }
   ];
 
@@ -54,11 +61,11 @@ export default function NationalEducationSocietyPage() {
 
         <div className="relative z-10 max-w-5xl mx-auto px-4 text-center text-white flex flex-col items-center">
           <h1 className="text-3xl sm:text-5xl font-sans font-extrabold tracking-tight mb-4">
-            National Education Society
+            {t("nes.title")}
           </h1>
           <div className="h-[3px] w-24 bg-accent mb-4"></div>
           <p className="text-base md:text-lg text-gray-300 font-medium max-w-2xl">
-            Empowering Rural Communities Through Education Since 1963
+            {t("nes.subtitle")}
           </p>
         </div>
       </div>
@@ -76,16 +83,12 @@ export default function NationalEducationSocietyPage() {
         >
           <div className="space-y-6">
             <h2 className="text-2xl md:text-3xl font-extrabold text-slate-800 tracking-tight">
-              A Legacy of Rural Empowerment
+              {t("nes.legacy_title")}
             </h2>
             <div className="w-12 h-[3px] bg-accent"></div>
             <div className="space-y-4 text-secondary-text text-sm md:text-base leading-relaxed">
-              <p>
-                The <strong>National Education Society (NES)</strong>, based in Hosaritti, Haveri district, is a premier educational trust committed to rural development. Guided by the principles of social equity and educational access, the society has established a robust ecosystem of learning.
-              </p>
-              <p>
-                The foundational vision of the society is deeply connected to the legacy of the freedom fighter <strong>Gudleppa Hallikeri</strong>, who donated his ancestral property and wealth to establish educational opportunities in the region. Today, the society administers a full academic pipeline, from primary schooling to pre-university and higher degree colleges.
-              </p>
+              <p dangerouslySetInnerHTML={{ __html: t("nes.legacy_p1") }} />
+              <p dangerouslySetInnerHTML={{ __html: t("nes.legacy_p2") }} />
             </div>
           </div>
           <div className="relative aspect-video rounded-none overflow-hidden border border-gray-200 shadow-sm bg-gray-50">
@@ -108,11 +111,11 @@ export default function NationalEducationSocietyPage() {
         >
           <div className="space-y-3">
             <h2 className="text-2xl md:text-3xl font-extrabold text-slate-800 tracking-tight">
-              Our Educational Ecosystem
+              {t("nes.eco_title")}
             </h2>
             <div className="w-12 h-[3px] bg-accent"></div>
             <p className="text-secondary-text text-sm md:text-base max-w-3xl">
-              NES runs an integrated cluster of institutions in Hosaritti, offering students a seamless path from primary education to undergraduate and postgraduate degrees.
+              {t("nes.eco_desc")}
             </p>
           </div>
 
@@ -133,7 +136,7 @@ export default function NationalEducationSocietyPage() {
                     <p className="text-sm text-secondary-text leading-relaxed mb-4">{inst.description}</p>
                   </div>
                   <span className={`px-2.5 py-0.5 border text-[10px] font-bold uppercase tracking-wider rounded-none ${
-                    inst.type === "Private Un-Aided" 
+                    !inst.isAided 
                       ? "bg-blue-50 border-blue-200 text-blue-700" 
                       : "bg-green-50 border-green-200 text-green-700"
                   }`}>
@@ -151,11 +154,11 @@ export default function NationalEducationSocietyPage() {
       <div className="bg-gray-100 text-slate-800 py-16 border-t border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-4 text-center space-y-5">
           <p className="text-xl md:text-2xl font-serif italic text-slate-700 leading-relaxed">
-            "To build rural institutions is to build the nation’s foundation. We teach not just to inform, but to transform local communities."
+            {t("nes.quote")}
           </p>
           <div className="w-12 h-[2px] bg-accent mx-auto"></div>
           <h4 className="font-sans font-bold text-xs tracking-widest uppercase text-slate-500">
-            National Education Society Core Philosophy
+            {t("nes.philosophy")}
           </h4>
         </div>
       </div>
