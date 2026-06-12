@@ -17,8 +17,6 @@ export default function FacultyAdminPage() {
   const [name, setName] = useState("");
   const [designation, setDesignation] = useState("");
   const [qualification, setQualification] = useState("");
-  const [experience, setExperience] = useState("");
-  const [specialization, setSpecialization] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   
@@ -44,8 +42,6 @@ export default function FacultyAdminPage() {
     setName("");
     setDesignation("");
     setQualification("");
-    setExperience("");
-    setSpecialization("");
     setImageFile(null);
     setPreviewUrl(null);
     setIsModalOpen(false);
@@ -56,8 +52,6 @@ export default function FacultyAdminPage() {
     setName(faculty.name);
     setDesignation(faculty.designation);
     setQualification(faculty.qualification);
-    setExperience(faculty.experience);
-    setSpecialization(faculty.specialization);
     setImageFile(null);
     setPreviewUrl(faculty.image);
     setIsModalOpen(true);
@@ -89,8 +83,6 @@ export default function FacultyAdminPage() {
     formData.append("name", name);
     formData.append("designation", designation);
     formData.append("qualification", qualification);
-    formData.append("experience", experience);
-    formData.append("specialization", specialization);
     if (imageFile) {
       formData.append("image", imageFile);
     }
@@ -190,18 +182,6 @@ export default function FacultyAdminPage() {
                       <span className="truncate" title={faculty.qualification}>{faculty.qualification}</span>
                     </div>
                   )}
-                  {faculty.experience && (
-                    <div className="flex gap-2">
-                      <span className="font-semibold text-gray-900 w-24 shrink-0">Exp:</span>
-                      <span className="truncate" title={faculty.experience}>{faculty.experience}</span>
-                    </div>
-                  )}
-                  {faculty.specialization && (
-                    <div className="flex gap-2">
-                      <span className="font-semibold text-gray-900 w-24 shrink-0">Spec:</span>
-                      <span className="truncate" title={faculty.specialization}>{faculty.specialization}</span>
-                    </div>
-                  )}
                 </div>
               </div>
             </div>
@@ -277,7 +257,7 @@ export default function FacultyAdminPage() {
                   />
                 </div>
 
-                <div>
+                <div className="md:col-span-2">
                   <label className="block text-sm font-bold text-gray-700 mb-2">Qualification</label>
                   <input 
                     type="text" 
@@ -285,28 +265,6 @@ export default function FacultyAdminPage() {
                     onChange={e => setQualification(e.target.value)} 
                     className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all outline-none"
                     placeholder="e.g. Ph.D. in Machine Learning"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">Experience</label>
-                  <input 
-                    type="text" 
-                    value={experience} 
-                    onChange={e => setExperience(e.target.value)} 
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all outline-none"
-                    placeholder="e.g. 15 Years"
-                  />
-                </div>
-
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-bold text-gray-700 mb-2">Specialization</label>
-                  <input 
-                    type="text" 
-                    value={specialization} 
-                    onChange={e => setSpecialization(e.target.value)} 
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all outline-none"
-                    placeholder="e.g. Artificial Intelligence, Data Science"
                   />
                 </div>
               </div>

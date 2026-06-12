@@ -52,18 +52,6 @@ export default async function FacultyPage() {
                         <span>{faculty.qualification}</span>
                       </div>
                     )}
-                    {faculty.experience && (
-                      <div className="leading-relaxed">
-                        <span className="font-semibold text-gray-900">Experience: </span>
-                        <span>{faculty.experience}</span>
-                      </div>
-                    )}
-                    {faculty.specialization && (
-                      <div className="leading-relaxed">
-                        <span className="font-semibold text-gray-900">Specialization: </span>
-                        <span>{faculty.specialization}</span>
-                      </div>
-                    )}
                   </div>
                 </div>
               </div>
