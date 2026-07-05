@@ -7,22 +7,27 @@ import { useLanguage } from "@/context/LanguageContext";
 interface NewsTickerProps {
   text?: string;
   isActive?: boolean;
+  buttonText?: string;
+  buttonLink?: string;
 }
 
-export default function NewsTicker({ text, isActive = true }: NewsTickerProps) {
+export default function NewsTicker({ text, isActive = true, buttonText, buttonLink }: NewsTickerProps) {
   const { t } = useLanguage();
 
   if (!isActive || !text) return null;
+
+  const resolvedBtnText = buttonText || t("hero.apply_now");
+  const resolvedBtnLink = buttonLink || "/admissions/apply";
 
   return (
     <div className="bg-accent text-white flex items-center relative overflow-hidden h-14 w-full border-b border-white/20 z-20 shadow-md">
       {/* Static Button Container on the Left */}
       <div className="absolute left-0 top-0 bottom-0 bg-navbar px-4 sm:px-6 flex items-center z-30 shadow-[4px_0_12px_rgba(0,0,0,0.4)] border-r border-white/10">
         <Link 
-          href="/admissions/apply" 
+          href={resolvedBtnLink} 
           className="bg-white text-accent hover:bg-gray-100 hover:scale-105 active:scale-95 transition-all px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg flex items-center gap-1 whitespace-nowrap"
         >
-          {t("hero.apply_now")} <ArrowRight className="w-3.5 h-3.5" />
+          {resolvedBtnText} <ArrowRight className="w-3.5 h-3.5" />
         </Link>
       </div>
       

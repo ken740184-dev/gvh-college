@@ -12,6 +12,35 @@ const AnnouncementSchema = new mongoose.Schema(
       required: true,
       default: true,
     },
+    popupActive: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    popupTitle: {
+      type: String,
+      default: "",
+    },
+    popupImageUrl: {
+      type: String,
+      default: "",
+    },
+    popupImagePublicId: {
+      type: String,
+      default: "",
+    },
+    popupLink: {
+      type: String,
+      default: "",
+    },
+    marqueeButtonText: {
+      type: String,
+      default: "Apply Now",
+    },
+    marqueeButtonLink: {
+      type: String,
+      default: "/admissions/apply",
+    },
     updatedBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

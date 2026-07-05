@@ -72,6 +72,7 @@ export default function AdminLogin() {
                 required
                 className="w-full bg-gray-50/50 border border-gray-200 rounded-xl py-2.5 pl-10 pr-4 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all"
                 placeholder="admin@example.com"
+                suppressHydrationWarning
               />
             </div>
           </div>
@@ -87,6 +88,7 @@ export default function AdminLogin() {
                 required
                 className="w-full bg-gray-50/50 border border-gray-200 rounded-xl py-2.5 pl-10 pr-4 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all"
                 placeholder="••••••••"
+                suppressHydrationWarning
               />
             </div>
           </div>
@@ -95,6 +97,7 @@ export default function AdminLogin() {
             type="submit"
             disabled={isLoading}
             className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-gray-900 font-medium py-3 rounded-xl transition-all shadow-lg shadow-cyan-900/20 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+            suppressHydrationWarning
           >
             {isLoading ? (
               <>

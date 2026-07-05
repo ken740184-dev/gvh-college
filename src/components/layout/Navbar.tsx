@@ -70,6 +70,10 @@ export default function Navbar() {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
 
+  // Don't show the public navbar inside the admin dashboard
+  if (pathname?.startsWith("/admin")) return null;
+
+
   // Refs for measurement
   const outerContainerRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
@@ -135,10 +139,11 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", measureNav);
   }, [language]);
 
-  const navBackground =
-    isHomePage && !scrolled && !isOpen
-      ? "bg-transparent text-white"
-      : "bg-navbar text-white shadow-md";
+  const isTransparent = isHomePage && !scrolled && !isOpen;
+
+  const navBackground = isTransparent
+    ? "bg-transparent text-white"
+    : "bg-white text-slate-800 border-b border-gray-200 shadow-sm";
 
   const visibleItems = originalNavigation.slice(0, visibleCount);
   const hiddenItems = originalNavigation.slice(visibleCount);
@@ -163,16 +168,16 @@ export default function Navbar() {
       >
         <div className="w-full px-4 sm:px-8 lg:px-12" ref={outerContainerRef}>
           <div className="flex justify-between items-center h-20 gap-8">
-            <div className="flex-shrink-0 flex items-center gap-3" ref={logoRef}>
-              <div className="relative w-12 h-12 rounded-full overflow-hidden border border-red-500/50 shadow-[0_0_15px_rgba(220,38,38,0.5)] bg-white/10">
+            <div className="flex-shrink-0 flex items-center" ref={logoRef}>
+              <div className="relative h-16 w-[340px] md:h-20 md:w-[420px]">
                 <Image
-                  src="/images/layout/logo.jpg"
-                  alt="GH College Logo"
+                  src="/images/layout/college-banner.png"
+                  alt="GVH College"
                   fill
-                  className="object-cover"
+                  className="object-contain object-left"
+                  priority
                 />
               </div>
-              <span className="font-sans font-bold text-2xl tracking-wider">{t("nav.college_name")}</span>
             </div>
             <div className="flex items-center space-x-8">
                {originalNavigation.map((item, idx) => (
@@ -198,61 +203,85 @@ export default function Navbar() {
       <div className={`w-full px-4 sm:px-8 lg:px-12 transition-opacity duration-300 ${isMeasured ? 'opacity-100' : 'opacity-0'}`}>
         <div className="flex justify-between items-center h-20 gap-8">
           <div className="flex items-center">
-            <Link href="/" className="flex-shrink-0 flex items-center gap-3">
-              <div className="relative w-12 h-12 rounded-full overflow-hidden border border-red-500/50 shadow-[0_0_15px_rgba(220,38,38,0.5)] bg-white/10">
+            <Link href="/" className="flex-shrink-0 flex items-center">
+              <div className={`relative transition-all duration-300 ${
+                isTransparent
+                  ? "h-20 w-[420px] md:h-24 md:w-[500px]"
+                  : "h-16 w-[340px] md:h-20 md:w-[420px]"
+              }`}>
                 <Image
-                  src="/images/layout/logo.jpg"
-                  alt="GH College Logo"
+                  src={isTransparent
+                    ? "/images/layout/logoplusname.png"
+                    : "/images/layout/college-banner.jpg"
+                  }
+                  alt="GVH College"
                   fill
-                  className="object-cover"
+                  className="object-contain object-left"
+                  priority
                 />
               </div>
-              <span className="font-sans font-bold text-2xl tracking-wider">
-                {t("nav.college_name")}
-              </span>
             </Link>
           </div>
 
           {/* Desktop menu */}
-          <div className="hidden lg:flex items-center space-x-8">
-            {desktopNavigation.map((item) => (
-              <div key={item.name} className="relative group">
-                {item.dropdown ? (
-                  <button className="flex items-center gap-1 hover:text-accent transition-colors duration-200 py-2 text-sm font-medium">
-                    {item.name}
-                    <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
-                  </button>
-                ) : (
-                  <Link
-                    href={item.href}
-                    className="hover:text-accent transition-colors duration-200 py-2 text-sm font-medium"
-                  >
-                    {item.name}
-                  </Link>
-                )}
+          <div className="hidden lg:flex items-center space-x-6">
+            {desktopNavigation.map((item) => {
+              const isActive = item.href !== "#" && (pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href)));
+              return (
+                <div key={item.name} className="relative group">
+                  {item.dropdown ? (
+                    <button className={`flex items-center gap-1 py-2 text-sm font-medium transition-colors duration-200 hover:text-accent ${
+                      isTransparent ? "text-white/90 hover:text-white" : "text-slate-700 hover:text-accent"
+                    }`}>
+                      {item.name}
+                      <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180" />
+                    </button>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className={`relative py-2 text-sm font-medium transition-colors duration-200 block ${
+                        isTransparent
+                          ? "text-white/90 hover:text-white"
+                          : isActive
+                          ? "text-accent font-semibold"
+                          : "text-slate-700 hover:text-accent"
+                      }`}
+                    >
+                      {item.name}
+                      {/* Active underline */}
+                      {!isTransparent && isActive && (
+                        <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent rounded-full" />
+                      )}
+                    </Link>
+                  )}
 
-                {item.dropdown && (
-                  <div className="absolute left-0 mt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-left">
-                    <div className="bg-white text-primary-text shadow-lg ring-1 ring-black ring-opacity-5 rounded-md py-1">
-                      {item.dropdown.map((subItem) => (
-                        <Link
-                          key={subItem.name}
-                          href={subItem.href}
-                          className="block px-4 py-2 text-sm hover:bg-gray-50 hover:text-accent"
-                        >
-                          {subItem.name}
-                        </Link>
-                      ))}
+                  {item.dropdown && (
+                    <div className="absolute left-0 mt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-left z-50">
+                      <div className="bg-white text-slate-800 shadow-lg ring-1 ring-black/5 rounded-sm py-1 border border-gray-100">
+                        {item.dropdown.map((subItem) => (
+                          <Link
+                            key={subItem.name}
+                            href={subItem.href}
+                            className="block px-4 py-2 text-sm text-slate-700 hover:bg-gray-50 hover:text-accent transition-colors"
+                          >
+                            {subItem.name}
+                          </Link>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
-              </div>
-            ))}
+                  )}
+                </div>
+              );
+            })}
 
             {/* Language Switcher */}
             <button
               onClick={() => setLanguage(language === "en" ? "kn" : "en")}
-              className="px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider border border-white/20 hover:border-accent hover:bg-accent/15 transition-all duration-300 flex items-center gap-1.5 text-white/90 hover:text-white font-medium"
+              className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider border flex items-center gap-1.5 transition-all duration-300 ${
+                isTransparent
+                  ? "border-white/30 text-white/80 hover:border-white hover:text-white"
+                  : "border-gray-300 text-slate-600 hover:border-accent hover:text-accent"
+              }`}
             >
               <Globe className="w-3.5 h-3.5" />
               <span>{language === "en" ? "ಕನ್ನಡ" : "English"}</span>
@@ -283,70 +312,75 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "calc(100vh - 5rem)" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-navbar overflow-y-auto w-full absolute left-0 top-20"
+            className="lg:hidden bg-white overflow-y-auto w-full absolute left-0 top-20 border-t border-gray-200"
           >
-            <div className="px-2 pt-2 pb-8 space-y-1 sm:px-3 border-t border-gray-800 min-h-full">
+            <div className="px-2 pt-2 pb-8 space-y-1 sm:px-3 min-h-full">
               {/* Mobile Language Switcher */}
-              <div className="px-3 py-2 border-b border-gray-800/60 mb-2 flex justify-between items-center">
-                <span className="text-sm font-medium text-gray-400">Language / ಭಾಷೆ</span>
+              <div className="px-3 py-2 border-b border-gray-100 mb-2 flex justify-between items-center">
+                <span className="text-sm font-medium text-gray-500">Language / ಭಾಷೆ</span>
                 <button
                   onClick={() => setLanguage(language === "en" ? "kn" : "en")}
-                  className="px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider border border-white/20 hover:border-accent bg-white/5 flex items-center gap-1.5 text-white font-medium"
+                  className="px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider border border-gray-300 hover:border-accent flex items-center gap-1.5 text-slate-700 hover:text-accent transition-colors"
                 >
                   <Globe className="w-3.5 h-3.5" />
                   <span>{language === "en" ? "ಕನ್ನಡ" : "English"}</span>
                 </button>
               </div>
 
-              {originalNavigation.map((item) => (
-                <div key={item.name}>
-                  {item.dropdown ? (
-                    <>
-                      <button
-                        onClick={() => setOpenMobileDropdown(openMobileDropdown === item.name ? null : item.name)}
-                        className="w-full flex justify-between items-center px-3 py-2 text-base font-medium text-gray-200 hover:text-white"
+              {originalNavigation.map((item) => {
+                const isActive = item.href !== "#" && (pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href)));
+                return (
+                  <div key={item.name}>
+                    {item.dropdown ? (
+                      <>
+                        <button
+                          onClick={() => setOpenMobileDropdown(openMobileDropdown === item.name ? null : item.name)}
+                          className="w-full flex justify-between items-center px-3 py-2 text-base font-medium text-slate-700 hover:text-accent"
+                        >
+                          {item.name}
+                          <ChevronDown
+                            className={`w-4 h-4 transition-transform duration-200 ${openMobileDropdown === item.name ? "rotate-180" : ""}`}
+                          />
+                        </button>
+                        <AnimatePresence>
+                          {openMobileDropdown === item.name && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.2 }}
+                              className="overflow-hidden"
+                            >
+                              <div className="pl-4 space-y-1 mt-1 border-l-2 border-accent/30 ml-4 mb-2">
+                                {item.dropdown.map((subItem) => (
+                                  <Link
+                                    key={subItem.name}
+                                    href={subItem.href}
+                                    className="block px-3 py-2 text-sm font-medium text-slate-600 hover:text-accent"
+                                    onClick={() => setIsOpen(false)}
+                                  >
+                                    {subItem.name}
+                                  </Link>
+                                ))}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </>
+                    ) : (
+                      <Link
+                        href={item.href}
+                        className={`block px-3 py-2 text-base font-medium transition-colors ${
+                          isActive ? "text-accent font-semibold" : "text-slate-700 hover:text-accent"
+                        }`}
+                        onClick={() => setIsOpen(false)}
                       >
                         {item.name}
-                        <ChevronDown 
-                          className={`w-4 h-4 transition-transform duration-200 ${openMobileDropdown === item.name ? "rotate-180" : ""}`} 
-                        />
-                      </button>
-                      <AnimatePresence>
-                        {openMobileDropdown === item.name && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.2 }}
-                            className="overflow-hidden"
-                          >
-                            <div className="pl-4 space-y-1 mt-1 border-l border-gray-700 ml-4 mb-2">
-                              {item.dropdown.map((subItem) => (
-                                <Link
-                                  key={subItem.name}
-                                  href={subItem.href}
-                                  className="block px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-accent hover:bg-gray-900"
-                                  onClick={() => setIsOpen(false)}
-                                >
-                                  {subItem.name}
-                                </Link>
-                              ))}
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </>
-                  ) : (
-                    <Link
-                      href={item.href}
-                      className="block px-3 py-2 rounded-md text-base font-medium text-gray-200 hover:text-accent hover:bg-gray-900"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {item.name}
-                    </Link>
-                  )}
-                </div>
-              ))}
+                      </Link>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </motion.div>
         )}

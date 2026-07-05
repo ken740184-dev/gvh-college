@@ -293,8 +293,9 @@ export default function EventsClient({ initialEvents }: { initialEvents: any[] }
               return (
                 <motion.div
                   key={event._id}
+                  id={event._id}
                   variants={cardVariants}
-                  className="bg-white border border-gray-200/80 shadow-[0_15px_30px_rgba(0,0,0,0.02)] hover:shadow-[0_25px_50px_rgba(0,0,0,0.06)] transition-all duration-500 flex flex-col md:flex-row rounded-none overflow-hidden group"
+                  className="bg-white border border-gray-200/80 shadow-[0_15px_30px_rgba(0,0,0,0.02)] hover:shadow-[0_25px_50px_rgba(0,0,0,0.06)] transition-all duration-500 flex flex-col md:flex-row rounded-none overflow-hidden group scroll-mt-28 target:ring-4 target:ring-cyan-600/40 target:scale-[1.01]"
                 >
                   {/* Photo Collage Column */}
                   <div className="w-full md:w-[48%] flex-shrink-0 p-3 flex flex-col justify-center bg-gray-50/50">

@@ -22,7 +22,7 @@ export const translations: Record<Language, Record<string, string>> = {
     "nav.gallery": "Gallery",
     "nav.contact": "Contact",
     "nav.more": "More",
-    "nav.college_name": "GH COLLEGE",
+    "nav.college_name": "GVH COLLEGE",
 
     // Footer
     "footer.desc": "Empowering students through innovation, critical thinking, and academic excellence to build the leaders of tomorrow.",
@@ -399,7 +399,7 @@ export const translations: Record<Language, Record<string, string>> = {
     "nav.gallery": "ಚಿತ್ರ ಸಂಪುಟ",
     "nav.contact": "ಸಂಪರ್ಕ",
     "nav.more": "ಇನ್ನಷ್ಟು",
-    "nav.college_name": "ಜಿಹೆಚ್ ಕಾಲೇಜು",
+    "nav.college_name": "ಜಿ.ವಿ.ಹೆಚ್. ಕಾಲೇಜು",
 
     // Footer
     "footer.desc": "ನಾಳೆಯ ನಾಯಕರನ್ನು ನಿರ್ಮಿಸಲು ನಾವೀನ್ಯತೆ, ವಿಮರ್ಶಾತ್ಮಕ ಚಿಂತನೆ ಮತ್ತು ಶೈಕ್ಷಣಿಕ ಉತ್ಕೃಷ್ಟತೆಯ ಮೂಲಕ ವಿದ್ಯಾರ್ಥಿಗಳನ್ನು ಸಬಲೀಕರಣಗೊಳಿಸುವುದು.",

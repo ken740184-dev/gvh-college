@@ -28,24 +28,26 @@ export default async function AdminLayout({
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900 flex pt-[88px]">
-      {/* Sidebar Navigation - Hidden on Mobile */}
-      <aside className="hidden md:flex w-64 border-r border-gray-200 bg-white flex-col fixed h-[calc(100vh-88px)] z-20">
+    <div className="min-h-screen bg-gray-50 text-gray-900 flex">
+      {/* Sidebar — fixed, full height from top */}
+      <aside className="hidden md:flex w-64 border-r border-gray-200 bg-white flex-col fixed inset-y-0 left-0 z-20">
+        {/* Sidebar header */}
         <div className="p-6 border-b border-gray-200">
-          <h2 className="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
-            GVH CMS
-          </h2>
-          <p className="text-xs text-gray-500 mt-1 truncate">Logged in as {session.user?.email}</p>
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-lg font-black tracking-tight text-slate-900">GVH</span>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400 border border-slate-200 px-1.5 py-0.5">CMS</span>
+          </div>
+          <p className="text-xs text-gray-400 truncate">{session.user?.email}</p>
         </div>
 
-        <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+        <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
           {menuItems.map((item) => (
             <Link
               key={item.name}
               href={item.href}
-              className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-black hover:bg-gray-100 transition-colors"
+              className="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-gray-600 hover:text-slate-900 hover:bg-gray-100 transition-colors rounded-md"
             >
-              <item.icon className="w-4 h-4" />
+              <item.icon className="w-4 h-4 flex-shrink-0" />
               {item.name}
             </Link>
           ))}
@@ -54,19 +56,30 @@ export default async function AdminLayout({
         <div className="p-4 border-t border-gray-200">
           <a
             href="/api/auth/signout"
-            className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-red-400 hover:text-red-300 hover:bg-red-950/30 transition-colors"
+            className="flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium text-red-500 hover:text-red-600 hover:bg-red-50 transition-colors"
           >
-            <LogOut className="w-4 h-4" />
+            <LogOut className="w-4 h-4 flex-shrink-0" />
             Sign Out
           </a>
         </div>
       </aside>
 
-      {/* Main Content Area */}
-      <main className="flex-1 ml-0 md:ml-64 p-4 md:p-8 overflow-x-hidden">
-        <MobileHeader />
-        <div className="max-w-6xl mx-auto">
-          {children}
+      {/* Main content — offset by sidebar width */}
+      <main className="flex-1 md:ml-64 min-h-screen overflow-x-hidden">
+        {/* Top bar */}
+        <header className="sticky top-0 z-10 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
+          <div>
+            <h1 className="text-sm font-semibold text-slate-900">Admin Dashboard</h1>
+            <p className="text-xs text-gray-400 mt-0.5">GVH College CMS</p>
+          </div>
+          <span className="text-xs text-gray-400 hidden sm:block">{session.user?.email}</span>
+        </header>
+
+        <div className="p-4 md:p-8">
+          <MobileHeader />
+          <div className="max-w-6xl mx-auto">
+            {children}
+          </div>
         </div>
       </main>
     </div>

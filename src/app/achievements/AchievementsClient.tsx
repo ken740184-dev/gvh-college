@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { motion } from "framer-motion";
@@ -92,6 +92,16 @@ export default function AchievementsClient({ initialAchievements }: { initialAch
   const [achievements] = useState<any[]>(initialAchievements);
   const { t } = useLanguage();
 
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location.hash) {
+      const hash = window.location.hash.substring(1);
+      const matched = achievements.find((a) => a._id === hash);
+      if (matched && matched.category) {
+        setActiveTab(matched.category);
+      }
+    }
+  }, [achievements]);
+
   const filteredAchievements = achievements.filter(a => a.category === activeTab);
 
   return (
@@ -157,8 +167,9 @@ export default function AchievementsClient({ initialAchievements }: { initialAch
                   return (
                     <motion.div
                       key={item._id}
+                      id={item._id}
                       variants={slideUp}
-                      className={`border border-gray-200 bg-[#f3f4f6] shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col rounded-none overflow-hidden relative group cursor-pointer md:col-span-2 lg:col-span-3 ${
+                      className={`border border-gray-200 bg-[#f3f4f6] shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col rounded-none overflow-hidden relative group cursor-pointer md:col-span-2 lg:col-span-3 scroll-mt-28 target:ring-4 target:ring-cyan-600/40 target:scale-[1.01] ${
                         isImageRight ? "md:flex-row-reverse" : "md:flex-row"
                       }`}
                     >
@@ -203,8 +214,9 @@ export default function AchievementsClient({ initialAchievements }: { initialAch
                   return (
                     <motion.div
                       key={item._id}
+                      id={item._id}
                       variants={slideUp}
-                      className="bg-[#f3f4f6] border border-gray-200 shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col rounded-none overflow-hidden relative group cursor-pointer md:col-span-2 lg:col-span-3"
+                      className="bg-[#f3f4f6] border border-gray-200 shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col rounded-none overflow-hidden relative group cursor-pointer md:col-span-2 lg:col-span-3 scroll-mt-28 target:ring-4 target:ring-cyan-600/40 target:scale-[1.01]"
                     >
                       {/* Image container padded to leave space around it as a border */}
                       <div className="w-full p-6 pb-4 shrink-0">
@@ -240,8 +252,9 @@ export default function AchievementsClient({ initialAchievements }: { initialAch
                 return (
                   <motion.div
                     key={item._id}
+                    id={item._id}
                     variants={smallCardVariant}
-                    className="border border-gray-200 bg-[#f3f4f6] shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col rounded-none overflow-hidden relative group cursor-pointer col-span-1"
+                    className="border border-gray-200 bg-[#f3f4f6] shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col rounded-none overflow-hidden relative group cursor-pointer col-span-1 scroll-mt-28 target:ring-4 target:ring-cyan-600/40 target:scale-[1.01]"
                   >
                     <div className="w-full p-4 pb-2.5 shrink-0">
                       <div className="relative w-full aspect-video overflow-hidden rounded-none shadow-sm">
