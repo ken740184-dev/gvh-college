@@ -236,8 +236,8 @@ export default function NewsClient({ initialNews }: { initialNews: any[] }) {
                     variants={smallCardVariant}
                     className="border border-gray-200 bg-[#f3f4f6] shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col rounded-none overflow-hidden relative group cursor-pointer col-span-1 scroll-mt-28 target:ring-4 target:ring-cyan-600/40 target:scale-[1.01]"
                   >
-                    <div className="w-full p-4 pb-2.5 shrink-0">
-                      <div className="relative w-full aspect-video overflow-hidden rounded-none shadow-sm">
+                    <div className="w-full p-5 pb-3 shrink-0">
+                      <div className="relative w-full aspect-square overflow-hidden rounded-none shadow-sm">
                         <Image 
                           src={news.image} 
                           alt={news.title} 
