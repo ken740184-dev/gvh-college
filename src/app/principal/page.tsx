@@ -23,10 +23,10 @@ export default function PrincipalPage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
               <div className="lg:col-span-5 relative min-h-[500px]">
                 <Image 
-                  src="/images/academics/ba-banner.webp" 
+                  src="/images/about/principal.jpg" 
                   alt="Principal" 
                   fill 
-                  className="object-cover"
+                  className="object-cover object-top"
                 />
               </div>
               <div className="lg:col-span-7 p-10 lg:p-16 flex flex-col justify-center">
@@ -44,6 +44,15 @@ export default function PrincipalPage() {
                   </p>
                   <p>
                     {t("principal.p4")}
+                  </p>
+                  <p>
+                    {t("principal.p5")}
+                  </p>
+                  <p>
+                    {t("principal.p6")}
+                  </p>
+                  <p className="font-semibold italic text-primary-text border-l-4 border-accent pl-4">
+                    {t("principal.p7")}
                   </p>
                 </div>
 

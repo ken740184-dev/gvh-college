@@ -13,7 +13,7 @@ export default function BComPage() {
     <div className="pt-20">
       <div className="relative h-[40vh] bg-black">
         <Image 
-          src="/images/academics/bcom-banner.webp" 
+          src="/images/academics/bcom-banner.png" 
           alt={t("dept.bcom_title")} 
           fill 
           className="object-cover opacity-60"

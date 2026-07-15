@@ -18,6 +18,7 @@ import {
   Layers,
   Layout
 } from "lucide-react";
+import TranslateButton from "@/components/admin/TranslateButton";
 
 export default function AdminAnnouncementsPage() {
   const [activeTab, setActiveTab] = useState<"marquee" | "popup">("marquee");
@@ -232,9 +233,7 @@ export default function AdminAnnouncementsPage() {
                   <div className="flex flex-col gap-2">
                     <div className="flex justify-between items-center">
                       <label className="text-sm font-bold text-gray-700">Announcement Text</label>
-                      <span className={`text-[10px] font-bold uppercase ${isActive ? "text-green-600" : "text-gray-400"}`}>
-                        {isActive ? "Currently Active" : "Draft (Marquee Disabled)"}
-                      </span>
+                      <TranslateButton sourceText={text} onTranslated={(t) => setText(prev => prev + " | " + t)} />
                     </div>
                     
                     <textarea
@@ -244,12 +243,12 @@ export default function AdminAnnouncementsPage() {
                       onChange={(e) => setText(e.target.value)}
                       placeholder="e.g. Admission for 2026 has started, apply now! Last date for online submission is June 30th."
                       className="w-full border border-gray-200 rounded-none px-4 py-3 text-sm focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none transition-all shadow-inner bg-gray-50/20"
-                      maxLength={250}
+                      maxLength={500}
                     ></textarea>
                     
                     <div className="flex justify-between text-xs text-gray-400 font-medium">
-                      <span>Keep it clear and concise for scrolling readability.</span>
-                      <span>{text.length}/250 characters</span>
+                      <span>Tip: Click translate — it appends Kannada after " | " separator.</span>
+                      <span>{text.length}/500 characters</span>
                     </div>
                   </div>
 
@@ -343,7 +342,10 @@ export default function AdminAnnouncementsPage() {
 
                   {/* Pop-up Title */}
                   <div className="flex flex-col gap-2">
-                    <label className="text-sm font-bold text-gray-700">Pop-up Header Title</label>
+                    <div className="flex items-center justify-between">
+                      <label className="text-sm font-bold text-gray-700">Pop-up Header Title</label>
+                      <TranslateButton sourceText={popupTitle} onTranslated={setPopupTitle} />
+                    </div>
                     <input
                       type="text"
                       value={popupTitle}

@@ -14,22 +14,28 @@ export default function HeroSection() {
   const slides = [
     {
       id: 1,
-      image: "/images/home/hero/image1.png",
+      image: "/images/home/hero/college-front.jpg",
       title: t("hero.slide1_title"),
       description: t("hero.slide1_desc"),
     },
     {
       id: 2,
-      image: "/images/home/hero/image2.png",
+      image: "/images/home/hero/image1.jpg",
       title: t("hero.slide2_title"),
       description: t("hero.slide2_desc"),
     },
     {
       id: 3,
-      image: "/images/home/hero/image3.png",
+      image: "/images/home/hero/image2.jpg",
       title: t("hero.slide3_title"),
       description: t("hero.slide3_desc"),
-    }
+    },
+    {
+      id: 4,
+      image: "/images/home/hero/image3.jpg",
+      title: t("hero.slide4_title"),
+      description: t("hero.slide4_desc"),
+    },
   ];
 
   useEffect(() => {

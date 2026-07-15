@@ -20,21 +20,21 @@ const sampleNews = [
     date: "June 1, 2026",
     category: "Admissions",
     excerpt: "We are now accepting applications for all undergraduate programs. Apply online before the deadline.",
-    image: "/images/about/campus-overview.webp"
+    image: "/images/about/campus-overview.jpg"
   },
   {
     title: "Examination Schedule Released for Even Semesters",
     date: "May 28, 2026",
     category: "Academics",
     excerpt: "The final examination schedule for B.Com and B.A. programs has been published. Please check the portal.",
-    image: "/images/academics/ba-banner.webp"
+    image: "/images/academics/ba-banner.png"
   },
   {
     title: "Annual Cultural Fest 'Euphoria 2026' Concludes",
     date: "May 15, 2026",
     category: "Events",
     excerpt: "A spectacular three-day event filled with music, dance, and art competitions came to a grand close yesterday.",
-    image: "/images/campus-life/cultural-fest.webp"
+    image: "/images/campus-life/cultural-fest-new.jpeg"
   }
 ];
 

@@ -171,7 +171,7 @@ export default function Navbar() {
             <div className="flex-shrink-0 flex items-center" ref={logoRef}>
               <div className="relative h-16 w-[340px] md:h-20 md:w-[420px]">
                 <Image
-                  src="/images/layout/college-banner.png"
+                  src="/images/layout/college-banner.jpg"
                   alt="GVH College"
                   fill
                   className="object-contain object-left"

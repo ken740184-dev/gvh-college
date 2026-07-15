@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
@@ -33,6 +33,14 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
   const [activeCategory, setActiveCategory] = useState("All");
   const [lightboxImages, setLightboxImages] = useState<string[] | null>(null);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   const catLabel = (cat: string) => {
     const map: Record<string, string> = {
@@ -113,15 +121,15 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
 
   /* ─── Render ────────────────────────────────────────────── */
   return (
-    <div className="pt-20 min-h-screen bg-white">
+    <div className="pt-20 min-h-screen bg-white overflow-x-hidden">
 
       {/* ── Header ──────────────────────────────────────────── */}
       <header className="bg-[#0f172a]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-20">
           <p className="text-xs font-bold uppercase tracking-[0.22em] text-accent mb-3">
             {t("gallery.section_title")}
           </p>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
             {t("gallery.section_title")}
           </h1>
           <p className="text-base text-white/50 max-w-xl leading-relaxed">
@@ -131,13 +139,24 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
       </header>
 
       {/* ── Sticky filter bar ───────────────────────────────── */}
-      <nav className="sticky top-20 z-30 bg-white border-b border-gray-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-          <div className="flex flex-wrap gap-2">
+      <nav className="sticky top-20 z-30 bg-white border-b border-gray-200 shadow-sm w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 overflow-hidden">
+          {/* Mobile: single scrollable row | Desktop: wrap */}
+          <div
+            className="flex gap-2 md:flex-wrap"
+            style={{
+              overflowX: "auto",
+              overflowY: "hidden",
+              paddingBottom: "4px",
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+            }}
+          >
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
+                style={{ flexShrink: 0 }}
                 className={`px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] transition-all duration-200 focus:outline-none ${
                   activeCategory === cat
                     ? "bg-[#0f172a] text-white"
@@ -165,7 +184,50 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
             <div className="text-center py-32 text-gray-400">
               <p className="text-base font-medium">{t("gallery.no_found")}</p>
             </div>
+          ) : isMobile ? (
+            /* ── Mobile: simple 2-column equal grid ── */
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2, 1fr)",
+                gap: "6px",
+              }}
+            >
+              {allImages.map((img, idx) => (
+                <div
+                  key={idx}
+                  className="relative overflow-hidden cursor-pointer group"
+                  style={{ height: "180px" }}
+                  onClick={() => openLightbox(allUrls, idx)}
+                >
+                  <Image
+                    src={img.url}
+                    alt={img.title || "Gallery"}
+                    fill
+                    sizes="50vw"
+                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+                  />
+                  <div
+                    className="absolute inset-0"
+                    style={{ background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.20) 20%, transparent 32%)" }}
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 p-2 z-10">
+                    {img.category && img.category !== "None" && (
+                      <span className="block font-sans text-[9px] font-bold uppercase tracking-widest text-red-400 mb-0.5 leading-none">
+                        {catLabel(img.category)}
+                      </span>
+                    )}
+                    {img.title && (
+                      <p className="font-sans text-white font-bold text-xs leading-tight line-clamp-2">
+                        {img.title}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
           ) : (
+            /* ── Desktop: complex 4-column masonry grid ── */
             <div
               style={{
                 display: "grid",
@@ -185,6 +247,7 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
                     src={gi.item.url}
                     alt={gi.item.title || "Gallery"}
                     fill
+                    sizes="(max-width: 1280px) 25vw, 320px"
                     className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
                   />
                   {/* Bottom-only vignette */}

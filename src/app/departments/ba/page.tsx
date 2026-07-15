@@ -13,7 +13,7 @@ export default function BAPage() {
     <div className="pt-20">
       <div className="relative h-[40vh] bg-black">
         <Image 
-          src="/images/academics/ba-banner.webp" 
+          src="/images/academics/ba-banner.png" 
           alt={t("dept.ba_title")} 
           fill 
           className="object-cover opacity-60"

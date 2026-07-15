@@ -1,9 +1,12 @@
 export const galleryImages = [
-  { id: 1, src: "/images/swarthmore-college-Eric-Behrens-flickr-5706ffe35f9b581408d48cb3.webp", category: "Campus" },
-  { id: 2, src: "/images/52931d59-6890-4dd1-afc3-6cd109fe6d3b.webp", category: "Academic" },
-  { id: 3, src: "/images/b465b6c6-83ea-4042-99ad-f907e1e65696.webp", category: "Campus" },
-  { id: 4, src: "/images/f4b83665-42eb-4514-93eb-afe1ce1f84e2.webp", category: "Sports" },
-  { id: 5, src: "/images/ChatGPT Image May 22, 2026, 09_33_28 PM.png", category: "Events" }
+  { id: 1, src: "/images/home/hero/college-front.jpg",       category: "Campus" },
+  { id: 2, src: "/images/about/campus-overview.jpg",          category: "Campus" },
+  { id: 3, src: "/images/home/hero/image2.jpg",               category: "Cultural" },
+  { id: 4, src: "/images/home/hero/image3.jpg",               category: "Sports" },
+  { id: 5, src: "/images/campus-life/cultural-fest-new.jpeg", category: "Events" },
+  { id: 6, src: "/images/academics/bcom-banner.png",          category: "Academic" },
+  { id: 7, src: "/images/academics/ba-banner.png",            category: "Academic" },
+  { id: 8, src: "/images/about/gudleppa-biography.jpg",       category: "Campus" },
 ];
 
-export const galleryCategories = ["All", "Campus", "Academic", "Sports", "Events"];
+export const galleryCategories = ["All", "Campus", "Academic", "Cultural", "Sports", "Events"];

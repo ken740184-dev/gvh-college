@@ -24,7 +24,7 @@ export default function CampusLifePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1 relative h-[500px] rounded-lg overflow-hidden shadow-xl">
               <Image 
-                src="/images/campus-life/cultural-fest.webp" 
+                src="/images/campus-life/cultural-fest-new.jpeg" 
                 alt="Cultural Activities" 
                 fill 
                 className="object-cover"
@@ -64,7 +64,7 @@ export default function CampusLifePage() {
             </div>
             <div className="relative h-[500px] rounded-lg overflow-hidden shadow-xl">
               <Image 
-                src="/images/campus-life/sports.webp" 
+                src="/images/home/hero/image3.jpg" 
                 alt="Sports Activities" 
                 fill 
                 className="object-cover"

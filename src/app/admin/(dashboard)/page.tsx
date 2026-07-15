@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import Link from "next/link";
-import { Newspaper, Calendar, Megaphone, Image as ImageIcon, Users, LogOut, Trophy } from "lucide-react";
+import { Newspaper, Calendar, Megaphone, Image as ImageIcon, Users, LogOut, Trophy, BarChart3 } from "lucide-react";
 
 export default async function AdminDashboard() {
   const session = await getServerSession(authOptions);
@@ -13,6 +13,7 @@ export default async function AdminDashboard() {
     { name: "Announcements", href: "/admin/announcements", icon: Megaphone, desc: "Post critical alerts and notices" },
     { name: "Gallery Builder", href: "/admin/gallery", icon: ImageIcon, desc: "Create visual layout blocks" },
     { name: "Faculty Roster", href: "/admin/faculty", icon: Users, desc: "Update staff and department info" },
+    { name: "Stats Manager", href: "/admin/stats", icon: BarChart3, desc: "Update homepage counters & yearly graduate records" },
   ];
 
   return (

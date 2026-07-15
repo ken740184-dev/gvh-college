@@ -5,6 +5,7 @@ import MobileHeader from "@/components/admin/MobileHeader";
 import { getNews, addNews, updateNews, deleteNews } from "@/actions/news";
 import { compressImage } from "@/lib/imageCompression";
 import { Plus, Trash2, Edit, X, Upload, Calendar } from "lucide-react";
+import TranslateButton from "@/components/admin/TranslateButton";
 
 const getTodayString = () => {
   const today = new Date();
@@ -54,9 +55,11 @@ export default function NewsAdminPage() {
   // Form state
   const [editingId, setEditingId] = useState<string | null>(null);
   const [title, setTitle] = useState("");
+  const [kannadaTitle, setKannadaTitle] = useState("");
   const [date, setDate] = useState(getTodayString());
   const [category, setCategory] = useState("");
   const [excerpt, setExcerpt] = useState("");
+  const [kannadaExcerpt, setKannadaExcerpt] = useState("");
   const [layoutSize, setLayoutSize] = useState("small");
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -81,9 +84,11 @@ export default function NewsAdminPage() {
   const resetForm = () => {
     setEditingId(null);
     setTitle("");
+    setKannadaTitle("");
     setDate(getTodayString());
     setCategory("General");
     setExcerpt("");
+    setKannadaExcerpt("");
     setLayoutSize("small");
     setImageFile(null);
     setPreviewUrl(null);
@@ -93,9 +98,11 @@ export default function NewsAdminPage() {
   const handleOpenEdit = (newsItem: any) => {
     setEditingId(newsItem._id);
     setTitle(newsItem.title);
+    setKannadaTitle(newsItem.kannadaTitle || "");
     setDate(formatDbDateForInput(newsItem.date));
     setCategory(newsItem.category);
     setExcerpt(newsItem.excerpt);
+    setKannadaExcerpt(newsItem.kannadaExcerpt || "");
     setLayoutSize(newsItem.layoutSize || (newsItem.isBanner ? "medium" : "small"));
     setImageFile(null);
     setPreviewUrl(newsItem.image);
@@ -126,9 +133,11 @@ export default function NewsAdminPage() {
     setIsSubmitting(true);
     const formData = new FormData();
     formData.append("title", title);
+    formData.append("kannadaTitle", kannadaTitle);
     formData.append("date", date);
     formData.append("category", category);
     formData.append("excerpt", excerpt);
+    formData.append("kannadaExcerpt", kannadaExcerpt);
     formData.append("layoutSize", layoutSize);
     if (imageFile) {
       formData.append("image", imageFile);
@@ -291,7 +300,10 @@ export default function NewsAdminPage() {
                 </div>
 
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-bold text-gray-700 mb-2">Article Title *</label>
+                  <div className="flex items-center justify-between mb-2">
+                    <label className="block text-sm font-bold text-gray-700">Article Title *</label>
+                    <TranslateButton sourceText={title} onTranslated={setKannadaTitle} />
+                  </div>
                   <input 
                     type="text" 
                     value={title} 
@@ -300,6 +312,17 @@ export default function NewsAdminPage() {
                     placeholder="e.g. Admissions Open for 2026-27"
                     required
                   />
+                  {kannadaTitle && (
+                    <div className="mt-2 p-3 bg-violet-50 border border-violet-200 rounded-lg">
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-violet-500 mb-1">ಕನ್ನಡ ಅನುವಾದ (Kannada)</p>
+                      <input
+                        type="text"
+                        value={kannadaTitle}
+                        onChange={e => setKannadaTitle(e.target.value)}
+                        className="w-full text-sm text-violet-900 bg-transparent outline-none border-none"
+                      />
+                    </div>
+                  )}
                 </div>
 
                 <div>
@@ -331,7 +354,10 @@ export default function NewsAdminPage() {
                 </div>
 
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-bold text-gray-700 mb-2">Excerpt (Short Description) *</label>
+                  <div className="flex items-center justify-between mb-2">
+                    <label className="block text-sm font-bold text-gray-700">Excerpt (Short Description) *</label>
+                    <TranslateButton sourceText={excerpt} onTranslated={setKannadaExcerpt} />
+                  </div>
                   <textarea 
                     value={excerpt} 
                     onChange={e => setExcerpt(e.target.value)} 
@@ -339,6 +365,16 @@ export default function NewsAdminPage() {
                     placeholder="Write a brief 1-2 sentence summary of the article..."
                     required
                   />
+                  {kannadaExcerpt && (
+                    <div className="mt-2 p-3 bg-violet-50 border border-violet-200 rounded-lg">
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-violet-500 mb-1">ಕನ್ನಡ ಅನುವಾದ (Kannada)</p>
+                      <textarea
+                        value={kannadaExcerpt}
+                        onChange={e => setKannadaExcerpt(e.target.value)}
+                        className="w-full text-sm text-violet-900 bg-transparent outline-none border-none resize-none h-20"
+                      />
+                    </div>
+                  )}
                 </div>
 
                 <div className="md:col-span-2">

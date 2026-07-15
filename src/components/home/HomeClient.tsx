@@ -73,7 +73,7 @@ export default function HomeClient({ announcement, news, events, achievements, c
               {/* Sharp-edge image with gold ring frame */}
               <div className="relative h-[420px] overflow-hidden shadow-2xl ring-1 ring-gold/25 ring-offset-4 ring-offset-surface">
                 <Image
-                  src="/images/about/campus-overview.webp"
+                  src="/images/about/campus-overview.jpg"
                   alt="Campus overview"
                   fill
                   className="object-cover"
@@ -171,7 +171,7 @@ export default function HomeClient({ announcement, news, events, achievements, c
               <div className="bg-white overflow-hidden shadow-md border border-border-color border-l-4 border-l-transparent hover:border-l-gold transition-all duration-300 group">
                 <div className="relative h-64 overflow-hidden">
                   <Image
-                    src="/images/academics/bcom-banner.webp"
+                    src="/images/academics/bcom-banner.png"
                     alt="Commerce Department"
                     fill
                     className="object-cover group-hover:scale-105 transition-all duration-500"
@@ -194,7 +194,7 @@ export default function HomeClient({ announcement, news, events, achievements, c
               <div className="bg-white overflow-hidden shadow-md border border-border-color border-l-4 border-l-transparent hover:border-l-gold transition-all duration-300 group">
                 <div className="relative h-64 overflow-hidden">
                   <Image
-                    src="/images/academics/ba-banner.webp"
+                    src="/images/academics/ba-banner.png"
                     alt="Arts Department"
                     fill
                     className="object-cover group-hover:scale-105 transition-all duration-500"
@@ -267,10 +267,10 @@ export default function HomeClient({ announcement, news, events, achievements, c
               };
             };
 
-            const item0 = getCampusLifeItem(0, "/images/campus-life/cultural-fest.webp", "home.campus_fest");
-            const item1 = getCampusLifeItem(1, "/images/campus-life/sports.webp", "home.campus_sports");
-            const item2 = getCampusLifeItem(2, "/images/academics/bcom-banner.webp", "home.campus_library");
-            const item3 = getCampusLifeItem(3, "/images/about/campus-overview.webp", "home.campus_historic");
+            const item0 = getCampusLifeItem(0, "/images/campus-life/cultural-fest-new.jpeg", "home.campus_fest");
+            const item1 = getCampusLifeItem(1, "/images/home/hero/image3.jpg", "home.campus_sports");
+            const item2 = getCampusLifeItem(2, "/images/academics/bcom-banner.png", "home.campus_library");
+            const item3 = getCampusLifeItem(3, "/images/about/campus-overview.jpg", "home.campus_historic");
 
             const CampusCell = ({
               src,

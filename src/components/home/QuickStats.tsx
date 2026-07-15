@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 
+const DEFAULTS = { yearsOfExcellence: 25, totalStudents: 5000, faculty: 150, programs: 20 };
+
 function useCountUp(target: number, duration = 1800, active = false) {
   const [count, setCount] = useState(0);
 
@@ -14,7 +16,6 @@ function useCountUp(target: number, duration = 1800, active = false) {
     const tick = (now: number) => {
       const elapsed = now - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      // Ease out cubic
       const eased = 1 - Math.pow(1 - progress, 3);
       setCount(Math.floor(eased * target));
       if (progress < 1) requestAnimationFrame(tick);
@@ -34,16 +35,13 @@ interface StatItemProps {
 }
 
 function StatItem({ value, label, index, active }: StatItemProps) {
-  // Parse numeric part and suffix (e.g. "5000+" → 5000, "+")
   const match = value.match(/^(\d+)(.*)$/);
   const numericTarget = match ? parseInt(match[1], 10) : 0;
   const suffix = match ? match[2] : "";
-
   const count = useCountUp(numericTarget, 1800 + index * 200, active);
 
   return (
     <div className="relative flex flex-col items-center text-center px-4 py-6 group">
-      {/* Gold divider between items */}
       {index > 0 && (
         <span className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 h-12 w-px bg-gold/30" />
       )}
@@ -62,12 +60,31 @@ export default function QuickStats() {
   const { t } = useLanguage();
   const ref = useRef<HTMLElement>(null);
   const [active, setActive] = useState(false);
+  const [data, setData] = useState(DEFAULTS);
+
+  // Fetch live stats from API (non-blocking; falls back to defaults on error)
+  useEffect(() => {
+    fetch("/api/stats")
+      .then((r) => r.json())
+      .then((json) => {
+        if (json.success && json.stats) {
+          const s = json.stats;
+          setData({
+            yearsOfExcellence: s.yearsOfExcellence ?? DEFAULTS.yearsOfExcellence,
+            totalStudents: s.totalStudents ?? DEFAULTS.totalStudents,
+            faculty: s.faculty ?? DEFAULTS.faculty,
+            programs: s.programs ?? DEFAULTS.programs,
+          });
+        }
+      })
+      .catch(() => {/* silently fall back to defaults */});
+  }, []);
 
   const stats = [
-    { label: t("stats.years_label"),    value: "25+" },
-    { label: t("stats.students_label"), value: "5000+" },
-    { label: t("stats.faculty_label"),  value: "150+" },
-    { label: t("stats.programs_label"), value: "20+" },
+    { label: t("stats.years_label"),    value: `${data.yearsOfExcellence}+` },
+    { label: t("stats.students_label"), value: `${data.totalStudents}+` },
+    { label: t("stats.faculty_label"),  value: `${data.faculty}+` },
+    { label: t("stats.programs_label"), value: `${data.programs}+` },
   ];
 
   useEffect(() => {
@@ -75,10 +92,7 @@ export default function QuickStats() {
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setActive(true);
-          observer.disconnect();
-        }
+        if (entry.isIntersecting) { setActive(true); observer.disconnect(); }
       },
       { threshold: 0.4 }
     );
