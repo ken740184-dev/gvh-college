@@ -739,7 +739,7 @@ function SocialHubContent() {
   );
 
 return (
-    <div className="pt-20 min-h-screen bg-gray-50 flex flex-col overflow-x-hidden relative">
+    <div className="pt-16 md:pt-20 min-h-screen bg-gray-50 flex flex-col overflow-x-hidden relative">
 
 
       {/* Header */}

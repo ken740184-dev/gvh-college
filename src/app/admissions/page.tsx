@@ -9,7 +9,7 @@ export default function AdmissionsPage() {
   const { t } = useLanguage();
 
   return (
-    <div className="pt-20">
+    <div className="pt-16 md:pt-20">
       <div className="bg-navbar py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-bold mb-6">{t("admissions.title")}</h1>
@@ -80,15 +80,11 @@ export default function AdmissionsPage() {
               <ul className="space-y-4 mb-8">
                 <li className="flex justify-between items-center py-2 border-b border-gray-200">
                   <span className="font-medium">{t("admissions.fee_bcom")}</span>
-                  <span className="font-bold text-accent">₹45,000</span>
+                  <span className="font-bold text-accent">₹9,000</span>
                 </li>
                 <li className="flex justify-between items-center py-2 border-b border-gray-200">
                   <span className="font-medium">{t("admissions.fee_ba")}</span>
-                  <span className="font-bold text-accent">₹35,000</span>
-                </li>
-                <li className="flex justify-between items-center py-2 border-b border-gray-200">
-                  <span className="font-medium">{t("admissions.fee_one_time")}</span>
-                  <span className="font-bold text-accent">₹5,000</span>
+                  <span className="font-bold text-accent">₹9,000</span>
                 </li>
               </ul>
               <p className="text-sm text-secondary-text italic mt-6">

@@ -37,7 +37,16 @@ const originalNavigationKeys = [
     ]
   },
   { key: "nav.faculty", href: "/faculty" },
-  { key: "nav.campus_life", href: "/campus-life" },
+  { 
+    key: "nav.campus_life", 
+    href: "/campus-life",
+    dropdown: [
+      { key: "nav.overview", href: "/campus-life" },
+      { key: "nav.academic_facilities", href: "/campus-life/academic-facilities" },
+      { key: "nav.on_campus_facilities", href: "/campus-life/on-campus-facilities" },
+      { key: "nav.infrastructure", href: "/campus-life/infrastructure" }
+    ]
+  },
   { key: "nav.achievements", href: "/achievements" },
   { key: "nav.events", href: "/events" },
   { key: "nav.news", href: "/news" },
@@ -70,10 +79,6 @@ export default function Navbar() {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
 
-  // Don't show the public navbar inside the admin dashboard
-  if (pathname?.startsWith("/admin")) return null;
-
-
   // Refs for measurement
   const outerContainerRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
@@ -91,15 +96,35 @@ export default function Navbar() {
 
   useEffect(() => {
     const measureNav = () => {
-      if (!outerContainerRef.current || !logoRef.current || !moreRef.current) return;
+      if (!outerContainerRef.current || !moreRef.current) return;
       
-      const totalAvailable = outerContainerRef.current.offsetWidth;
-      const logoW = logoRef.current.offsetWidth;
-      const moreW = moreRef.current.offsetWidth + 32; // plus space-x-8
-      const langSwitcherW = langSwitcherMeasureRef.current ? langSwitcherMeasureRef.current.offsetWidth : 95;
+      const totalAvailable = window.innerWidth;
       
-      // Calculate max width for navigation items
-      const availableForNav = totalAvailable - logoW - langSwitcherW - 64;
+      // Responsive padding subtraction (matching visible container px-4 / sm:px-8 / lg:px-12)
+      let padding = 32;
+      if (totalAvailable >= 1024) padding = 96;
+      else if (totalAvailable >= 640) padding = 64;
+
+      // Responsive gap subtraction (matching visible container md:gap-8 / gap-4)
+      let gap = 16;
+      if (totalAvailable >= 768) gap = 32;
+
+      // Mathematically accurate logo width at each media query (matching globals.css maximum transparent state)
+      let logoW = 500;
+      if (totalAvailable < 480) logoW = 240;
+      else if (totalAvailable < 640) logoW = 280;
+      else if (totalAvailable < 768) logoW = 320;
+      else if (totalAvailable < 1024) logoW = 400;
+      else if (totalAvailable < 1280) logoW = 460;
+      else logoW = 500;
+
+      // Language Switcher width + buffer
+      const langSwitcherW = langSwitcherMeasureRef.current ? langSwitcherMeasureRef.current.offsetWidth : 100;
+      
+      // Calculate max width for navigation items with extra safety buffer (increased to 48px to prevent overflow)
+      const availableForNav = totalAvailable - padding - logoW - gap - langSwitcherW - 48;
+      
+      const moreW = moreRef.current.offsetWidth + 24; // plus space-x-6
 
       let currentW = 0;
       let count = 0;
@@ -108,7 +133,8 @@ export default function Navbar() {
         const itemEl = itemRefs.current[i];
         if (!itemEl) continue;
         
-        const itemW = itemEl.offsetWidth + (i > 0 ? 32 : 0); // Add gap for items after the first
+        // Match the visible container gap space-x-6 (24px) instead of space-x-8
+        const itemW = itemEl.offsetWidth + (i > 0 ? 24 : 0);
         
         // If this is the absolute last item, it doesn't need the 'More' button to fit
         if (i === originalNavigation.length - 1) {
@@ -134,9 +160,29 @@ export default function Navbar() {
 
     measureNav();
     
-    // Add resize listener
-    window.addEventListener("resize", measureNav);
-    return () => window.removeEventListener("resize", measureNav);
+    // Rerun after web fonts load to adjust widths
+    document.fonts?.ready?.then(() => {
+      measureNav();
+    });
+
+    // Use ResizeObserver to detect container size changes and font load size changes
+    const resizeObserver = new ResizeObserver(() => {
+      measureNav();
+    });
+
+    if (outerContainerRef.current) {
+      resizeObserver.observe(outerContainerRef.current);
+    }
+    
+    // Also observe the first navigation item as it will expand when Google Fonts load
+    const firstItem = itemRefs.current[0];
+    if (firstItem) {
+      resizeObserver.observe(firstItem);
+    }
+
+    return () => {
+      resizeObserver.disconnect();
+    };
   }, [language]);
 
   const isTransparent = isHomePage && !scrolled && !isOpen;
@@ -157,6 +203,9 @@ export default function Navbar() {
     });
   }
 
+  // Don't show the public navbar inside the admin dashboard
+  if (pathname?.startsWith("/admin")) return null;
+
   return (
     <nav
       className={`fixed w-full z-50 transition-all duration-300 ${navBackground}`}
@@ -169,7 +218,7 @@ export default function Navbar() {
         <div className="w-full px-4 sm:px-8 lg:px-12" ref={outerContainerRef}>
           <div className="flex justify-between items-center h-20 gap-8">
             <div className="flex-shrink-0 flex items-center" ref={logoRef}>
-              <div className="relative h-16 w-[340px] md:h-20 md:w-[420px]">
+              <div className="relative navbar-logo-container-scrolled">
                 <Image
                   src="/images/layout/college-banner.jpg"
                   alt="GVH College"
@@ -201,45 +250,47 @@ export default function Navbar() {
       </div>
 
       <div className={`w-full px-4 sm:px-8 lg:px-12 transition-opacity duration-300 ${isMeasured ? 'opacity-100' : 'opacity-0'}`}>
-        <div className="flex justify-between items-center h-20 gap-8">
-          <div className="flex items-center">
-            <Link href="/" className="flex-shrink-0 flex items-center">
-              <div className={`relative transition-all duration-300 ${
-                isTransparent
-                  ? "h-20 w-[420px] md:h-24 md:w-[500px]"
-                  : "h-16 w-[340px] md:h-20 md:w-[420px]"
-              }`}>
-                <Image
-                  src={isTransparent
-                    ? "/images/layout/logoplusname.png"
-                    : "/images/layout/college-banner.jpg"
-                  }
-                  alt="GVH College"
-                  fill
-                  className="object-contain object-left"
-                  priority
-                />
-              </div>
-            </Link>
-          </div>
+        <div className="flex justify-between items-center h-16 md:h-20 md:gap-8">
+
+          {/* Logo */}
+          <Link href="/" className="flex-shrink-0 flex items-center">
+            <div className={`relative ${
+              isTransparent
+                ? "navbar-logo-container"
+                : "navbar-logo-container-scrolled"
+            }`}>
+              <Image
+                src={isTransparent
+                  ? "/images/layout/logoplusname.png"
+                  : "/images/layout/college-banner.jpg"
+                }
+                alt="GVH College"
+                fill
+                className="object-contain object-left"
+                priority
+              />
+            </div>
+          </Link>
+
+
 
           {/* Desktop menu */}
-          <div className="hidden lg:flex items-center space-x-6">
+          <div className="hidden lg:flex items-center space-x-6 flex-shrink-0">
             {desktopNavigation.map((item) => {
               const isActive = item.href !== "#" && (pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href)));
               return (
-                <div key={item.name} className="relative group">
+                <div key={item.name} className="relative group flex-shrink-0">
                   {item.dropdown ? (
-                    <button className={`flex items-center gap-1 py-2 text-sm font-medium transition-colors duration-200 hover:text-accent ${
+                    <button className={`flex items-center gap-1 py-2 text-sm font-medium transition-colors duration-200 hover:text-accent whitespace-nowrap flex-shrink-0 ${
                       isTransparent ? "text-white/90 hover:text-white" : "text-slate-700 hover:text-accent"
                     }`}>
                       {item.name}
-                      <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180" />
+                      <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180 flex-shrink-0" />
                     </button>
                   ) : (
                     <Link
                       href={item.href}
-                      className={`relative py-2 text-sm font-medium transition-colors duration-200 block ${
+                      className={`relative py-2 text-sm font-medium transition-colors duration-200 block whitespace-nowrap flex-shrink-0 ${
                         isTransparent
                           ? "text-white/90 hover:text-white"
                           : isActive
@@ -262,7 +313,8 @@ export default function Navbar() {
                           <Link
                             key={subItem.name}
                             href={subItem.href}
-                            className="block px-4 py-2 text-sm text-slate-700 hover:bg-gray-50 hover:text-accent transition-colors"
+                            target={subItem.href.endsWith(".pdf") ? "_blank" : undefined}
+                            className="block px-4 py-2 text-sm text-slate-700 hover:bg-gray-50 hover:text-accent transition-colors whitespace-nowrap"
                           >
                             {subItem.name}
                           </Link>
@@ -277,13 +329,13 @@ export default function Navbar() {
             {/* Language Switcher */}
             <button
               onClick={() => setLanguage(language === "en" ? "kn" : "en")}
-              className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider border flex items-center gap-1.5 transition-all duration-300 ${
+              className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider border flex items-center gap-1.5 transition-all duration-300 whitespace-nowrap flex-shrink-0 ${
                 isTransparent
                   ? "border-white/30 text-white/80 hover:border-white hover:text-white"
                   : "border-gray-300 text-slate-600 hover:border-accent hover:text-accent"
               }`}
             >
-              <Globe className="w-3.5 h-3.5" />
+              <Globe className="w-3.5 h-3.5 flex-shrink-0" />
               <span>{language === "en" ? "ಕನ್ನಡ" : "English"}</span>
             </button>
           </div>
@@ -292,7 +344,9 @@ export default function Navbar() {
           <div className="flex items-center lg:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md focus:outline-none"
+              className={`inline-flex items-center justify-center p-2 rounded-md focus:outline-none transition-colors ${
+                isTransparent ? "text-white" : "text-slate-800"
+              }`}
             >
               <span className="sr-only">Open main menu</span>
               {isOpen ? (
@@ -310,9 +364,9 @@ export default function Navbar() {
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "calc(100vh - 5rem)" }}
+            animate={{ opacity: 1, height: "calc(100vh - 4rem)" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-white overflow-y-auto w-full absolute left-0 top-20 border-t border-gray-200"
+            className="lg:hidden bg-white overflow-y-auto w-full absolute left-0 top-16 md:top-20 border-t border-gray-200"
           >
             <div className="px-2 pt-2 pb-8 space-y-1 sm:px-3 min-h-full">
               {/* Mobile Language Switcher */}
@@ -356,6 +410,7 @@ export default function Navbar() {
                                   <Link
                                     key={subItem.name}
                                     href={subItem.href}
+                                    target={subItem.href.endsWith(".pdf") ? "_blank" : undefined}
                                     className="block px-3 py-2 text-sm font-medium text-slate-600 hover:text-accent"
                                     onClick={() => setIsOpen(false)}
                                   >

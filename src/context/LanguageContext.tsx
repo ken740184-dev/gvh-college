@@ -32,12 +32,12 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const t = (key: string): string => {
     // Return translation if found, otherwise return the key or the English translation as fallback
     const langDict = translations[language];
-    if (langDict && langDict[key]) {
+    if (langDict && typeof langDict[key] === "string") {
       return langDict[key];
     }
     
     const fallbackDict = translations["en"];
-    if (fallbackDict && fallbackDict[key]) {
+    if (fallbackDict && typeof fallbackDict[key] === "string") {
       return fallbackDict[key];
     }
     

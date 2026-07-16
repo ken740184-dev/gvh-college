@@ -29,7 +29,7 @@ export default function GudleppaHallikeriPage() {
   } as const;
 
   return (
-    <div className="pt-20 bg-gray-50 min-h-screen text-primary-text font-sans overflow-hidden">
+    <div className="pt-16 md:pt-20 bg-gray-50 min-h-screen text-primary-text font-sans overflow-hidden">
       {/* Hero Header */}
       <div className="relative h-[60vh] bg-navbar overflow-hidden flex items-center justify-center">
         {/* Background Overlay image */}
@@ -141,8 +141,8 @@ export default function GudleppaHallikeriPage() {
           <div className="w-full h-[350px] md:h-[450px] relative overflow-hidden bg-white shadow-lg border border-gray-200 p-2">
             <div className="relative w-full h-full">
               <Image
-                src="/images/about/gudleppa-biography.jpg"
-                alt="Gudleppa Hallikeri"
+                src="/images/about/hosaritti-village.webp"
+                alt="Gudleppa Hallikeri Birthplace - Hosaritti Village"
                 fill
                 className="object-cover hover:scale-105 transition-transform duration-700 ease-out"
               />
@@ -161,8 +161,8 @@ export default function GudleppaHallikeriPage() {
           <div className="lg:order-1 w-full h-[350px] md:h-[450px] relative overflow-hidden bg-white shadow-lg border border-gray-200 p-2">
             <div className="relative w-full h-full">
               <Image
-                src="/images/about/gudleppa-biography.jpg"
-                alt="Gudleppa Hallikeri"
+                src="/images/about/freedom-struggle.webp"
+                alt="Gudleppa Hallikeri Freedom Struggle"
                 fill
                 className="object-cover hover:scale-105 transition-transform duration-700 ease-out"
               />
@@ -273,8 +273,8 @@ export default function GudleppaHallikeriPage() {
           <div className="w-full h-[350px] md:h-[450px] relative overflow-hidden bg-white shadow-lg border border-gray-200 p-2">
             <div className="relative w-full h-full">
               <Image
-                src="/images/about/gudleppa-biography.jpg"
-                alt="Gudleppa Hallikeri"
+                src="/images/about/campus-overview.jpg"
+                alt="Gudleppa Hallikeri Arts and Commerce First Grade College"
                 fill
                 className="object-cover hover:scale-105 transition-transform duration-700 ease-out"
               />
@@ -293,8 +293,8 @@ export default function GudleppaHallikeriPage() {
           <div className="lg:order-1 w-full h-[350px] md:h-[450px] relative overflow-hidden bg-white shadow-lg border border-gray-200 p-2">
             <div className="relative w-full h-full">
               <Image
-                src="/images/about/gudleppa-biography.jpg"
-                alt="Gudleppa Hallikeri"
+                src="/images/about/heritage-gurukul.webp"
+                alt="Historical Heritage Gurukul"
                 fill
                 className="object-cover hover:scale-105 transition-transform duration-700 ease-out"
               />
@@ -322,21 +322,21 @@ export default function GudleppaHallikeriPage() {
           </h3>
           <div className="space-y-20">
             {[
-              { year: "1906", title: "Born in Hosaritti", text: "Born on June 6, 1906 in Hosaritti, Haveri district, to father Veerappa and mother Veeramma — the youngest of five sons. From birth displayed extraordinary mathematical talent." },
+              { year: "1906", title: "Born in Hosaritti", text: "Born on June 6, 1906 in Hosaritti, Haveri district, to father Veerappa and mother Veeramma — the youngest of five sons. From birth displayed extraordinary mathematical talent.", image: "/images/about/hosaritti-village.webp" },
               { year: "1919", title: "To Dharwad for Studies", text: "Came to Dharwad at age 13; enrolled at Muruha Mutt Hostel; studied at Karnataka High School, then passed matriculation from RLS High School (1927); joined Karnataka College — FY (1928), Intermediate (1929)." },
               { year: "1920", title: "First Meeting with Gandhi", text: "First met Mahatma Gandhi in August 1920. Deeply moved by Gandhi's honest heart and truthful words, he touched his feet and pledged his loyalty. Gandhi became his Shiksha Guru from that day." },
               { year: "1924", title: "Belagavi Congress Session", text: "Participated as a volunteer at the Belagavi Congress session; deeply influenced by Gandhi. Gave up the opportunity for a Wrangler (Mathematics) degree from England and dedicated himself entirely to India's freedom struggle." },
-              { year: "1927–1928", title: "Founding Bharatiya Taruna Sangha & Gandhi Ashram", text: "Founded Bharatiya Taruna Sangha in Dharwad (1927) gathering enthusiastic youth. In 1928, founded the Gandhi Ashram in Hosaritti modelled on Sabarmati Ashram — enabling 5,000 Satyagrahis from surrounding villages to join national movements." },
-              { year: "1930", title: "Dandi March & Salt Satyagraha", text: "Joined Gandhi at Jambusara village near Ahmedabad on March 22, 1930 during the Dandi March. Jailed twice during the Salt Satyagraha. Ground 70 pounds of jowar daily in prison. Stood as a lion against the British." },
-              { year: "1932", title: "Non-Cooperation Movement", text: "Two years in jail during the Non-Cooperation Movement. In prison, urged all prisoners to do cleaning work and undertook a 13-day fast to protest prison conditions." },
+              { year: "1927–1928", title: "Founding Bharatiya Taruna Sangha & Gandhi Ashram", text: "Founded Bharatiya Taruna Sangha in Dharwad (1927) gathering enthusiastic youth. In 1928, founded the Gandhi Ashram in Hosaritti modelled on Sabarmati Ashram — enabling 5,000 Satyagrahis from surrounding villages to join national movements.", image: "/images/about/hosaritti-village.webp" },
+              { year: "1930", title: "Dandi March & Salt Satyagraha", text: "Joined Gandhi at Jambusara village near Ahmedabad on March 22, 1930 during the Dandi March. Jailed twice during the Salt Satyagraha. Ground 70 pounds of jowar daily in prison. Stood as a lion against the British.", image: "/images/about/freedom-struggle.webp" },
+              { year: "1932", title: "Non-Cooperation Movement", text: "Two years in jail during the Non-Cooperation Movement. In prison, urged all prisoners to do cleaning work and undertook a 13-day fast to protest prison conditions.", image: "/images/about/freedom-struggle.webp" },
               { year: "1937", title: "Marriage on Gandhi Jayanti", text: "Married Gangadevi of Itagi, Belagavi on October 2, 1937 — Gandhi's birthday — with three conditions: wear khadi for life, serve Harijans and live among them, be prepared for all hardships." },
-              { year: "1942", title: "Quit India Movement", text: "Three years rigorous imprisonment in the Quit India (Chale Jao) Movement. When Gandhi fasted for 21 days in Yerewada Jail in February 1943, Gudleppa fasted for 21 days in solidarity in Hindlagi Prison, Belagavi." },
+              { year: "1942", title: "Quit India Movement", text: "Three years rigorous imprisonment in the Quit India (Chale Jao) Movement. When Gandhi fasted for 21 days in Yerewada Jail in February 1943, Gudleppa fasted for 21 days in solidarity in Hindlagi Prison, Belagavi.", image: "/images/about/freedom-struggle.webp" },
               { year: "1946–1960", title: "DCC President for 14 Years", text: "Elected President of Dharwad District Congress Committee in 1946 and served continuously for 14 unbroken years until 1960 — an unparalleled achievement." },
               { year: "1952", title: "Elected to Legislature", text: "Elected to Mumbai State Legislature from Haveri taluk. Became organiser and front-rank leader of the Karnataka Ekikarana Movement, working to unify all Kannada-speaking regions." },
               { year: "1954 & 1960", title: "International Delegations", text: "Visited China for 60 days in September 1954 as member of the Indian national delegation (Hindi-Chini Bhai Bhai). In April 1960, visited Germany, England, France and Egypt as part of a Parliamentary delegation." },
               { year: "1960–1966", title: "Mysore Legislative Council", text: "Elected to Mysore State Legislative Council in 1960. Served as Chairman of Karnataka Legislative Council from 1962 to 1966 — one of the highest legislative honours in Karnataka." },
-              { year: "1963", title: "Building Institutions", text: "Collected 6 lakh rupees in just 3 months and gave them to K.L.E. Society, establishing today's K.L.E. Gudleppa Hallikeri College, Haveri. Also played key roles in College of Business Management (inaugurated by President Radhakrishnan), Nijalingappa College, Bengaluru, and Karnataka Medical College, Hubballi." },
-              { year: "1971", title: "Eternal Rest — May 15, 1971", text: "Elected Chairman of Karnataka Legislative Council for a second term in 1971. This great son of Bharatmata, who dedicated his entire life to the service of the nation, attained eternal rest on May 15, 1971. His memory lives on in the institutions he built." },
+              { year: "1963", title: "Building Institutions", text: "Collected 6 lakh rupees in just 3 months and gave them to K.L.E. Society, establishing today's K.L.E. Gudleppa Hallikeri College, Haveri. Also played key roles in College of Business Management (inaugurated by President Radhakrishnan), Nijalingappa College, Bengaluru, and Karnataka Medical College, Hubballi.", image: "/images/about/campus-overview.jpg" },
+              { year: "1971", title: "Eternal Rest — May 15, 1971", text: "Elected Chairman of Karnataka Legislative Council for a second term in 1971. This great son of Bharatmata, who dedicated his entire life to the service of the nation, attained eternal rest on May 15, 1971. His memory lives on in the institutions he built.", image: "/images/about/IMG-20260708-WA0167.jpg" },
             ].map((item, i) => (
               <motion.div
                 key={i}
@@ -350,7 +350,7 @@ export default function GudleppaHallikeriPage() {
                 <div className={`${i % 2 === 0 ? "lg:order-1" : "lg:order-2"} w-full h-[200px] md:h-[220px] relative overflow-hidden bg-white shadow-lg border border-gray-200 p-2`}>
                   <div className="relative w-full h-full">
                     <Image
-                      src="/images/about/gudleppa-biography.jpg"
+                      src={item.image || "/images/about/gudleppa-biography.jpg"}
                       alt={`Shri Gudleppa Hallikeri — ${item.year}`}
                       fill
                       className="object-cover hover:scale-105 transition-transform duration-700 ease-out"

@@ -48,7 +48,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="pt-20">
+    <div className="pt-16 md:pt-20">
       <div className="bg-navbar py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-sans font-bold mb-6">{t("contact.title")}</h1>

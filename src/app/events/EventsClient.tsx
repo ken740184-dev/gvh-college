@@ -230,7 +230,7 @@ export default function EventsClient({ initialEvents }: { initialEvents: any[] }
   };
 
   return (
-    <div className="pt-20 relative overflow-hidden bg-[#f3f4f6] min-h-screen">
+    <div className="pt-16 md:pt-20 relative overflow-hidden bg-[#f3f4f6] min-h-screen">
       {/* Header section */}
       <div className="bg-navbar py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">

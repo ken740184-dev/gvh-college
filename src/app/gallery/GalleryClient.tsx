@@ -121,7 +121,7 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
 
   /* ─── Render ────────────────────────────────────────────── */
   return (
-    <div className="pt-20 min-h-screen bg-white overflow-x-hidden">
+    <div className="pt-16 md:pt-20 min-h-screen bg-white overflow-x-hidden">
 
       {/* ── Header ──────────────────────────────────────────── */}
       <header className="bg-[#0f172a]">
@@ -139,7 +139,7 @@ export default function GalleryClient({ initialBlocks }: { initialBlocks: any[] 
       </header>
 
       {/* ── Sticky filter bar ───────────────────────────────── */}
-      <nav className="sticky top-20 z-30 bg-white border-b border-gray-200 shadow-sm w-full">
+      <nav className="sticky top-16 md:top-20 z-30 bg-white border-b border-gray-200 shadow-sm w-full">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 overflow-hidden">
           {/* Mobile: single scrollable row | Desktop: wrap */}
           <div
