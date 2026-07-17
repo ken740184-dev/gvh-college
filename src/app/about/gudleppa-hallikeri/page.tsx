@@ -141,7 +141,7 @@ export default function GudleppaHallikeriPage() {
           <div className="w-full h-[350px] md:h-[450px] relative overflow-hidden bg-white shadow-lg border border-gray-200 p-2">
             <div className="relative w-full h-full">
               <Image
-                src="/images/about/hosaritti-village.webp"
+                src="/images/about/roots_hosaritti.jpg"
                 alt="Gudleppa Hallikeri Birthplace - Hosaritti Village"
                 fill
                 className="object-cover hover:scale-105 transition-transform duration-700 ease-out"
