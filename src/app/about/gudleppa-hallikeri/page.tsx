@@ -156,18 +156,30 @@ export default function GudleppaHallikeriPage() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeInUp}
-          className="space-y-6 max-w-4xl mx-auto"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
         >
-          <div className="inline-flex items-center gap-2 text-accent font-semibold text-sm tracking-wider uppercase">
-            <Flag className="w-4 h-4" /> {t("gh.freedom_tag")}
+          <div className="lg:order-1 w-full h-[350px] md:h-[450px] relative overflow-hidden bg-white shadow-lg border border-gray-200 p-2">
+            <div className="relative w-full h-full">
+              <Image
+                src="/images/about/dandi_march_and_salt_satygraha.jpg"
+                alt="Dandi March and Salt Satyagraha"
+                fill
+                className="object-cover hover:scale-105 transition-transform duration-700 ease-out"
+              />
+            </div>
           </div>
-          <h2 className="text-3xl md:text-4xl font-sans font-extrabold text-slate-800 tracking-tight">
-            {t("gh.freedom_title")}
-          </h2>
-          <div className="w-20 h-1 bg-accent rounded-full"></div>
-          <div className="space-y-4 text-secondary-text leading-relaxed">
-            <p>{t("gh.freedom_p1")}</p>
-            <p>{t("gh.freedom_p2")}</p>
+          <div className="lg:order-2 space-y-6">
+            <div className="inline-flex items-center gap-2 text-accent font-semibold text-sm tracking-wider uppercase">
+              <Flag className="w-4 h-4" /> {t("gh.freedom_tag")}
+            </div>
+            <h2 className="text-3xl md:text-4xl font-sans font-extrabold text-slate-800 tracking-tight">
+              {t("gh.freedom_title")}
+            </h2>
+            <div className="w-20 h-1 bg-accent rounded-full"></div>
+            <div className="space-y-4 text-secondary-text leading-relaxed">
+              <p>{t("gh.freedom_p1")}</p>
+              <p>{t("gh.freedom_p2")}</p>
+            </div>
           </div>
         </motion.div>
 
