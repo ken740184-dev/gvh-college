@@ -109,7 +109,7 @@ export default function HomeClient({ announcement, news, events, achievements, c
                     <div className="w-[150%] h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-[1200ms] ease-in-out" />
                   </div>
                   <Image
-                    src="/images/about/gudleppa-biography.jpg"
+                    src="/images/about/gudleppa_v_hallikeri_main_photo.jpg"
                     alt="Gudleppa Hallikeri"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
