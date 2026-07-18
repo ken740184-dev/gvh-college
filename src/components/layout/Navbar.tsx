@@ -71,6 +71,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [openMobileDropdown, setOpenMobileDropdown] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
   
   // Start by rendering all items, but keep them invisible until first measurement
   const [visibleCount, setVisibleCount] = useState(originalNavigationKeys.length);
@@ -87,6 +88,7 @@ export default function Navbar() {
   const langSwitcherMeasureRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    setMounted(true);
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
@@ -185,7 +187,7 @@ export default function Navbar() {
     };
   }, [language]);
 
-  const isTransparent = isHomePage && !scrolled && !isOpen;
+  const isTransparent = mounted && isHomePage && !scrolled && !isOpen;
 
   const navBackground = isTransparent
     ? "bg-transparent text-white"
