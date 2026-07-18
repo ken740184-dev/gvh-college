@@ -79,6 +79,7 @@ export default function Navbar() {
   
   const pathname = usePathname();
   const isHomePage = pathname === "/";
+  const isTransparent = mounted && isHomePage && !scrolled && !isOpen;
 
   // Refs for measurement
   const outerContainerRef = useRef<HTMLDivElement>(null);
@@ -112,8 +113,22 @@ export default function Navbar() {
       let gap = 16;
       if (totalAvailable >= 768) gap = 32;
 
-      // Dynamically measure the logo width to adapt to transparent/scrolled states
-      const logoW = logoRef.current ? logoRef.current.offsetWidth : 320;
+      // Dynamically compute the logo width to adapt to transparent/scrolled states
+      let logoW = 320;
+      if (isTransparent) {
+        if (totalAvailable < 480) logoW = 240;
+        else if (totalAvailable < 640) logoW = 280;
+        else if (totalAvailable < 768) logoW = 320;
+        else if (totalAvailable < 1024) logoW = 400;
+        else if (totalAvailable < 1280) logoW = 460;
+        else logoW = 500;
+      } else {
+        if (totalAvailable < 480) logoW = 180;
+        else if (totalAvailable < 640) logoW = 220;
+        else if (totalAvailable < 768) logoW = 260;
+        else if (totalAvailable < 1024) logoW = 280;
+        else logoW = 320;
+      }
 
       // Language Switcher width + buffer
       const langSwitcherW = langSwitcherMeasureRef.current ? langSwitcherMeasureRef.current.offsetWidth : 100;
@@ -180,9 +195,7 @@ export default function Navbar() {
     return () => {
       resizeObserver.disconnect();
     };
-  }, [language]);
-
-  const isTransparent = mounted && isHomePage && !scrolled && !isOpen;
+  }, [language, isTransparent]);
 
   const navBackground = isTransparent
     ? "bg-transparent text-white"
