@@ -12,28 +12,28 @@ export default function InfrastructurePage() {
     {
       title: t("campus.infra.project_main_title"),
       description: t("campus.infra.project_main_desc"),
-      image: "/images/campus-life/facilities/well-organized-classroom.png",
+      image: "/images/campus-life/facilities/infrastructure.jpg",
       year: "2021",
       tag: "Academic"
     },
     {
       title: t("campus.infra.project_audit_title"),
       description: t("campus.infra.project_audit_desc"),
-      image: "/images/campus-life/facilities/auditoriumoutsidebackside.png",
+      image: "/images/campus-life/facilities/infrastructure2.jpg",
       year: "2021",
       tag: "Auditorium"
     },
     {
       title: t("campus.infra.project_lab_title"),
       description: t("campus.infra.project_lab_desc"),
-      image: "/images/campus-life/facilities/computer-lab.png",
+      image: "/images/campus-life/facilities/academic_and_dontknowyet_facilities/computer-lab.png",
       year: "2021",
       tag: "Technology"
     },
     {
       title: t("campus.infra.project_water_title"),
       description: t("campus.infra.project_water_desc"),
-      image: "/images/campus-life/facilities/filter-water-facility.jpg",
+      image: "/images/campus-life/facilities/infrastructure3.jpg",
       year: "2021",
       tag: "Health"
     }

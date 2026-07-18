@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, BookOpen, Laptop, Users, GraduationCap, School } from "lucide-react";
+import { ArrowLeft, BookOpen, Laptop, Users, GraduationCap, School, Palette } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function AcademicFacilitiesPage() {
@@ -12,38 +12,60 @@ export default function AcademicFacilitiesPage() {
     {
       title: t("campus.academic.professors_title"),
       description: t("campus.academic.professors_desc"),
-      image: "/images/campus-life/facilities/teacher-student-guiding-and-communication.jpg",
+      image: "/images/campus-life/facilities/academic_and_dontknowyet_facilities/teacher-student-guiding-and-communication.jpg",
       icon: GraduationCap,
       color: "border-blue-500/20 shadow-blue-500/5"
     },
     {
       title: t("campus.academic.coordination_title"),
       description: t("campus.academic.coordination_desc"),
-      image: "/images/campus-life/facilities/teacher-student-guiding-and-communication-2.jpg",
+      image: "/images/campus-life/facilities/academic_and_dontknowyet_facilities/teacher-student-guiding-and-communication-2.jpg",
       icon: Users,
       color: "border-indigo-500/20 shadow-indigo-500/5"
     },
     {
       title: t("campus.academic.library_title"),
       description: t("campus.academic.library_desc"),
-      image: "/images/campus-life/facilities/library-bookshelf.png",
-      secondaryImage: "/images/campus-life/facilities/girl-sitting-in-library.jpg",
+      image: "/images/campus-life/facilities/oncampus_facilities/library-bookshelf.png",
+      secondaryImage: "/images/campus-life/facilities/academic_and_dontknowyet_facilities/girl-sitting-in-library.jpg",
       icon: BookOpen,
       color: "border-emerald-500/20 shadow-emerald-500/5"
     },
     {
       title: t("campus.academic.computer_lab_title"),
       description: t("campus.academic.computer_lab_desc"),
-      image: "/images/campus-life/facilities/computer-lab.png",
+      image: "/images/campus-life/facilities/academic_and_dontknowyet_facilities/computer-lab.png",
+      secondaryImage: "/images/campus-life/facilities/academic_and_dontknowyet_facilities/computer-lab_2.png",
       icon: Laptop,
       color: "border-violet-500/20 shadow-violet-500/5"
     },
     {
       title: t("campus.academic.classroom_title"),
       description: t("campus.academic.classroom_desc"),
-      image: "/images/campus-life/facilities/well-organized-classroom.png",
+      image: "/images/campus-life/facilities/academic_and_dontknowyet_facilities/well-organized-classroom.png",
       icon: School,
       color: "border-amber-500/20 shadow-amber-500/5"
+    },
+    {
+      title: t("campus.academic.peer_learning_title"),
+      description: t("campus.academic.peer_learning_desc"),
+      image: "/images/campus-life/facilities/academic_and_dontknowyet_facilities/encouraging_collaboration_peer_learning_and_knowledge_sharing_among_students.jpg",
+      icon: Users,
+      color: "border-teal-500/20 shadow-teal-500/5"
+    },
+    {
+      title: t("campus.academic.preparatory_teaching_title"),
+      description: t("campus.academic.preparatory_teaching_desc"),
+      image: "/images/campus-life/facilities/academic_and_dontknowyet_facilities/experienced_faculty_and_pre-examination_result-oriented_preparatory_teaching.jpg",
+      icon: GraduationCap,
+      color: "border-red-500/20 shadow-red-500/5"
+    },
+    {
+      title: t("campus.academic.art_culture_title"),
+      description: t("campus.academic.art_culture_desc"),
+      image: "/images/campus-life/facilities/academic_and_dontknowyet_facilities/special_emphasis_on_promoting_indian_art_culture_and_traditional_values.jpg",
+      icon: Palette,
+      color: "border-pink-500/20 shadow-pink-500/5"
     }
   ];
 
