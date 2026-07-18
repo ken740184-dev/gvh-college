@@ -112,13 +112,8 @@ export default function Navbar() {
       let gap = 16;
       if (totalAvailable >= 768) gap = 32;
 
-      // Mathematically accurate logo width at each media query (matching globals.css maximum transparent state)
-      let logoW = 320;
-      if (totalAvailable < 480) logoW = 180;
-      else if (totalAvailable < 640) logoW = 220;
-      else if (totalAvailable < 768) logoW = 260;
-      else if (totalAvailable < 1024) logoW = 280;
-      else logoW = 320;
+      // Dynamically measure the logo width to adapt to transparent/scrolled states
+      const logoW = logoRef.current ? logoRef.current.offsetWidth : 320;
 
       // Language Switcher width + buffer
       const langSwitcherW = langSwitcherMeasureRef.current ? langSwitcherMeasureRef.current.offsetWidth : 100;
@@ -220,9 +215,16 @@ export default function Navbar() {
         <div className="w-full px-4 sm:px-8 lg:px-12" ref={outerContainerRef}>
           <div className="flex justify-between items-center h-20 gap-8">
             <div className="flex-shrink-0 flex items-center" ref={logoRef}>
-              <div className="relative navbar-logo-container-scrolled">
+              <div className={`relative ${
+                isTransparent
+                  ? "navbar-logo-container"
+                  : "navbar-logo-container-scrolled"
+              }`}>
                 <Image
-                  src="/images/layout/college-banner.jpg"
+                  src={isTransparent
+                    ? "/images/layout/logoplusname.png"
+                    : "/images/layout/college-banner.jpg"
+                  }
                   alt="GVH College"
                   fill
                   className="object-contain object-left"
