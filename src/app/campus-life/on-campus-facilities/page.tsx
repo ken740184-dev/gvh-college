@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { ArrowLeft, GlassWater, Award, Heart, Shield, BookOpen, Trophy, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft, GlassWater, Award, Shield, BookOpen, Trophy, ChevronLeft, ChevronRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function OnCampusFacilitiesPage() {
@@ -113,11 +113,11 @@ export default function OnCampusFacilitiesPage() {
             <div className="grid grid-cols-4 gap-2">
               {auditoriumPhotos.map((photo, index) => (
                 <button
-                   key={index}
-                   onClick={() => setActivePhotoIdx(index)}
-                   className={`relative h-16 rounded-lg overflow-hidden border-2 transition-all duration-200 ${
-                     activePhotoIdx === index ? "border-amber-500 scale-[1.03] shadow-md" : "border-transparent opacity-60 hover:opacity-100"
-                   }`}
+                  key={index}
+                  onClick={() => setActivePhotoIdx(index)}
+                  className={`relative h-16 rounded-lg overflow-hidden border-2 transition-all duration-200 ${
+                    activePhotoIdx === index ? "border-amber-500 scale-[1.03] shadow-md" : "border-transparent opacity-60 hover:opacity-100"
+                  }`}
                 >
                   <Image
                     src={photo.src}
@@ -166,49 +166,9 @@ export default function OnCampusFacilitiesPage() {
           </div>
         </div>
 
-        {/* Yoga & Wellness Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-5">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-3 bg-amber-500/10 rounded-xl text-amber-600">
-                <Heart className="w-6 h-6" />
-              </div>
-              <span className="text-gold text-xs font-bold uppercase tracking-widest">
-                {t("nav.on_campus_facilities")}
-              </span>
-            </div>
-            <h2 className="text-3xl font-bold text-slate-900 mb-6 leading-tight">
-              {t("campus.oncampus.wellness_title")}
-            </h2>
-            <p className="text-slate-600 leading-relaxed text-base">
-              {t("campus.oncampus.wellness_desc")}
-            </p>
-          </div>
-          <div className="lg:col-span-7">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="relative h-80 rounded-2xl overflow-hidden shadow-lg border border-slate-100">
-                <Image
-                  src="/images/campus-life/facilities/girls-yoga-group-1.jpg"
-                  alt="Girls Yoga Training Session"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="relative h-80 rounded-2xl overflow-hidden shadow-lg border border-slate-100">
-                <Image
-                  src="/images/campus-life/facilities/oncampus_facilities/yoga-girl.jpg"
-                  alt="Yoga Posture Demonstration"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* Safe & Secure Campus Section */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-5 lg:order-2">
+          <div className="lg:col-span-5">
             <div className="flex items-center gap-3 mb-4">
               <div className="p-3 bg-amber-500/10 rounded-xl text-amber-600">
                 <Shield className="w-6 h-6" />
@@ -224,7 +184,7 @@ export default function OnCampusFacilitiesPage() {
               {t("campus.oncampus.security_desc")}
             </p>
           </div>
-          <div className="lg:col-span-7 lg:order-1">
+          <div className="lg:col-span-7">
             <div className="relative h-96 w-full rounded-2xl overflow-hidden shadow-lg border border-slate-100">
               <Image
                 src="/images/campus-life/facilities/oncampus_facilities/safe_and_secure_environment_for_boys_and_girls.jpg"
@@ -238,7 +198,7 @@ export default function OnCampusFacilitiesPage() {
 
         {/* Competitive Exam Training Section */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-5 lg:order-2">
             <div className="flex items-center gap-3 mb-4">
               <div className="p-3 bg-amber-500/10 rounded-xl text-amber-600">
                 <BookOpen className="w-6 h-6" />
@@ -254,7 +214,7 @@ export default function OnCampusFacilitiesPage() {
               {t("campus.oncampus.competitive_desc")}
             </p>
           </div>
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-7 lg:order-1">
             <div className="relative h-96 w-full rounded-2xl overflow-hidden shadow-lg border border-slate-100">
               <Image
                 src="/images/campus-life/facilities/oncampus_facilities/competitive_exam_training_and_information.jpg"
@@ -266,9 +226,9 @@ export default function OnCampusFacilitiesPage() {
           </div>
         </div>
 
-        {/* Sports & Activities Section */}
+        {/* Sports, Yoga & Wellness Section (Merged) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-5 lg:order-2">
+          <div className="lg:col-span-5">
             <div className="flex items-center gap-3 mb-4">
               <div className="p-3 bg-amber-500/10 rounded-xl text-amber-600">
                 <Trophy className="w-6 h-6" />
@@ -284,7 +244,7 @@ export default function OnCampusFacilitiesPage() {
               {t("campus.oncampus.sports_desc")}
             </p>
           </div>
-          <div className="lg:col-span-7 lg:order-1">
+          <div className="lg:col-span-7">
             <div className="grid grid-cols-2 gap-4">
               <div className="relative h-80 rounded-2xl overflow-hidden shadow-lg border border-slate-100">
                 <Image
@@ -296,8 +256,8 @@ export default function OnCampusFacilitiesPage() {
               </div>
               <div className="relative h-80 rounded-2xl overflow-hidden shadow-lg border border-slate-100">
                 <Image
-                  src="/images/campus-life/facilities/boys-yoga-group-1.jpg"
-                  alt="Boys Yoga & Fitness Team"
+                  src="/images/campus-life/facilities/oncampus_facilities/yoga-girl.jpg"
+                  alt="Yoga & Fitness Sessions"
                   fill
                   className="object-cover"
                 />
