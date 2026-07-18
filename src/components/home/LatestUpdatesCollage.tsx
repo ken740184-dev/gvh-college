@@ -52,7 +52,7 @@ export default function LatestUpdatesCollage({ news, events, achievements }: Lat
       description: language === "kn"
         ? "ಹಾವೇರಿ ವಿಶ್ವವಿದ್ಯಾಲಯದ ಯೋಗಾಸನ ತಂಡದ ನಾಯಕ (Captain) ನಾಗಿ ನಮ್ಮ ಕಾಲೇಜಿನ ವಿದ್ಯಾರ್ಥಿ ಕು.ಶಿವನಗೌಡ ಪಾಟೀಲ ಆಯ್ಕೆಯಾಗಿದ್ದು ಚೆನ್ನೈನಲ್ಲಿ ನಡೆಯುವ ಅಂತರ್ ವಿಶ್ವವಿದ್ಯಾಲಯ ಸ್ಪರ್ಧೆಯಲ್ಲಿ ಭಾಗವಹಿಸಲಿದ್ದಾರೆ."
         : "Our student Shivanagouda Patil has been selected as the Captain of Haveri University Yogasana team to participate in the Inter-University Yoga Championship held in Chennai.",
-      image: "/images/campus-life/facilities/boys-yoga-group-1.jpg",
+      image: "/images/home/latest_updates/yogo_boys_group.jpg",
       link: "/achievements"
     },
     {
@@ -63,7 +63,7 @@ export default function LatestUpdatesCollage({ news, events, achievements }: Lat
       description: language === "kn"
         ? "ಹಾವೇರಿ ವಿಶ್ವವಿದ್ಯಾಲಯದ (ಮಹಿಳೆ) ಯೋಗಾಸನ ತಂಡಕ್ಕೆ ನಮ್ಮ ಕಾಲೇಜಿನ ವಿದ್ಯಾರ್ಥಿನಿಯಾದ ಕು.ರೇಖಾ ಪಾಟೀಲ ಆಯ್ಕೆಯಾಗಿದ್ದು ಬೆಂಗಳೂರಿನಲ್ಲಿ ನಡೆಯುವ ಅಂತರ್ ವಿಶ್ವವಿದ್ಯಾಲಯ ಸ್ಪರ್ಧೆಯಲ್ಲಿ ಭಾಗವಹಿಸಲಿದ್ದಾರೆ."
         : "Our student Rekha Patil has been selected for the Haveri University Women's Yogasana team to compete in the Inter-University Yogasana Championship held in Bengaluru.",
-      image: "/images/campus-life/facilities/girls-yoga-group-1.jpg",
+      image: "/images/home/latest_updates/yogo_girls_group.jpg",
       link: "/achievements"
     }
   ];

@@ -2,7 +2,18 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, GraduationCap, Building2, School } from "lucide-react";
+import { 
+  ArrowRight, 
+  GraduationCap, 
+  Building2, 
+  School,
+  Tv, 
+  Bus, 
+  MapPin, 
+  Award, 
+  FileCheck2, 
+  HeartHandshake 
+} from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -13,7 +24,7 @@ export default function CampusLifePage() {
     {
       title: t("campus.academic_facilities"),
       description: t("campus.academic_facilities_desc"),
-      image: "/images/campus-life/facilities/well-organized-classroom.png",
+      image: "/images/campus-life/facilities/academic_and_dontknowyet_facilities/well-organized-classroom.png",
       href: "/campus-life/academic-facilities",
       icon: GraduationCap,
       color: "from-blue-600/90 to-indigo-600/90"
@@ -21,7 +32,7 @@ export default function CampusLifePage() {
     {
       title: t("campus.on_campus_facilities"),
       description: t("campus.on_campus_facilities_desc"),
-      image: "/images/campus-life/facilities/auditoriumoutside.jpg",
+      image: "/images/campus-life/facilities/oncampus_facilities/auditoriumoutside.jpg",
       href: "/campus-life/on-campus-facilities",
       icon: School,
       color: "from-amber-600/90 to-orange-600/90"
@@ -29,7 +40,7 @@ export default function CampusLifePage() {
     {
       title: t("campus.infrastructure"),
       description: t("campus.infrastructure_desc"),
-      image: "/images/campus-life/facilities/auditoriumoutsidebackside.png",
+      image: "/images/campus-life/facilities/infrastructure.jpg",
       href: "/campus-life/infrastructure",
       icon: Building2,
       color: "from-emerald-600/90 to-teal-600/90"
@@ -108,6 +119,46 @@ export default function CampusLifePage() {
               </Link>
             );
           })}
+        </div>
+      </section>
+
+      {/* Other Facilities & Highlights Section */}
+      <section className="py-20 bg-slate-100/50 border-t border-slate-200/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading 
+            title={t("campus.highlights.title")} 
+            subtitle={t("campus.highlights.subtitle")}
+            centered 
+          />
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+            {[
+              { icon: Tv, color: "text-blue-600 bg-blue-50 border-blue-100/50", num: 1 },
+              { icon: Bus, color: "text-amber-600 bg-amber-50 border-amber-100/50", num: 2 },
+              { icon: MapPin, color: "text-emerald-600 bg-emerald-50 border-emerald-100/50", num: 3 },
+              { icon: Award, color: "text-purple-600 bg-purple-50 border-purple-100/50", num: 4 },
+              { icon: FileCheck2, color: "text-rose-600 bg-rose-50 border-rose-100/50", num: 5 },
+              { icon: HeartHandshake, color: "text-teal-600 bg-teal-50 border-teal-100/50", num: 6 }
+            ].map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <div 
+                  key={index}
+                  className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-start"
+                >
+                  <div className={`p-4 rounded-xl border ${item.color} mb-6 shrink-0`}>
+                    <Icon className="w-6 h-6 stroke-[1.5]" />
+                  </div>
+                  <h3 className="text-lg font-bold text-slate-900 mb-3 leading-snug">
+                    {t(`campus.highlights.item_${item.num}`)}
+                  </h3>
+                  <p className="text-slate-600 text-sm leading-relaxed">
+                    {t(`campus.highlights.item_${item.num}_desc`)}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
