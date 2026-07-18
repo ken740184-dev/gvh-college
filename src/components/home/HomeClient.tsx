@@ -259,18 +259,10 @@ export default function HomeClient({ announcement, news, events, achievements, c
         </div>
         <Reveal delay={0.2}>
           {(() => {
-            const getCampusLifeItem = (index: number, fallbackSrc: string, fallbackTitleKey: string) => {
-              const dbImg = campusLifeImages && campusLifeImages[index];
-              return {
-                src: dbImg ? dbImg.url : fallbackSrc,
-                title: dbImg && dbImg.title ? dbImg.title : t(fallbackTitleKey),
-              };
-            };
-
-            const item0 = getCampusLifeItem(0, "/images/campus-life/cultural-fest-new.jpeg", "home.campus_fest");
-            const item1 = getCampusLifeItem(1, "/images/home/hero/image3.jpg", "home.campus_sports");
-            const item2 = getCampusLifeItem(2, "/images/academics/bcom-banner.png", "home.campus_library");
-            const item3 = getCampusLifeItem(3, "/images/about/campus-overview.jpg", "home.campus_historic");
+            const item0 = { src: "/images/home/campus-life/cultural-fest-new.jpeg", title: t("home.campus_fest") };
+            const item1 = { src: "/images/home/campus-life/yoga.png", title: t("home.campus_sports") };
+            const item2 = { src: "/images/home/campus-life/industrial_visit.jpg", title: t("home.campus_industrial") };
+            const item3 = { src: "/images/home/campus-life/college.jpg", title: t("home.campus_historic") };
 
             const CampusCell = ({
               src,

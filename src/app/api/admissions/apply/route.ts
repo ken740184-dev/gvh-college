@@ -66,9 +66,9 @@ export async function POST(req: Request) {
 
           <div style="background: #f9f9f9; padding: 14px; border-radius: 6px; margin-top: 20px; font-size: 13px; color: #666;">
             <strong>Admission Office</strong><br/>
-            📞 +91 XXXXX XXXXX<br/>
-            ✉️ admissions@gvhcollege.edu<br/>
-            📍 Hosaritti, Haveri District, Karnataka — 581115
+            📞 +91 99160 88489<br/>
+            ✉️ gvhfgcollegehosaritti@gmail.com<br/>
+            📍 Hosaritti, Haveri District, Karnataka — 581213
           </div>
         </div>
       `,

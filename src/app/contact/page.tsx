@@ -88,8 +88,8 @@ export default function ContactPage() {
                 <div>
                   <h4 className="font-bold text-lg mb-1">{t("contact.phone_title")}</h4>
                   <p className="text-secondary-text">
-                    {t("contact.admission_office")}: +91 XXXXX XXXXX<br />
-                    {t("contact.admin_office")}: +91 XXXXX XXXXX
+                    {t("contact.admission_office")}: +91 99002 21842<br />
+                    {t("contact.admin_office")}: +91 99160 88489
                   </p>
                 </div>
               </div>
@@ -101,8 +101,8 @@ export default function ContactPage() {
                 <div>
                   <h4 className="font-bold text-lg mb-1">{t("contact.email_title")}</h4>
                   <p className="text-secondary-text">
-                    hallikerigv@gmail.com<br />
-                    admissions@gvhcollege.edu
+                    gvhfgcollegehosaritti@gmail.com<br />
+                    mpsobarad11@gmail.com
                   </p>
                 </div>
               </div>

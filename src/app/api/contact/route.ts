@@ -52,7 +52,7 @@ export async function POST(req: Request) {
             <p style="margin: 0; color: #666; font-size: 14px;"><strong>Your message:</strong><br/>${message.replace(/\n/g, "<br/>")}</p>
           </div>
           <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />
-          <p style="color: #888; font-size: 13px;">Gudleppa Hallikeri Arts and Commerce First Grade College<br/>Hosaritti, Haveri District, Karnataka — 581115</p>
+          <p style="color: #888; font-size: 13px;">Gudleppa Hallikeri Arts and Commerce First Grade College<br/>Hosaritti, Haveri District, Karnataka — 581213</p>
         </div>
       `,
     });

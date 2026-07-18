@@ -90,6 +90,7 @@ export default function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -110,13 +111,12 @@ export default function Navbar() {
       if (totalAvailable >= 768) gap = 32;
 
       // Mathematically accurate logo width at each media query (matching globals.css maximum transparent state)
-      let logoW = 500;
-      if (totalAvailable < 480) logoW = 240;
-      else if (totalAvailable < 640) logoW = 280;
-      else if (totalAvailable < 768) logoW = 320;
-      else if (totalAvailable < 1024) logoW = 400;
-      else if (totalAvailable < 1280) logoW = 460;
-      else logoW = 500;
+      let logoW = 320;
+      if (totalAvailable < 480) logoW = 180;
+      else if (totalAvailable < 640) logoW = 220;
+      else if (totalAvailable < 768) logoW = 260;
+      else if (totalAvailable < 1024) logoW = 280;
+      else logoW = 320;
 
       // Language Switcher width + buffer
       const langSwitcherW = langSwitcherMeasureRef.current ? langSwitcherMeasureRef.current.offsetWidth : 100;
@@ -212,7 +212,7 @@ export default function Navbar() {
     >
       {/* HIDDEN MEASURING CONTAINER */}
       <div 
-        className="absolute top-0 left-0 w-full h-0 overflow-hidden invisible opacity-0 pointer-events-none"
+        className="absolute top-[-9999px] left-[-9999px] w-full invisible opacity-0 pointer-events-none"
         aria-hidden="true"
       >
         <div className="w-full px-4 sm:px-8 lg:px-12" ref={outerContainerRef}>

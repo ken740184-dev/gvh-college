@@ -43,6 +43,7 @@ export default function AdminAnnouncementsPage() {
 
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isAutoTranslating, setIsAutoTranslating] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; content: string } | null>(null);
 
   useEffect(() => {
@@ -92,6 +93,32 @@ export default function AdminAnnouncementsPage() {
     setDeleteImage(true);
   };
 
+  const handleTextBlur = async () => {
+    const trimmed = text.trim();
+    if (!trimmed || trimmed.includes("|") || trimmed.length < 3) return;
+
+    setIsAutoTranslating(true);
+    try {
+      const res = await fetch("/api/translate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: trimmed }),
+      });
+      const data = await res.json();
+      if (!res.ok || data.error) throw new Error(data.error || "Translation failed");
+
+      if (data.sourceLang === "Kannada") {
+        setText(`${data.translated} | ${trimmed}`);
+      } else {
+        setText(`${trimmed} | ${data.translated}`);
+      }
+    } catch (err: any) {
+      console.error("Auto translation error:", err);
+    } finally {
+      setIsAutoTranslating(false);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!text.trim()) {
@@ -102,8 +129,31 @@ export default function AdminAnnouncementsPage() {
     setIsSubmitting(true);
     setMessage(null);
 
+    let finalMarqueeText = text.trim();
+    // Auto-translate if no separator is present
+    if (!finalMarqueeText.includes("|") && finalMarqueeText.length >= 3) {
+      try {
+        const res = await fetch("/api/translate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text: finalMarqueeText }),
+        });
+        const data = await res.json();
+        if (res.ok && !data.error && data.translated) {
+          if (data.sourceLang === "Kannada") {
+            finalMarqueeText = `${data.translated} | ${finalMarqueeText}`;
+          } else {
+            finalMarqueeText = `${finalMarqueeText} | ${data.translated}`;
+          }
+          setText(finalMarqueeText);
+        }
+      } catch (err) {
+        console.error("Auto translation during submit failed:", err);
+      }
+    }
+
     const formData = new FormData();
-    formData.append("text", text);
+    formData.append("text", finalMarqueeText);
     formData.append("isActive", String(isActive));
     formData.append("popupActive", String(popupActive));
     formData.append("popupTitle", popupTitle);
@@ -232,8 +282,9 @@ export default function AdminAnnouncementsPage() {
 
                   <div className="flex flex-col gap-2">
                     <div className="flex justify-between items-center">
-                      <label className="text-sm font-bold text-gray-700">Announcement Text</label>
-                      <TranslateButton sourceText={text} onTranslated={(t) => setText(prev => prev + " | " + t)} />
+                      <label className="text-sm font-bold text-gray-700">
+                        Announcement Text {isAutoTranslating && <span className="text-xs font-normal text-cyan-600 animate-pulse ml-2">(Auto-translating...)</span>}
+                      </label>
                     </div>
                     
                     <textarea
@@ -241,13 +292,15 @@ export default function AdminAnnouncementsPage() {
                       rows={4}
                       value={text}
                       onChange={(e) => setText(e.target.value)}
+                      onBlur={handleTextBlur}
+                      disabled={isAutoTranslating}
                       placeholder="e.g. Admission for 2026 has started, apply now! Last date for online submission is June 30th."
-                      className="w-full border border-gray-200 rounded-none px-4 py-3 text-sm focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none transition-all shadow-inner bg-gray-50/20"
+                      className="w-full border border-gray-200 rounded-none px-4 py-3 text-sm focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none transition-all shadow-inner bg-gray-50/20 disabled:opacity-75"
                       maxLength={500}
                     ></textarea>
                     
                     <div className="flex justify-between text-xs text-gray-400 font-medium">
-                      <span>Tip: Click translate — it appends Kannada after " | " separator.</span>
+                      <span>Tip: Enter text in English or Kannada. When you click away (blur) or click Save, it automatically translates and combines both languages.</span>
                       <span>{text.length}/500 characters</span>
                     </div>
                   </div>

@@ -1,12 +1,40 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { BookOpen, Award, Flag, Calendar, Compass, Shield } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function GudleppaHallikeriPage() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const isKn = language === "kn";
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentGurukulSlide, setCurrentGurukulSlide] = useState(0);
+
+  const sliderImages = [
+    "/images/about/building_pillers_of_education_1.jpg",
+    "/images/about/building_pillers_of_education_2.jpg"
+  ];
+
+  const gurukulImages = [
+    "/images/about/gandhi_grameena_gurukul.jpg",
+    "/images/about/gandhi_grameena_gurukul_2.jpg"
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % sliderImages.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentGurukulSlide((prev) => (prev + 1) % gurukulImages.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 40 },
@@ -243,7 +271,7 @@ export default function GudleppaHallikeriPage() {
             </h2>
             <div className="w-20 h-1 bg-accent rounded-full"></div>
             <div className="space-y-4 text-secondary-text leading-relaxed">
-              <p>{t("gh.marriage_p1")}</p>
+              <p dangerouslySetInnerHTML={{ __html: t("gh.marriage_p1") }} />
               <p>{t("gh.marriage_p2")}</p>
             </div>
           </div>
@@ -270,14 +298,33 @@ export default function GudleppaHallikeriPage() {
               <p>{t("gh.institutions_p2")}</p>
             </div>
           </div>
-          <div className="w-full h-[350px] md:h-[450px] relative overflow-hidden bg-white shadow-lg border border-gray-200 p-2">
+          <div className="w-full h-[350px] md:h-[450px] relative overflow-hidden bg-white shadow-lg border border-gray-200 p-2 group">
             <div className="relative w-full h-full">
-              <Image
-                src="/images/about/campus-overview.jpg"
-                alt="Gudleppa Hallikeri Arts and Commerce First Grade College"
-                fill
-                className="object-cover hover:scale-105 transition-transform duration-700 ease-out"
-              />
+              {sliderImages.map((src, index) => (
+                <Image
+                  key={src}
+                  src={src}
+                  alt={`Building Pillars of Education ${index + 1}`}
+                  fill
+                  className={`object-cover transition-all duration-1000 ease-in-out ${
+                    index === currentSlide ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
+                  }`}
+                />
+              ))}
+              
+              {/* Slider indicators / dots */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                {sliderImages.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentSlide(index)}
+                    className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                      index === currentSlide ? "bg-accent w-6" : "bg-white/60 hover:bg-white"
+                    }`}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </motion.div>
@@ -290,14 +337,33 @@ export default function GudleppaHallikeriPage() {
           variants={fadeInUp}
           className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
         >
-          <div className="lg:order-1 w-full h-[350px] md:h-[450px] relative overflow-hidden bg-white shadow-lg border border-gray-200 p-2">
+          <div className="lg:order-1 w-full h-[350px] md:h-[450px] relative overflow-hidden bg-white shadow-lg border border-gray-200 p-2 group">
             <div className="relative w-full h-full">
-              <Image
-                src="/images/about/heritage-gurukul.webp"
-                alt="Historical Heritage Gurukul"
-                fill
-                className="object-cover hover:scale-105 transition-transform duration-700 ease-out"
-              />
+              {gurukulImages.map((src, index) => (
+                <Image
+                  key={src}
+                  src={src}
+                  alt={`Gandhi Grameena Gurukul ${index + 1}`}
+                  fill
+                  className={`object-cover transition-all duration-1000 ease-in-out ${
+                    index === currentGurukulSlide ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
+                  }`}
+                />
+              ))}
+              
+              {/* Slider indicators / dots */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                {gurukulImages.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentGurukulSlide(index)}
+                    className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                      index === currentGurukulSlide ? "bg-accent w-6" : "bg-white/60 hover:bg-white"
+                    }`}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
           <div className="lg:order-2 space-y-6">
@@ -320,23 +386,141 @@ export default function GudleppaHallikeriPage() {
           <h3 className="text-2xl md:text-3xl font-sans font-extrabold text-slate-800 tracking-tight text-center mb-16">
             {t("gh.timeline_title")}
           </h3>
-          <div className="space-y-20">
+          <div className="relative border-l-2 border-accent/20 ml-4 md:ml-8 space-y-12">
             {[
-              { year: "1906", title: "Born in Hosaritti", text: "Born on June 6, 1906 in Hosaritti, Haveri district, to farmer couple Veerappa and Veeramma — the youngest of five sons. Named after the revered 'Gudli Swamy Matha' of Hosaritti.", image: "/images/about/hosaritti-village.webp" },
-              { year: "1919", title: "To Dharwad for Studies", text: "From age 4-5, displayed an innate mathematical talent, prompting his brother Sangappa to carry him to village markets to solve calculations. In 1919, he came to Dharwad at age 13, staying at Murughamatha hostel under Swamiji's care. He cleared matriculation in first class from RLS High School and later joined Karnataka College." },
-              { year: "1920", title: "First Meeting with Gandhi", text: "First met Mahatma Gandhi in August 1920. Deeply moved by Gandhi's honest heart and truthful words, he touched his feet and pledged his loyalty. Gandhi became his Shiksha Guru from that day." },
-              { year: "1924", title: "Belagavi Congress Session", text: "Participated as a volunteer at the Belagavi Congress session; deeply influenced by Gandhi. Gave up the opportunity for a Wrangler (Mathematics) degree from England and dedicated himself entirely to India's freedom struggle." },
-              { year: "1927–1928", title: "Founding Taruna Sangha & Gandhi Ashram", text: "Left college studies to return to Hosaritti (1927), establishing the Bharatiya Taruna Sangha. Impressed by his English eloquence, the British District Collector of Dharwad offered him a reward; Gudleppa instead asked him to donate to his Gandhi institution. In 1928, he founded the Gandhi Ashram, organizing 5,000 satyagrahis.", image: "/images/about/hosaritti-village.webp" },
-              { year: "1930", title: "Dandi March & Salt Satyagraha", text: "Chosen by Mahatma Gandhi as one of the 78 Satyagrahis for the Dandi March. He joined Gandhi at Jambusara near Ahmedabad on March 22, 1930. Jailed during the Salt Satyagraha, where he ground 70 pounds of jowar daily in prison.", image: "/images/about/freedom-struggle.webp" },
-              { year: "1932", title: "Non-Cooperation Movement", text: "Imprisoned during the Civil Disobedience Movement. In prison, he urged all fellow prisoners to do cleaning work and undertook a 13-day fast to protest prison conditions.", image: "/images/about/freedom-struggle.webp" },
-              { year: "1937", title: "Marriage on Gandhi Jayanti", text: "Married Gangadevi of Itagi, Belagavi on October 2, 1937 — Gandhi's birthday — with three conditions: wear khadi for life, serve Harijans and live among them, be prepared for all hardships." },
-              { year: "1942", title: "Quit India Movement", text: "Arrested in the Quit India (Chale Jao) Movement and served two years rigorous imprisonment. In February 1943, he undertook a 21-day fast in Hindlagi Prison near Belagavi in solidarity with Mahatma Gandhi's fast.", image: "/images/about/freedom-struggle.webp" },
-              { year: "1946–1960", title: "DCC President for 14 Years", text: "Elected President of Dharwad District Congress Committee in 1946 and served continuously for 14 unbroken years until 1960 — an unparalleled achievement." },
-              { year: "1952", title: "1952 Elections & Assembly Protest", text: "Won the first general election from Haveri against a wealthy opponent. In his first speech in the Bombay Assembly, he boldly protested Chief Minister Morarji Desai's 'backdoor entry' (since Desai had lost his election in Surat). Shaking both Morarji Desai and PM Nehru, this principled stance led to the high command denying him assembly tickets eight times during his career, though he remained an unwavering leader of the people. He also served as a front-rank leader of the Karnataka Ekikarana Movement." },
-              { year: "1954 & 1960", title: "International Delegations", text: "Visited China for 60 days in September 1954 as member of the Indian national delegation (Hindi-Chini Bhai Bhai). In April 1960, visited Germany, England, France and Egypt as part of a Parliamentary delegation." },
-              { year: "1960–1966", title: "Mysore Legislative Council", text: "Elected to Mysore State Legislative Council in 1960. Served as Chairman of Karnataka Legislative Council from 1962 to 1966 — one of the highest legislative honours in Karnataka." },
-              { year: "1963", title: "Building Institutions", text: "Collected 6 lakh rupees in just 3 months and gave them to K.L.E. Society, establishing today's K.L.E. Gudleppa Hallikeri College, Haveri. Also played key roles in College of Business Management (inaugurated by President Radhakrishnan), Nijalingappa College, Bengaluru, and Karnataka Medical College, Hubballi.", image: "/images/about/campus-overview.jpg" },
-              { year: "1971", title: "Eternal Rest — May 15, 1971", text: "Elected Chairman of Karnataka Legislative Council for a second term in 1971. This great son of Bharatmata, who dedicated his entire life to the service of the nation, attained eternal rest on May 15, 1971. His memory lives on in the institutions he built.", image: "/images/about/IMG-20260708-WA0167.jpg" },
+              {
+                year: "1906",
+                titleEn: "Born in Hosaritti",
+                titleKn: "ಜನನ",
+                textEn: "Born in Hosaritti on June 6, 1906, as the youngest son of Veerappa and Veeramma.",
+                textKn: "ತಂದೆ ವೀರಪ್ಪ ತಾಯಿ ವೀರಮ್ಮ ಇವರ ಕೊನೆಯ ಸುಪುತ್ರನಾಗಿ 06/ 06/ 1906 ರಲ್ಲಿ ಹೊಸರಿತ್ತಿಯಲ್ಲಿ ಜನನ."
+              },
+              {
+                year: "1919",
+                titleEn: "To Dharwad for Studies",
+                titleKn: "ವಿದ್ಯಾಭ್ಯಾಸಕ್ಕಾಗಿ ಧಾರವಾಡಕ್ಕೆ",
+                textEn: "Admitted to the free hostel of Murughamatha in Dharwad under Sri Guru Mrityunjaya Appagalu for higher education. Studied first at Dharwad Karnataka High School, then at RLS High School. Recognized as a brilliant student due to his extraordinary memory and calculation speed in mathematics.",
+                textKn: "ಹೆಚ್ಚಿನ ವಿಧ್ಯಾಭ್ಯಾಸಕ್ಕಾಗಿ ಧಾರವಾಡದ ಶ್ರೀಗುರು ಮೃತ್ಯುಂಜಯ ಅಪ್ಪಗಳವರ ಮುರುಘಾಮಠದ ವಿದ್ಯಾರ್ಥಿನಿಲಯದಲ್ಲಿ ಸೇರ್ಪಡೆ, ಮೊದಲು ಧಾರವಾಡದ ಕರ್ನಾಟಕ ಹೈಸ್ಕೂಲ್, ಅನಂತರ ಆರ್ ಎಲ್ ಎಸ್ ಹೈಸ್ಕೂಲಿನಲ್ಲಿ ವಿದ್ಯಾಭ್ಯಾಸ, ಗಣಿತ ವಿಷಯದಲ್ಲಿ ಅವರಿಗಿದ್ದ ಅದ್ಭುತ ಸ್ಮರಣ ಮತ್ತು ವೇದಾಶಕ್ತಿಯಿಂದಾಗಿ ಪ್ರತಿಭಾವಂತ ವಿದ್ಯಾರ್ಥಿ."
+              },
+              {
+                year: "1924",
+                titleEn: "Belagavi Congress Session",
+                titleKn: "ಬೆಳಗಾವಿ ಕಾಂಗ್ರೆಸ್ ಅಧಿವೇಶನ",
+                textEn: "Participated as a volunteer in the Belagavi Congress Session; deeply influenced by Mahatma Gandhi's personality. Relinquished the opportunity to pursue a Wrangler (Mathematics) degree in England, chose to plunge into the Indian freedom struggle, and emerged as a devout Gandhian congressman.",
+                textKn: "ಬೆಳಗಾವಿ ಕಾಂಗ್ರೆಸ್ ಅಧಿವೇಶನದಲ್ಲಿ ಸ್ವಯಂ ಸೇವಕರಾಗಿ ಭಾಗವಹಿಸಿದ್ದರು, ಗಾಂಧೀಜಿಯವರನ್ನು ಕಂಡು ಅವರ ವ್ಯಕ್ತಿತ್ವಕ್ಕೆ ಪ್ರಭಾವಿತರಾದರು. ಗಣಿತಶಾಸ್ತ್ರದಲ್ಲಿ ಇಂಗ್ಲೆಂಡಿನಲ್ಲಿ ರಾಂಗ್ಲರ್ ಪದವಿ ಪಡೆಯುವ ಅವಕಾಶವಿದ್ದರೂ ಕಡೆಗಣಿಸಿ ಭಾರತ ಸ್ವಾತಂತ್ರ್ಯ ಆಂದೋಲನದಲ್ಲಿ ಧುಮುಕಿದರು. ಅಪ್ಪಟ ಗಾಂಧಿ ವಾದಿಯಾಗಿ ಕಾಂಗ್ರೆಸ್ಸಿಗರಾಗಿ ರೂಪಗೊಂಡರು."
+              },
+              {
+                year: "1929–1942",
+                titleEn: "Founding Taruna Sangha & Gandhi Ashram",
+                titleKn: "ಭಾರತೀಯ ತರುಣ ಸಂಘ ಮತ್ತು ಗಾಂಧಿ ಆಶ್ರಮ",
+                textEn: "Founded the Bharatiya Taruna Sangha in Hosaritti, and established the Gandhi Ashram High School in Hosaritti on the model of the Sabarmati Ashram. Engaged in national constructive activities, participated in the Dandi March, Salt Satyagraha, and Quit India Movement, and was chosen by Gandhiji as a committed follower who undertook fasts and faced imprisonments.",
+                textKn: "ಹೊಸರಿತ್ತಿಯಲ್ಲಿ ಭಾರತೀಯ ತರುಣ ಸಂಘಸ್ಥ ಸ್ಥಾಪನೆ, ಸಬರಮತಿ ಆಶ್ರಮದ ಮಾದರಿಯಲ್ಲಿ ಹೊಸರಿತ್ತಿ ಯಲ್ಲಿ ಗಾಂಧಿ ಆಶ್ರಮ ಪ್ರೌಢಶಾಲೆ ಸ್ಥಾಪನೆ ರಾಷ್ಟ್ರೀಯ ವಿದಾಯಕ ಕಾರ್ಯಗಳಲ್ಲಿ ನಿರತ ದಂಡಿಯಾತ್ರೆ ಉಪ್ಪಿನ ಸತ್ಯಾಗ್ರಹ ಹಾಗೂ ಚಲೇಜ ಚಳುವಳಿಯಲ್ಲಿ ಭಾಗವಹಿಸಿ ಗಾಂಧಿಜಿಯವರಿಂದ ಆಯ್ಕೆ. ಸತ್ಯಾಗ್ರಹ ನಿಷ್ಠ ಅನುಯಾಯಿ, ಉಪವಾಸ, ಜೈಲುವಾಸ."
+              },
+              {
+                year: "1930",
+                titleEn: "Salt Satyagraha",
+                titleKn: "ಉಪ್ಪಿನ ಸತ್ಯಾಗ್ರಹ",
+                textEn: "Imprisoned twice during the Salt Satyagraha, where he ground 70 pounds of jowar daily in prison.",
+                textKn: "ಉಪ್ಪಿನ ಸತ್ಯಾಗ್ರಹದಲ್ಲಿ ಎರಡು ಸಲ ಜೈಲುವಾಸ ಪ್ರತಿದಿನ 70 ಪೌಂಡ್ ಜೋಳ ಬೀಸುವುದು."
+              },
+              {
+                year: "1932",
+                titleEn: "Non-Cooperation Movement",
+                titleKn: "ಅಸಹಕಾರ ಆಂದೋಲನ",
+                textEn: "Imprisoned for two years during the Non-Cooperation Movement. Fasted for 13 days in jail demanding that all prisoners undertake cleaning/scavenging tasks.",
+                textKn: "ಅಸಹಕಾರ ಆಂದೋಲನದಲ್ಲಿ ಎರಡು ವರ್ಷ ಜೈಲುವಾಸ ಜೈಲಿನಲ್ಲಿ ಎಲ್ಲರೂ ಭಂಗಿ ಕಾರ್ಯಕ್ರಮ ಮಾಡಲು ಆಗ್ರಹಿಸಿ 13 ದಿನ ಉಪವಾಸ"
+              },
+              {
+                year: "1937",
+                titleEn: "Marriage on Gandhi Jayanti",
+                titleKn: "ಮದುವೆ",
+                textEn: "Married Gangadevi, daughter of freedom fighter Sri Basavannappa Sanikoppa of Itagi, on October 2 (Gandhi Jayanti) under the national flag in the Harijan colony, wearing khadi clothes and exchanging khadi garlands.",
+                textKn: "ಅಕ್ಟೋಬರ್ 2 ಗಾಂಧಿ ಜಯಂತಿಯ ಹರಿಜನ ಕೇರಿಯಲ್ಲಿ ರಾಷ್ಟ್ರೋಧ್ವಜದಡಿ, ಖಾದಿ ವಸ್ತ್ರಧಾರಣಿ ಹಾಗೂ ಖಾದಿ ಮಾಲೆ ವಿನಿಮಯ ಮಾಡುವುದರೊಂದಿಗೆ ಇಟಗಿಯ ಸ್ವಾತಂತ್ರ್ಯದ ಶ್ರೀ ಬಸವಣ್ಣಪ್ಪ ಸಾನಿಕೊಪ್ಪ ಇವರ ಮಗಳಾದ ಗಂಗಾದೇವಿಯವರೊಡನೆ ವಿವಾಹ."
+              },
+              {
+                year: "1942",
+                titleEn: "Quit India Movement",
+                titleKn: "ಭಾರತ ಬಿಟ್ಟು ತೊಲಗಿ ಆಂದೋಲನ",
+                textEn: "Imprisoned for three years during the Quit India Movement. Undertook a 21-day fast in solidarity with Mahatma Gandhi's fast.",
+                textKn: "ಭಾರತ ಬಿಟ್ಟು ತೊಲಗಿ ಆಂದೋಲನದಲ್ಲಿ ಮೂರು ವರ್ಷ ಜೈಲುವಾಸ ಆ ಗಾಂಧೀಜಿ ಮಾಡಿದಂತೆ 21 ದಿನ ಉಪವಾಸ."
+              },
+              {
+                year: "1946–1960",
+                titleEn: "DCC President for 14 Years",
+                titleKn: "ಡಿ.ಸಿ.ಸಿ. ಅಧ್ಯಕ್ಷರು",
+                textEn: "Served continuously as the President of Dharwad District Congress Committee (DCC) for one and a half decades.",
+                textKn: "ಅಖಂಡ ಒಂದುವರೆ ದಶಕ ಧಾರವಾಡ ಜಿಲ್ಲಾ ಕಾಂಗ್ರೆಸ್ ಸಮಿತಿ ಅಧ್ಯಕ್ಷರು."
+              },
+              {
+                year: "1952",
+                titleEn: "Bombay Assembly & Ekikarana Leader",
+                titleKn: "ಮುಂಬೈ ವಿಧಾನ ಸಭೆಗೆ ಆಯ್ಕೆ",
+                textEn: "Elected from Haveri constituency to the Bombay State Legislative Assembly. Served as the organizer and front-rank leader of the All-Karnataka Ekikarana (unification) Movement.",
+                textKn: "ಹಾವೇರಿ ತಾಲೂಕಿನಿಂದ ಮುಂಬೈ ರಾಜ್ಯ ವಿಧಾನಸಭೆಗೆ ಆಯ್ಕೆಯಾಗಿ ಅಖಿಲ ಕರ್ನಾಟಕ ಏಕೀಕರಣ ಚಳುವಳಿಯ ಸಂಘಟಕ ಮತ್ತು ಮುಂಚೂಣಿ ನಾಯಕ."
+              },
+              {
+                year: "1954",
+                titleEn: "Visit to China",
+                titleKn: "ಚೀನಾ ಪ್ರವಾಸ",
+                textEn: "Visited China as a representative of the national delegation.",
+                textKn: "ಚೀನಾ ದೇಶಕ್ಕೆ ರಾಷ್ಟ್ರೀಯ ನಿಯೋಗದ ಪ್ರತಿನಿಧಿಯಾಗಿ ಭೇಟಿ."
+              },
+              {
+                year: "1950–1955",
+                titleEn: "KPCC General Secretary",
+                titleKn: "ಕೆ.ಪಿ.ಸಿ.ಸಿ. ಪ್ರಧಾನ ಕಾರ್ಯದರ್ಶಿ",
+                textEn: "Served as General Secretary of Karnataka Pradesh Congress Committee (KPCC).",
+                textKn: "1950 –55: ಕರ್ನಾಟಕ ಪ್ರದೇಶ ಕಾಂಗ್ರೆಸ್ಸಿನ ಪ್ರಧಾನ ಕಾರ್ಯದರ್ಶಿ."
+              },
+              {
+                year: "1956–1960",
+                titleEn: "Khadi Board Chairman",
+                titleKn: "ಖಾದಿ ಗ್ರಾಮೋದ್ಯೋಗ ಮಂಡಳಿ ಅಧ್ಯಕ್ಷರು",
+                textEn: "Served as Chairman of the Karnataka State Khadi and Village Industries Board.",
+                textKn: "1956 –1960: ಕರ್ನಾಟಕ ರಾಜ್ಯ ಖಾದಿ ಗ್ರಾಮೋದ್ಯೋಗ ಮಂಡಳಿಯ ಅಧ್ಯಕ್ಷರು."
+              },
+              {
+                year: "1960",
+                titleEn: "Mysore Legislative Council",
+                titleKn: "ವಿಧಾನ ಪರಿಷತ್ತಿಗೆ ಆಯ್ಕೆ",
+                textEn: "Elected to the Mysore State Legislative Council. Visited England, Germany, and Egypt as a representative of the national parliamentary delegation.",
+                textKn: "ಮೈಸೂರು ರಾಜ್ಯ ವಿಧಾನ ಪರಿಷತ್ತಿಗೆ ಆಯ್ಕೆ ಇಂಗ್ಲೆಂಡ್, ಜರ್ಮನಿ, ಈಜಿಪ್ಟ್ ದೇಶಗಳಿಗೆ ರಾಷ್ಟ್ರೀಯ ನಿಯೋಗದ ಪ್ರತಿನಿಧಿಯಾಗಿ ಭೇಟಿ."
+              },
+              {
+                year: "1962–1966",
+                titleEn: "Chairman of Legislative Council",
+                titleKn: "ವಿಧಾನ ಪರಿಷತ್ತಿನ ಸಭಾಪತಿ",
+                textEn: "Served as Chairman of the Karnataka Legislative Council.",
+                textKn: "ಕರ್ನಾಟಕ ವಿಧಾನ ಪರಿಷತ್ತಿನ ಸಭಾಪತಿ."
+              },
+              {
+                year: "1966",
+                titleEn: "Shashtyabdhi Ceremony",
+                titleKn: "ಷಷ್ಠ್ಯಬ್ದಿ ಸಮಾರಂಭ",
+                textEn: "Celebrated his 60th birthday (Shashtyabdhi ceremony) and was presented with the Ratnashikha volume.",
+                textKn: "ರತ್ನಶಿಖಾ ಅರ್ಪಿಸಿ ಷಷ್ಠ್ಯಬ್ದಿ ಸಮಾರಂಭ."
+              },
+              {
+                year: "1967",
+                titleEn: "Hindi Prachar Sabha President",
+                titleKn: "ಹಿಂದಿ ಪ್ರಚಾರ ಸಭೆಯ ಅಧ್ಯಕ್ಷರು",
+                textEn: "Served as President of the Karnataka branch of Dakshin Bharat Hindi Prachar Sabha, member of South Central Railway board, and leader of State Road Transport labor unions.",
+                textKn: "ದಕ್ಷಿಣ ಭಾರತ ಹಿಂದಿ ಪ್ರಚಾರ ಸಭೆಯ ಕರ್ನಾಟಕ ಪ್ರಾಂತ್ಯ ಅಧ್ಯಕ್ಷರು ದಕ್ಷಿಣ ಮಧ್ಯ ರೈಲ್ವೆ. ಅಧ್ಯಕ್ಷರು, ರಾಜ್ಯ ರಸ್ತೆ ಸಾರಿಗೆ ಕಾರ್ಮಿಕ ಸಂಘಗಳು."
+              },
+              {
+                year: "1971",
+                titleEn: "Second Term as Chairman",
+                titleKn: "ಸಭಾಪತಿಯಾಗಿ ಎರಡನೆಯ ಅವಧಿ",
+                textEn: "Elected Chairman of the Legislative Council for a second term.",
+                textKn: "ಎರಡನೆಯ ಅವಧಿಗೆ ವಿಧಾನ ಪರಿಷತ್ತಿನ ಸಭಾಪತಿ."
+              },
+              {
+                year: "1971",
+                titleEn: "Eternal Sleep",
+                titleKn: "ಚಿರನಿದ್ರಾಲೀನ",
+                textEn: "Passed away on May 15, 1971 (attained eternal sleep).",
+                textKn: "ಮೇ 15 ಚಿರನಿದ್ರಾಲೀನ."
+              }
             ].map((item, i) => (
               <motion.div
                 key={i}
@@ -344,29 +528,21 @@ export default function GudleppaHallikeriPage() {
                 whileInView="visible"
                 viewport={{ once: true, margin: "-80px" }}
                 variants={fadeInUp}
-                className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center"
+                className="relative pl-8 md:pl-12"
               >
-                {/* Photo — alternates left/right */}
-                <div className={`${i % 2 === 0 ? "lg:order-1" : "lg:order-2"} w-full h-[200px] md:h-[220px] relative overflow-hidden bg-white shadow-lg border border-gray-200 p-2`}>
-                  <div className="relative w-full h-full">
-                    <Image
-                      src={item.image || "/images/about/gudleppa-biography.jpg"}
-                      alt={`Shri Gudleppa Hallikeri — ${item.year}`}
-                      fill
-                      className="object-cover hover:scale-105 transition-transform duration-700 ease-out"
-                    />
-                  </div>
-                </div>
-                {/* Text */}
-                <div className={`${i % 2 === 0 ? "lg:order-2" : "lg:order-1"} space-y-4`}>
+                {/* Timeline dot */}
+                <div className="absolute -left-[9px] top-2 w-4 h-4 rounded-full bg-accent border-4 border-white shadow-sm transition-transform duration-300 hover:scale-125" />
+                
+                {/* Content */}
+                <div className="space-y-3 bg-white p-6 md:p-8 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <span className="inline-block bg-accent/10 text-accent text-sm font-bold px-3 py-1 rounded-full tracking-wider">
                     {item.year}
                   </span>
                   <h4 className="text-2xl font-sans font-extrabold text-slate-800 tracking-tight">
-                    {item.title}
+                    {isKn ? item.titleKn : item.titleEn}
                   </h4>
                   <div className="w-16 h-1 bg-accent rounded-full"></div>
-                  <p className="text-secondary-text leading-relaxed">{item.text}</p>
+                  <p className="text-secondary-text leading-relaxed">{isKn ? item.textKn : item.textEn}</p>
                 </div>
               </motion.div>
             ))}

@@ -23,6 +23,17 @@ export default function AdmissionsPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
           <div className="lg:col-span-2">
             <SectionHeading title={t("admissions.process")} />
+            
+            {/* Important Notice Box */}
+            <div className="bg-amber-50 border-l-4 border-amber-500 p-6 rounded-r-lg mb-8 shadow-sm">
+              <h4 className="font-bold text-amber-800 text-lg mb-2 flex items-center gap-2">
+                ⚠️ {t("admissions.notice_title")}
+              </h4>
+              <p className="text-amber-900 leading-relaxed text-sm md:text-base">
+                {t("admissions.notice_desc")}
+              </p>
+            </div>
+
             <div className="space-y-8 mb-16">
               {[
                 { step: t("admissions.step1_title"), desc: t("admissions.step1_desc") },
