@@ -104,13 +104,21 @@ export default function Footer() {
                   ))}
                 </span>
               </li>
-              <li className="flex items-center">
-                <Phone className="w-5 h-5 text-accent mr-3 flex-shrink-0" />
-                <span className="text-gray-400">{t("footer.phone_label")}: +1 (555) 123-4567</span>
+              <li className="flex items-start">
+                <Phone className="w-5 h-5 text-accent mr-3 mt-1 flex-shrink-0" />
+                <span className="text-gray-400">
+                  {t("footer.phone_label")}:<br />
+                  +91 99002 21842<br />
+                  +91 99160 88489
+                </span>
               </li>
-              <li className="flex items-center">
-                <Mail className="w-5 h-5 text-accent mr-3 flex-shrink-0" />
-                <span className="text-gray-400">{t("footer.email_label")}: info@gvhcollege.edu</span>
+              <li className="flex items-start">
+                <Mail className="w-5 h-5 text-accent mr-3 mt-1 flex-shrink-0" />
+                <span className="text-gray-400">
+                  {t("footer.email_label")}:<br />
+                  gvhfgcollegehosaritti@gmail.com<br />
+                  mpsobarad11@gmail.com
+                </span>
               </li>
             </ul>
           </div>
